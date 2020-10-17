@@ -17,8 +17,8 @@ import {
 export default function Booking({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <Header />
+      <StatusBar />
+      <Header navigation={navigation} />
       <BookingContent navigation={navigation} />
     </SafeAreaView>
   );
@@ -29,8 +29,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    marginTop: 20,
-    // justifyContent: 'center',
   },
 });

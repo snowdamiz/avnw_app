@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -8,8 +9,8 @@ import Booking from './src/views/booking/booking.js';
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home">
+      <Stack.Navigator initialRouteName="Store" screenOptions={{ headerShown: false }} >
+        <Stack.Screen name="Store">
           {props => <Store {...props} />}
         </Stack.Screen>
         <Stack.Screen name="Booking">

@@ -18,8 +18,8 @@ export default function BookingContent({ navigation }) {
   return (
     <View style={styles.container}>
       <Button 
-        title="Book"
-        onPress={() => navigation.navigate('Home')}
+        title="Store"
+        onPress={() => navigation.navigate('Store')}
       />
     </View>
   );
