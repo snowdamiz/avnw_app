@@ -16,6 +16,7 @@ import {
   Image,
   StatusBar,
   Text,
+  TouchableNativeFeedback,
 } from 'react-native';
 
 export default function Header({ navigation }) {
@@ -24,27 +25,34 @@ export default function Header({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={['#00BBB7', '#00C3BF', '#00BBB7']}
-        style={{ padding: 0, alignItems: 'center', borderRadius: 8 }}
-      >
-        <View name="logo" style={styles.logo}>
-          <Image source={require('../../assets/logo.png')} style={styles.logoIMG} />
-        </View>
-      </LinearGradient>
-      
+      <TouchableNativeFeedback onPress={ _ => navigation.navigate('Store')} >
+        <LinearGradient colors={['#00BBB7', '#00C3BF', '#00BBB7']} style={styles.gradient} >
+          <View name="logo" style={styles.logo}>
+            <Image source={require('../../assets/logo.png')} style={styles.logoIMG} />
+          </View>
+        </LinearGradient>
+      </TouchableNativeFeedback>
+
       <View name="navBox" style={styles.navBox}>
         { route.name === 'Store' ? (
-          <View name="filter" style={styles.filter}>
-            <Text style={styles.filterText}>Filter</Text>
-          </View>
+          <TouchableNativeFeedback onPress={ _ => navigation.navigate('Store')} >
+            <View name="filter" style={styles.filter}>
+              <Text style={styles.filterText}>Filter</Text>
+            </View>
+          </TouchableNativeFeedback>
         ) :null }
-        <View name="cart" style={styles.cart}>
-          <Image source={require('../../assets/cart.png')} style={styles.cartIMG} />
-        </View>
-        <View name="profile" style={styles.profile}>
-          <Image source={require('../../assets/profile.png')} style={styles.profileIMG} />
-        </View>
+
+        <TouchableNativeFeedback onPress={ _ => navigation.navigate('Store')} >
+          <View name="cart" style={styles.cart}>
+            <Image source={require('../../assets/cart.png')} style={styles.cartIMG} />
+          </View>  
+        </TouchableNativeFeedback>
+
+        <TouchableNativeFeedback onPress={ _ => navigation.navigate('Store')} >
+          <View name="profile" style={styles.profile}>
+            <Image source={require('../../assets/profile.png')} style={styles.profileIMG} />
+          </View>  
+        </TouchableNativeFeedback>
       </View>
     </View>
   );
@@ -62,6 +70,12 @@ const styles = StyleSheet.create({
       width: 60,
       height: 60,
       justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 8,
+    },
+
+    gradient: {
+      padding: 0,
       alignItems: 'center',
       borderRadius: 8,
     },

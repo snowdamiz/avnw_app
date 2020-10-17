@@ -11,10 +11,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Store" screenOptions={{ headerShown: false }} >
         <Stack.Screen name="Store">
-          {props => <Store {...props} />}
+          { props => <Store {...props} />}
         </Stack.Screen>
         <Stack.Screen name="Booking">
-          {props => <Booking {...props} />}
+          { props => <Booking {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

@@ -20,7 +20,7 @@ export default function StoreContent({ navigation }) {
       </View>
 
         <LinearGradient colors={['#00C3BF', '#00BBB7', '#00BBB7']} style={styles.gradient} >
-          <TouchableNativeFeedback onPress={() => navigation.navigate('Booking')}>
+          <TouchableNativeFeedback onPress={ _ => navigation.navigate('Booking')} >
             <View style={styles.book_btn}>
               <Text style={styles.book_btn_text} >
                 Schedule A Photo Shoot
