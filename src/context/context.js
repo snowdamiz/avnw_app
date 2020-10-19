@@ -2,5 +2,7 @@ import React from 'react';
 
 export default React.createContext({
   cart: [],
-  handleCart : (id) => {}
+  merch: [],
+  handleCart : (id) => {},
+  getMerch : _ => {}
 });

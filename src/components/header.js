@@ -18,7 +18,7 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 
-export default function Header(props, { navigation }) {
+export default function Header(props) {
   const [filterToggle, setFilterToggle] = useState(false);
   const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState([]);
@@ -40,8 +40,8 @@ export default function Header(props, { navigation }) {
   const getCategories = _ => setCategories(merch_categories); // get categories list from server
   
 
-  console.log(`Local Cart: ${cart}`);
-  console.log(`Global Cart: ${cartContext.cart}`);
+  // console.log(`Local Cart: ${cart}`);
+  // console.log(`Global Cart: ${cartContext.cart}`);
 
   return (
     <View style={styles.container}>

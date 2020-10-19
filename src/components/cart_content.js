@@ -1,6 +1,8 @@
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import Context from '../context/context.js';
+
 import {
   Dimensions,
   StyleSheet,
@@ -11,7 +13,7 @@ import {
   ScrollView,
 } from 'react-native';
 
-export default function CartContent(props, { navigation }) {
+export default function CartContent(props) {
   // const cart = props.cart;
   // console.log(props.cart);
 

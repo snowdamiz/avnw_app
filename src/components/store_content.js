@@ -13,10 +13,17 @@ import {
   ScrollView,
 } from 'react-native';
 
-export default function StoreContent(props, { navigation }) {
-  const merch = props.merch;
+export default function StoreContent(props) {
+  const [merch, setMerch] = useState([]);
   const cartContext = useContext(Context);
 
+  useEffect(() => {
+    getMerch();
+  },[])
+
+  const getMerch = _ => {
+    setMerch(cartContext.merch);
+  }
 
   const handleCartToggle = (id) => {
     let cart = cartContext.cart;

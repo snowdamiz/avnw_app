@@ -1,10 +1,18 @@
 import React from 'react';
 import Context from './context';
+import { merch, user } from '../../dummydb.js';
 
 export default class GlobalState extends React.Component{
   state = {
     cart: [],
+    merch: [],
   }
+
+  componentDidMount() {
+    let getMerch = merch;
+    this.setState({ merch: getMerch });
+    console.log(getMerch);
+  };
  
   handleCart = (id) => {
     let cart = this.state.cart;
@@ -32,14 +40,17 @@ export default class GlobalState extends React.Component{
       this.setState({ cart: updatedCart });
     }
   };
- 
+
+  // getMerch();
 
   render(){
     return (
       <Context.Provider 
         value={{
           cart: this.state.cart,
+          merch: this.state.merch,
           handleCart: this.handleCart,
+          getMerch: this.getMerch,
         }}>
           
       {this.props.children}
