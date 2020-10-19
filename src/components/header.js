@@ -18,32 +18,35 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 
-export default function Header({ navigation }) {
+export default function Header(props, { navigation }) {
   const [filterToggle, setFilterToggle] = useState(false);
   const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState([]);
-  // const [selectedCategory, setSelectedCategory] = useState('');
 
-  let contextType = Context;
+  const route = useRoute();
+  const cartContext = useContext(Context);
 
   useEffect(() => {
-    getCategories();
+    getCategories(); //get list of categories on-load
   },[])
 
-  const handleFilterToggle = () => {
-    setFilterToggle(!filterToggle);
-  }
+  // sync local and global cart state
+  // every time global cart state changes
+  useEffect(() => {
+    setCart(cartContext.cart);
+  },[cartContext.cart]);
 
-  const getCategories = () => {
-    setCategories(merch_categories);
-  }
+  const handleFilterToggle = _ => setFilterToggle(!filterToggle); // trigger filter box
+  const getCategories = _ => setCategories(merch_categories); // get categories list from server
   
-  const route = useRoute();
+
+  console.log(`Local Cart: ${cart}`);
+  console.log(`Global Cart: ${cartContext.cart}`);
 
   return (
     <View style={styles.container}>
       {/* Logo Icon and Button */}
-      <TouchableNativeFeedback onPress={ _ => navigation.navigate('Store')} >
+      <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Store')} >
         <LinearGradient colors={['#01aef1', '#009cd8', '#009cd8']} style={styles.gradient} >
           <View name="logo" style={styles.logo}>
             <Image source={LogoIMG} style={styles.logoIMG} />
@@ -79,14 +82,19 @@ export default function Header({ navigation }) {
         
         <View style={styles.menu_wrap} >
           {/* Cart Button */}
-          <TouchableNativeFeedback onPress={ _ => navigation.navigate('Cart')} >
+          <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Cart')} >
             <View name="cart" style={styles.cart}>
               <Image source={CartIMG} style={styles.cartIMG} />
+              {cart.length > 0 ? (
+                <View style={styles.cart_notification}>
+                  <Text style={styles.cart_notification_text}>{cart.length}</Text>
+                </View>
+              ) : null }
             </View>  
           </TouchableNativeFeedback>
 
           {/* Profile Button */}
-          <TouchableNativeFeedback onPress={ _ => navigation.navigate('Profile')} >
+          <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Profile')} >
             <View name="profile" style={styles.profile}>
               <Image source={ProfileIMG} style={styles.profileIMG} />
             </View>  
@@ -239,6 +247,24 @@ const styles = StyleSheet.create({
           opacity: 0.35,
           marginLeft: 8,
         },
+
+        cart_notification: {
+          width: 16,
+          height: 16,
+          borderRadius: 8,
+          bottom: 12,
+          left: 20,
+          position: 'absolute',
+          backgroundColor: 'red',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+
+          cart_notification_text: {
+            color: '#fff',
+            fontSize: 9,
+            fontWeight: 'bold',
+          },
 
         profile: {
           width: 60,

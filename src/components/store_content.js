@@ -20,7 +20,6 @@ export default function StoreContent(props, { navigation }) {
 
   const handleCartToggle = (id) => {
     let cart = cartContext.cart;
-
     cartContext.handleCart(id);
   }
   
@@ -39,9 +38,17 @@ export default function StoreContent(props, { navigation }) {
                   <Text style={styles.prod_desc_title}>{el.product}</Text>
                   <Text style={styles.prod_desc_text}>{el.desc}</Text>
                 </View>
-                <TouchableOpacity style={styles.cart_btn} onPress={ _ => handleCartToggle(el.id) }>
-                  <Text style={styles.cart_btn_text}>Add To Cart</Text>
-                </TouchableOpacity>
+                { cartContext.cart.includes(el.id) ? (
+                  <LinearGradient colors={['#01aef1', '#009cd8', '#009cd8']} style={styles.gradient} >
+                    <TouchableOpacity style={styles.cart_btn_on} onPress={ _ => handleCartToggle(el.id) }>
+                      <Text style={styles.cart_btn_text_on}>Remove Item</Text>
+                    </TouchableOpacity>
+                  </LinearGradient>
+                ) : (
+                  <TouchableOpacity style={styles.cart_btn} onPress={ _ => handleCartToggle(el.id) }>
+                    <Text style={styles.cart_btn_text}>Add To Cart</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           )
@@ -169,12 +176,28 @@ const styles = StyleSheet.create({
             fontSize: 12,
           },
 
+        cart_btn_on: {
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: 42,
+          borderWidth: 1,
+          borderColor: '#DDDDDD',
+          borderRadius: 6,
+        },
+
+          cart_btn_text_on: {
+            color: '#fff',
+            fontWeight: 'bold',
+            fontSize: 12,
+          },
+
     book_btn_wrap: {
       paddingTop: 15,
     },
 
       gradient: {
-        marginBottom: 15,
+        // marginBottom: 15,
         alignItems: 'center',
         borderRadius: 8, 
       },

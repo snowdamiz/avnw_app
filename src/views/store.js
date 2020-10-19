@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 
-export default function Store({ navigation }) {
+export default function Store(props, { navigation }) {
   const [curMerch, setMerch] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function Store({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <Header navigation={navigation} />
+      <Header navigation={props.navigation} />
       <StoreContent navigation={navigation} merch={curMerch} />
     </SafeAreaView>
   );

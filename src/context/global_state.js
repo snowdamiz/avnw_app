@@ -18,11 +18,10 @@ export default class GlobalState extends React.Component{
           break;
         }
       }
-      
+
       if (isAlreadyInCart) {
-        let indexOf = cart.indexOf(id);
         let removeItemCart = [...cart];
-        removeItemCart.splice(indexOf, 1);
+        removeItemCart.splice(cart.indexOf(id), 1);
         this.setState({ cart: removeItemCart });
       } else {
         let newItemCart = [...cart, id];

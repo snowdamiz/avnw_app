@@ -14,7 +14,7 @@ export default function App() {
   return (
     <GlobalState>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }} >
+        <Stack.Navigator initialRouteName="Store" screenOptions={{ headerShown: false }} >
           <Stack.Screen name="Store">
             { props => <Store {...props} />}
           </Stack.Screen>
