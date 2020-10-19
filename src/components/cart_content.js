@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import RemoveIMG from '../assets/error.png';
 import Context from '../context/context.js';
 
 import {
@@ -11,11 +12,40 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
 
 export default function CartContent(props) {
-  // const cart = props.cart;
-  // console.log(props.cart);
+  const [convertedMerch, setConvertedMerch] = useState([]);
+  const cartContext = useContext(Context);
+
+  useEffect(() => {
+    let merch = cartContext.merch;
+    let cart = cartContext.cart;
+    let results = [];
+
+    cart.forEach(e1 => 
+      merch.forEach(e2 => {
+      if (e1 === e2.id) {
+        // e2.quantity = 1;
+        e2.price = e2.price * e2.quantity;
+        results.push(e2);
+      }
+    }))
+
+    setConvertedMerch(results);
+  }, []);
+
+  const removeItem = (id) => {
+    let merch = [...convertedMerch];
+
+    let filter = merch.filter(el => el.id === id);
+    let results = merch.findIndex(el => el.id === filter[0].id);
+    merch.splice(results, 1);
+
+    setConvertedMerch(merch);
+  }
+
 
   return (
     <View style={styles.container}>
@@ -29,11 +59,24 @@ export default function CartContent(props) {
             </View>
           </View>
           <View style={styles.cart_container_content}>
-            {/* { cart.length < 1 ? (
-              <Text style={styles.cart_container_content_text}>Your Cart is Empty</Text>
+            { convertedMerch.length < 1 ? (
+              <Text style={styles.cart_container_empty_text}>Your Cart is Empty</Text>
             ) : (
-              <View></View>
-            )} */}
+              convertedMerch.map((el) => {
+                return (
+                  <View style={styles.cart_container_content_box} key={el.id}>
+                    <Text style={styles.cart_container_content_item}>{el.product}</Text>
+                    <View style={styles.cart_container_content_QP}>
+                      <Text style={styles.cart_container_content_QP_item}>{el.quantity}</Text>
+                      <Text style={styles.cart_container_content_QP_price}>{el.price}</Text>
+                      <TouchableOpacity style={styles.cart_container_content_removeBTN} onPress={ _ => removeItem(el.id)}>
+                        <Image style={styles.cart_container_content_removeIMG} source={RemoveIMG} />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                )
+              })
+            )}
           </View>
         </View>
       </ScrollView>
@@ -100,7 +143,7 @@ const styles = StyleSheet.create({
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-            marginRight: 10,
+            marginRight: 40,
             // borderWidth: 1,
           },
 
@@ -120,7 +163,48 @@ const styles = StyleSheet.create({
           backgroundColor: '#fff',
         },
 
-          cart_container_content_text: {
+          cart_container_empty_text: {
             opacity: 0.6,
+            fontSize: 13,
           },
+
+          cart_container_content_box: {
+            // borderWidth: 1,
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row',
+            paddingTop: 4,
+            paddingBottom: 4,
+          },
+
+            cart_container_content_item: {
+              fontSize: 13,
+              opacity: 0.6,
+              color: '#000',
+            },
+
+          cart_container_content_QP: {
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            marginRight: 8,
+            // borderWidth: 1,
+          },
+
+            cart_container_content_QP_item: {
+              fontWeight: 'bold',
+              marginRight: 76,
+            },
+
+            cart_container_content_QP_price: {
+              fontWeight: 'bold',
+              color: '#009cd8',
+              marginRight: 30,
+            },
+
+            cart_container_content_removeIMG: {
+              opacity: 0.45,
+              width: 20,
+              height: 20,
+            },
 });

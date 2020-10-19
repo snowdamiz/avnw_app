@@ -6,13 +6,20 @@ export default class GlobalState extends React.Component{
   state = {
     cart: [],
     merch: [],
+    filterList: [],
     isUserAuthenticated: false,
   }
 
   componentDidMount() {
+    let getMerchCategories = [];
     let getMerch = merch;
     this.setState({ merch: getMerch });
-    // console.log(getMerch);
+
+    for (let i = 0; i < getMerch.length; i++) {
+      getMerchCategories.push(getMerch[i].category);
+    }
+
+    this.setState({ filterList: getMerchCategories });
   };
  
   handleCart = (id) => {
@@ -42,6 +49,33 @@ export default class GlobalState extends React.Component{
     }
   };
 
+  handleFilterList = (id) => {
+    let filterList = this.state.filterList;
+    let filterLength = this.state.filterList.length;
+    let isAlreadyInList = false;
+
+    if (filterLength > 0) {
+      for (let i = 0; i < filterLength; i++) {
+        if (filterList[i] === id) {
+          isAlreadyInList = true;
+          break;
+        }
+      }
+
+      if (isAlreadyInList) {
+        let removeFilterItem = [...filterList];
+        removeFilterItem.splice(filterList.indexOf(id), 1);
+        this.setState({ filterList: removeFilterItem });
+      } else {
+        let newFilterItemList = [...filterList, id];
+        this.setState({ filterList: newFilterItemList });
+      }
+    } else {
+      let updatedFilterList = [...filterList, id];
+      this.setState({ filterList: updatedFilterList});
+    }
+  };
+
   // getMerch();
 
   render(){
@@ -50,8 +84,10 @@ export default class GlobalState extends React.Component{
         value={{
           cart: this.state.cart,
           merch: this.state.merch,
+          filterList: this.state.filterList,
           isUserAuthenticated: this.state.isUserAuthenticated,
           handleCart: this.handleCart,
+          handleFilterList: this.handleFilterList,
         }}>
           
       {this.props.children}

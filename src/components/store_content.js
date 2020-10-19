@@ -8,22 +8,41 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableNativeFeedback,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
 
 export default function StoreContent(props) {
+  const [merchResults, setMerchResults] = useState([]);
   const cartContext = useContext(Context);
+
+  useEffect(() => {
+    let filterList = cartContext.filterList;
+    let merch = cartContext.merch;
+    let results = [];
+
+    filterList.forEach(e1 => 
+      merch.forEach(e2 => {
+      if (e1 === e2.category) {
+        results.push(e2);
+      }
+    }))
+
+    if (results.length < 1) {
+      setMerchResults(cartContext.merch);
+    } else {
+      setMerchResults(results);
+    }
+  },[cartContext.filterList]);
 
   const handleCartToggle = (id) => {
     cartContext.handleCart(id);
-  }
-  
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.store}>
-        {cartContext.merch.map((el) => {
+        {merchResults.map((el) => {
           return (
             <View style={styles.prod_box} key={el.id}>
               <View style={styles.prod_img}></View>
@@ -51,18 +70,6 @@ export default function StoreContent(props) {
           )
         })}
       </ScrollView>
-      
-      {/* <View style={styles.book_btn_wrap}>
-        <LinearGradient colors={['#00BBB7', '#01A9A5', '#01A9A5']} style={styles.gradient} >
-          <TouchableNativeFeedback onPress={ _ => navigation.navigate('Booking')} >
-            <View style={styles.book_btn}>
-              <Text style={styles.book_btn_text} >
-                Schedule A Photo Shoot
-              </Text>
-            </View>
-          </TouchableNativeFeedback>
-        </LinearGradient>
-      </View> */}
     </View>
   );
 };

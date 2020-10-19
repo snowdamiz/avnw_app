@@ -17,35 +17,22 @@ import {
   Text,
   TouchableNativeFeedback,
 } from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler'
 
 export default function Header(props) {
   const [filterToggle, setFilterToggle] = useState(false);
-  const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState([]);
 
   const route = useRoute();
   const cartContext = useContext(Context);
 
   useEffect(() => {
-    getCategories(); //get list of categories on-load
-  },[])
-
-  // sync local and global cart state
-  // every time global cart state changes
-  useEffect(() => {
     setCart(cartContext.cart);
   },[cartContext.cart]);
 
-  const checkAuth = _ => {
-    if (cartContext.isUserAuthenticated) {
-      return 'Profile';
-    } else {
-      return 'Login';
-    };
-  };
-
-  const handleFilterToggle = _ => setFilterToggle(!filterToggle); // trigger filter box
-  const getCategories = _ => setCategories(merch_categories); // get categories list from server
+  const checkAuth = _ => cartContext.isUserAuthenticated ? 'Profile' : 'Login';
+  const handleFilterSelect = (id) => cartContext.handleFilterList(id);
+  const handleFilterToggle = _ => setFilterToggle(!filterToggle);
 
   return (
     <View style={styles.container}>
@@ -75,7 +62,16 @@ export default function Header(props) {
             <View style={styles.filter_container_content}>
               { merch_categories.map((el) => {
                 return (
-                  <Text style={styles.filter_container_content_text} key={el.id}>{el.category}</Text>
+                  <TouchableOpacity
+                    key={el.id}
+                    style={styles.filter_container_content_btn}
+                    onPress={ _ => handleFilterSelect(el.category) }>
+                    { cartContext.filterList.includes(el.category) ? (
+                      <Text style={styles.filter_container_content_text_on}>{el.category}</Text>
+                    ) : (
+                      <Text style={styles.filter_container_content_text}>{el.category}</Text>
+                    )}
+                  </TouchableOpacity>
                 )
               })}
             </View>
@@ -193,6 +189,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.50,
         shadowRadius: 10,
         elevation: 20,
+        zIndex: 1,
       },
 
         filter_container_header_title: {
@@ -208,8 +205,18 @@ const styles = StyleSheet.create({
           // marginTop: 10,
         },
 
+          filter_container_content_btn: {
+            // borderWidth: 1,
+          },  
+
           filter_container_content_text: {
             color: '#7D7D7D',
+            padding: 6,
+            fontWeight: 'bold',
+          },
+
+          filter_container_content_text_on: {
+            color: '#009cd8',
             padding: 6,
             fontWeight: 'bold',
           },

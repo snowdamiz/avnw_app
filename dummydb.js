@@ -5,6 +5,7 @@ export const merch = [
     price: 60,
     desc: "AVNW Blue and White snap-back hat",
     category: "Hats",
+    quantity: 1,
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export const merch = [
     price: 10,
     desc: "Alpha Visuals windshield decal",
     category: "Decals",
+    quantity: 1,
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ export const merch = [
     price: 40,
     desc: "AVNW logo sweatshirt",
     category: "Sweatshirts",
+    quantity: 1,
   },
   {
     id: 4,
@@ -26,6 +29,7 @@ export const merch = [
     price: 20,
     desc: "BMW e46 RDM Photograph (digital)",
     category: "Photos",
+    quantity: 1,
   }
 ]
 
