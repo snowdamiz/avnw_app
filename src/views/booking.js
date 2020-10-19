@@ -1,17 +1,12 @@
 import React from 'react';
 
-import Header from '../../components/header/header.js';
-import BookingContent from '../../components/booking_content/booking_content.js';
+import Header from '../components/header.js';
+import BookingContent from '../components/booking_content.js';
 
 import {
-  Dimensions,
   StyleSheet,
   SafeAreaView,
-  Platform,
-  Button,
-  View,
   StatusBar,
-  Text,
 } from 'react-native';
 
 export default function Booking({ navigation }) {

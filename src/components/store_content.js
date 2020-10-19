@@ -1,0 +1,195 @@
+import React, { useEffect, useState, useContext } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+
+import Context from '../context/context.js';
+
+import {
+  Dimensions,
+  StyleSheet,
+  View,
+  Text,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+
+export default function StoreContent(props, { navigation }) {
+  const merch = props.merch;
+  const cartContext = useContext(Context);
+
+
+  const handleCartToggle = (id) => {
+    let cart = cartContext.cart;
+
+    cartContext.handleCart(id);
+  }
+  
+  return (
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.store}>
+        {merch.map((el) => {
+          return (
+            <View style={styles.prod_box}>
+              <View style={styles.prod_img}></View>
+              <View style={styles.prod_price}>
+                <Text style={styles.prod_price_text}>{`$${el.price}`}</Text>
+              </View>
+              <View style={styles.prod_desc}>
+                <View>
+                  <Text style={styles.prod_desc_title}>{el.product}</Text>
+                  <Text style={styles.prod_desc_text}>{el.desc}</Text>
+                </View>
+                <TouchableOpacity style={styles.cart_btn} onPress={ _ => handleCartToggle(el.id) }>
+                  <Text style={styles.cart_btn_text}>Add To Cart</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )
+        })}
+      </ScrollView>
+      
+      {/* <View style={styles.book_btn_wrap}>
+        <LinearGradient colors={['#00BBB7', '#01A9A5', '#01A9A5']} style={styles.gradient} >
+          <TouchableNativeFeedback onPress={ _ => navigation.navigate('Booking')} >
+            <View style={styles.book_btn}>
+              <Text style={styles.book_btn_text} >
+                Schedule A Photo Shoot
+              </Text>
+            </View>
+          </TouchableNativeFeedback>
+        </LinearGradient>
+      </View> */}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+
+    store: {
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      paddingRight: 15,
+      paddingLeft: 15,
+      paddingBottom: 15,
+    },
+
+      prod_box: {
+        width: Dimensions.get('screen').width / 2 - 24,
+        height: 280,
+        borderRadius: 6,
+        borderColor: '#E2E2E2',
+        backgroundColor: '#fff',
+        marginTop: 15,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 0,
+        },
+        shadowOpacity: 0.28,
+        shadowRadius: 6,
+        elevation: 5,
+      },
+
+        prod_img: {
+          width: '100%',
+          height: 120,
+          borderTopRightRadius: 8,
+          borderTopLeftRadius: 8,
+        },
+
+        prod_price: {
+          position: 'absolute',
+          color: '#fff',
+          backgroundColor: '#009cd8',
+          fontSize: 14,
+          borderWidth: 1,
+          borderRadius: 22,
+          borderColor: '#01A9A5',
+          width: 44,
+          height: 44,
+          justifyContent: 'center',
+          alignItems: 'center',
+          top: 100,
+          right: 14,
+          zIndex: 2,
+        },
+
+          prod_price_text: {
+            color: '#fff',
+            fontSize: 14,
+            fontWeight: 'bold', 
+          },
+
+        prod_desc: {
+          justifyContent: 'space-between',
+          width: '100%',
+          height: 160,
+          borderBottomRightRadius: 8,
+          borderBottomLeftRadius: 8,
+          padding: 12,
+          backgroundColor: '#F2F2F2',
+        },
+
+          prod_desc_title: {
+            paddingBottom: 5,
+            color: 'grey',
+            fontWeight: 'bold',
+            fontSize: 16,
+            width: 100,
+          },
+
+          prod_desc_text: {
+            color: 'gray',
+            fontSize: 14,
+          },
+
+        cart_btn: {
+          backgroundColor: '#fff',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: 42,
+          borderWidth: 1,
+          borderColor: '#DDDDDD',
+          borderRadius: 6,
+        },
+
+          cart_btn_text: {
+            color: 'gray',
+            fontWeight: 'bold',
+            fontSize: 12,
+          },
+
+    book_btn_wrap: {
+      paddingTop: 15,
+    },
+
+      gradient: {
+        marginBottom: 15,
+        alignItems: 'center',
+        borderRadius: 8, 
+      },
+
+      book_btn: {
+        width: Dimensions.get('screen').width - 30,
+        height: 60,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+
+        book_btn_text: {
+          color: '#fff',
+          fontWeight: 'bold',
+          fontSize: 16,
+        }
+});
