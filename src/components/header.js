@@ -36,16 +36,19 @@ export default function Header(props) {
     setCart(cartContext.cart);
   },[cartContext.cart]);
 
+  const checkAuth = _ => {
+    if (cartContext.isUserAuthenticated) {
+      return 'Profile';
+    } else {
+      return 'Login';
+    };
+  };
+
   const handleFilterToggle = _ => setFilterToggle(!filterToggle); // trigger filter box
   const getCategories = _ => setCategories(merch_categories); // get categories list from server
-  
-
-  // console.log(`Local Cart: ${cart}`);
-  // console.log(`Global Cart: ${cartContext.cart}`);
 
   return (
     <View style={styles.container}>
-      {/* Logo Icon and Button */}
       <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Store')} >
         <LinearGradient colors={['#01aef1', '#009cd8', '#009cd8']} style={styles.gradient} >
           <View name="logo" style={styles.logo}>
@@ -54,7 +57,6 @@ export default function Header(props) {
         </LinearGradient>
       </TouchableNativeFeedback>
 
-      {/* Filter Button */}
       <View name="navBox" style={styles.navBox}>
         { route.name === 'Store' ? (
           <TouchableNativeFeedback onPress={handleFilterToggle} >
@@ -73,7 +75,7 @@ export default function Header(props) {
             <View style={styles.filter_container_content}>
               { merch_categories.map((el) => {
                 return (
-                  <Text style={styles.filter_container_content_text}>{el.category}</Text>
+                  <Text style={styles.filter_container_content_text} key={el.id}>{el.category}</Text>
                 )
               })}
             </View>
@@ -81,7 +83,6 @@ export default function Header(props) {
         ) : null }
         
         <View style={styles.menu_wrap} >
-          {/* Cart Button */}
           <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Cart')} >
             <View name="cart" style={styles.cart}>
               <Image source={CartIMG} style={styles.cartIMG} />
@@ -93,8 +94,7 @@ export default function Header(props) {
             </View>  
           </TouchableNativeFeedback>
 
-          {/* Profile Button */}
-          <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Profile')} >
+          <TouchableNativeFeedback onPress={ _ => props.navigation.navigate(checkAuth())} >
             <View name="profile" style={styles.profile}>
               <Image source={ProfileIMG} style={styles.profileIMG} />
             </View>  

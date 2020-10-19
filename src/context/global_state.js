@@ -6,12 +6,13 @@ export default class GlobalState extends React.Component{
   state = {
     cart: [],
     merch: [],
+    isUserAuthenticated: false,
   }
 
   componentDidMount() {
     let getMerch = merch;
     this.setState({ merch: getMerch });
-    console.log(getMerch);
+    // console.log(getMerch);
   };
  
   handleCart = (id) => {
@@ -49,8 +50,8 @@ export default class GlobalState extends React.Component{
         value={{
           cart: this.state.cart,
           merch: this.state.merch,
+          isUserAuthenticated: this.state.isUserAuthenticated,
           handleCart: this.handleCart,
-          getMerch: this.getMerch,
         }}>
           
       {this.props.children}

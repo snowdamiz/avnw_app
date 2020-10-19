@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Header from '../components/header.js';
+import LoginContent from '../components/login_content.js';
 
 import {
   StyleSheet,
@@ -9,12 +10,12 @@ import {
   View,
 } from 'react-native';
 
-export default function Login({ navigation }) {
+export default function Login(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <Header navigation={navigation} />
-
+      <Header navigation={props.navigation} />
+      <LoginContent />
     </SafeAreaView>
   )
 };

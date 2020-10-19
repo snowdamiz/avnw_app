@@ -14,28 +14,18 @@ import {
 } from 'react-native';
 
 export default function StoreContent(props) {
-  const [merch, setMerch] = useState([]);
   const cartContext = useContext(Context);
 
-  useEffect(() => {
-    getMerch();
-  },[])
-
-  const getMerch = _ => {
-    setMerch(cartContext.merch);
-  }
-
   const handleCartToggle = (id) => {
-    let cart = cartContext.cart;
     cartContext.handleCart(id);
   }
   
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.store}>
-        {merch.map((el) => {
+        {cartContext.merch.map((el) => {
           return (
-            <View style={styles.prod_box}>
+            <View style={styles.prod_box} key={el.id}>
               <View style={styles.prod_img}></View>
               <View style={styles.prod_price}>
                 <Text style={styles.prod_price_text}>{`$${el.price}`}</Text>
@@ -46,9 +36,9 @@ export default function StoreContent(props) {
                   <Text style={styles.prod_desc_text}>{el.desc}</Text>
                 </View>
                 { cartContext.cart.includes(el.id) ? (
-                  <LinearGradient colors={['#01aef1', '#009cd8', '#009cd8']} style={styles.gradient} >
+                  <LinearGradient colors={['#04A3E1', '#009cd8', '#009cd8']} style={styles.gradient} >
                     <TouchableOpacity style={styles.cart_btn_on} onPress={ _ => handleCartToggle(el.id) }>
-                      <Text style={styles.cart_btn_text_on}>Remove Item</Text>
+                      <Text style={styles.cart_btn_text_on}>In Cart</Text>
                     </TouchableOpacity>
                   </LinearGradient>
                 ) : (

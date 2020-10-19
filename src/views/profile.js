@@ -9,11 +9,11 @@ import {
   View,
 } from 'react-native';
 
-export default function Profile({ navigation }) {
+export default function Profile(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <Header navigation={navigation} />
+      <Header navigation={props.navigation} />
 
     </SafeAreaView>
   )
