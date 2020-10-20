@@ -37,7 +37,7 @@ export default class GlobalState extends React.Component{
 
       if (isAlreadyInCart) {
         let removeItemCart = [...cart];
-        removeItemCart.splice(cart.indexOf(id), 1);
+        removeItemCart.splice(cart.indexOf(prod), 1);
         this.setState({ cart: removeItemCart });
       } else {
         let newItemCart = [...cart, prod];

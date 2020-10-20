@@ -16,35 +16,7 @@ import {
 } from 'react-native';
 
 export default function CartContent(props) {
-  const [convertedMerch, setConvertedMerch] = useState([]);
   const cartContext = useContext(Context);
-
-  useEffect(() => {
-    let merch = cartContext.merch;
-    let cart = cartContext.cart;
-    let results = [];
-
-    cart.forEach(e1 => 
-      merch.forEach(e2 => {
-      if (e1 === e2.id) {
-        e2.price = e2.price * e2.quantity;
-        results.push(e2);
-      }
-    }))
-
-    setConvertedMerch(results);
-  }, []);
-
-  const removeItem = (id) => {
-    let merch = [...convertedMerch];
-
-    let filter = merch.filter(el => el.id === id);
-    let results = merch.findIndex(el => el.id === filter[0].id);
-    merch.splice(results, 1);
-
-    setConvertedMerch(merch);
-  }
-
 
   return (
     <View style={styles.container}>
@@ -58,17 +30,17 @@ export default function CartContent(props) {
             </View>
           </View>
           <View style={styles.cart_container_content}>
-            { convertedMerch.length < 1 ? (
+            { cartContext.cart.length < 1 ? (
               <Text style={styles.cart_container_empty_text}>Your Cart is Empty</Text>
             ) : (
-              convertedMerch.map((el) => {
+              cartContext.cart.map((el) => {
                 return (
                   <View style={styles.cart_container_content_box} key={el.id}>
                     <Text style={styles.cart_container_content_item}>{el.product}</Text>
                     <View style={styles.cart_container_content_QP}>
                       <Text style={styles.cart_container_content_QP_item}>{el.quantity}</Text>
                       <Text style={styles.cart_container_content_QP_price}>{el.price}</Text>
-                      <TouchableOpacity style={styles.cart_container_content_removeBTN} onPress={ _ => removeItem(el.id)}>
+                      <TouchableOpacity style={styles.cart_container_content_removeBTN} onPress={ _ => cartContext.handleCart(el)}>
                         <Image style={styles.cart_container_content_removeIMG} source={RemoveIMG} />
                       </TouchableOpacity>
                     </View>

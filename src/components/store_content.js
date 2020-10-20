@@ -33,6 +33,7 @@ export default function StoreContent(props) {
     } else {
       setMerchResults(results);
     }
+
   },[cartContext.filterList]);
 
   const handleCartToggle = (prod) => {
@@ -54,7 +55,7 @@ export default function StoreContent(props) {
                   <Text style={styles.prod_desc_title}>{el.product}</Text>
                   <Text style={styles.prod_desc_text}>{el.desc}</Text>
                 </View>
-                { cartContext.cart.includes(el.id) ? (
+                { cartContext.cart.includes(el) ? (
                   <LinearGradient colors={['#04A3E1', '#009cd8', '#009cd8']} style={styles.gradient} >
                     <TouchableOpacity style={styles.cart_btn_on} onPress={ _ => handleCartToggle(el) }>
                       <Text style={styles.cart_btn_text_on}>In Cart</Text>
