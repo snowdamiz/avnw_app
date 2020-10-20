@@ -6,6 +6,7 @@ export default React.createContext({
   filterList: [],
   isUserAuthenticated: false,
   handleCart : (prod) => {},
+  changeItemQuantity: (q, el) => {},
   handleFilterList: (id) => {},
   getMerch : _ => {}
 });

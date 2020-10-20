@@ -50,6 +50,14 @@ export default class GlobalState extends React.Component{
     }
   };
 
+  changeItemQuantity = (q, el) => {
+    let updatedQuantity = [...this.state.cart];
+    let index = updatedQuantity.indexOf(el);
+    // console.log(q);
+    updatedQuantity[index].quantity = q;
+    console.log(updatedQuantity);
+  };
+
   handleFilterList = (id) => {
     let filterList = this.state.filterList;
     let filterLength = this.state.filterList.length;
@@ -87,6 +95,7 @@ export default class GlobalState extends React.Component{
           merch: this.state.merch,
           filterList: this.state.filterList,
           isUserAuthenticated: this.state.isUserAuthenticated,
+          changeItemQuantity: this.changeItemQuantity,
           handleCart: this.handleCart,
           handleFilterList: this.handleFilterList,
         }}>

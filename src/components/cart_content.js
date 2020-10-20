@@ -10,13 +10,22 @@ import {
   View,
   Text,
   TouchableNativeFeedback,
+  TextInput,
   TouchableOpacity,
   ScrollView,
   Image,
 } from 'react-native';
 
 export default function CartContent(props) {
+  // const [quantity, setQuantity] = useState();
   const cartContext = useContext(Context);
+
+  // const handleItemQuantity = (q) => {
+  //   // cartContext.changeItemQuantity(q, el);
+  //   console.log(q);
+  //   // console.log(q);
+  //   // console.log(el);
+  // }
 
   return (
     <View style={styles.container}>
@@ -38,7 +47,12 @@ export default function CartContent(props) {
                   <View style={styles.cart_container_content_box} key={el.id}>
                     <Text style={styles.cart_container_content_item}>{el.product}</Text>
                     <View style={styles.cart_container_content_QP}>
-                      <Text style={styles.cart_container_content_QP_item}>{el.quantity}</Text>
+                      <TextInput 
+                        style={styles.cart_container_content_Q_input}
+                        onChangeText={q => cartContext.changeItemQuantity(q, el)}
+                        defaultValue={el.quantity}>
+                        <Text style={styles.cart_container_content_QP_item}>{el.quantity}</Text>
+                      </TextInput>
                       <Text style={styles.cart_container_content_QP_price}>{el.price}</Text>
                       <TouchableOpacity style={styles.cart_container_content_removeBTN} onPress={ _ => cartContext.handleCart(el)}>
                         <Image style={styles.cart_container_content_removeIMG} source={RemoveIMG} />
