@@ -17,15 +17,7 @@ import {
 } from 'react-native';
 
 export default function CartContent(props) {
-  // const [quantity, setQuantity] = useState();
   const cartContext = useContext(Context);
-
-  // const handleItemQuantity = (q) => {
-  //   // cartContext.changeItemQuantity(q, el);
-  //   console.log(q);
-  //   // console.log(q);
-  //   // console.log(el);
-  // }
 
   return (
     <View style={styles.container}>
@@ -49,9 +41,9 @@ export default function CartContent(props) {
                     <View style={styles.cart_container_content_QP}>
                       <TextInput 
                         style={styles.cart_container_content_Q_input}
-                        onChangeText={q => cartContext.changeItemQuantity(q, el)}
-                        defaultValue={el.quantity}>
-                        <Text style={styles.cart_container_content_QP_item}>{el.quantity}</Text>
+                        placeholder={`${el.quantity}`}
+                        placeholderTextColor='#000'
+                        onChangeText={q => cartContext.changeItemQuantity(q, el)}>
                       </TextInput>
                       <Text style={styles.cart_container_content_QP_price}>{el.price}</Text>
                       <TouchableOpacity style={styles.cart_container_content_removeBTN} onPress={ _ => cartContext.handleCart(el)}>
@@ -90,7 +82,6 @@ const styles = StyleSheet.create({
 
       cart_container: {
         width: '100%',
-        // borderWidth: 1,
         marginTop: 15,
         shadowColor: "#000",
         shadowOffset: {
@@ -129,7 +120,6 @@ const styles = StyleSheet.create({
             justifyContent: 'space-around',
             alignItems: 'center',
             marginRight: 40,
-            // borderWidth: 1,
           },
 
             cart_container_header_QP_text: {
@@ -140,8 +130,6 @@ const styles = StyleSheet.create({
 
         cart_container_content: {
           width: '100%',
-          // borderWidth: 1,
-          // borderColor: 'blue',
           padding: 10,
           borderBottomRightRadius: 6,
           borderBottomLeftRadius: 6,
@@ -154,7 +142,6 @@ const styles = StyleSheet.create({
           },
 
           cart_container_content_box: {
-            // borderWidth: 1,
             justifyContent: 'space-between',
             alignItems: 'center',
             flexDirection: 'row',
@@ -173,13 +160,29 @@ const styles = StyleSheet.create({
             justifyContent: 'space-around',
             alignItems: 'center',
             marginRight: 8,
-            // borderWidth: 1,
           },
 
-            cart_container_content_QP_item: {
+            cart_container_content_Q_input: {
+              height: 24,
+              width: 24,
+              borderWidth: 1,
+              marginRight: 62,
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
               fontWeight: 'bold',
-              marginRight: 76,
+              paddingTop: 0,
+              paddingBottom: 0,
+              opacity: 0.7,
+              borderRadius: 4,
             },
+
+              cart_container_content_QP_item: {
+                width: 20,
+                height: 20,
+                borderWidth: 1,
+                fontWeight: 'bold',
+              },
 
             cart_container_content_QP_price: {
               fontWeight: 'bold',
