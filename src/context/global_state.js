@@ -22,14 +22,14 @@ export default class GlobalState extends React.Component{
     this.setState({ filterList: getMerchCategories });
   };
  
-  handleCart = (id) => {
+  handleCart = (prod) => {
     let cart = this.state.cart;
     let cartLength = this.state.cart.length;
     let isAlreadyInCart = false;
 
     if(cartLength > 0) {
       for (let i = 0; i < cartLength; i++) {
-        if (cart[i] === id) {
+        if (cart[i].id === prod.id) {
           isAlreadyInCart = true;
           break;
         }
@@ -40,12 +40,13 @@ export default class GlobalState extends React.Component{
         removeItemCart.splice(cart.indexOf(id), 1);
         this.setState({ cart: removeItemCart });
       } else {
-        let newItemCart = [...cart, id];
+        let newItemCart = [...cart, prod];
         this.setState({ cart: newItemCart });
       }
     } else {
-      let updatedCart = [...cart, id];
+      let updatedCart = [...cart, prod];
       this.setState({ cart: updatedCart });
+      console.log(updatedCart);
     }
   };
 

@@ -27,7 +27,6 @@ export default function CartContent(props) {
     cart.forEach(e1 => 
       merch.forEach(e2 => {
       if (e1 === e2.id) {
-        // e2.quantity = 1;
         e2.price = e2.price * e2.quantity;
         results.push(e2);
       }

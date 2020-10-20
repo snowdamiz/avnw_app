@@ -5,7 +5,7 @@ export default React.createContext({
   merch: [],
   filterList: [],
   isUserAuthenticated: false,
-  handleCart : (id) => {},
+  handleCart : (prod) => {},
   handleFilterList: (id) => {},
   getMerch : _ => {}
 });

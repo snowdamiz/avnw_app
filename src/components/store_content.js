@@ -35,8 +35,8 @@ export default function StoreContent(props) {
     }
   },[cartContext.filterList]);
 
-  const handleCartToggle = (id) => {
-    cartContext.handleCart(id);
+  const handleCartToggle = (prod) => {
+    cartContext.handleCart(prod);
   };
 
   return (
@@ -56,12 +56,12 @@ export default function StoreContent(props) {
                 </View>
                 { cartContext.cart.includes(el.id) ? (
                   <LinearGradient colors={['#04A3E1', '#009cd8', '#009cd8']} style={styles.gradient} >
-                    <TouchableOpacity style={styles.cart_btn_on} onPress={ _ => handleCartToggle(el.id) }>
+                    <TouchableOpacity style={styles.cart_btn_on} onPress={ _ => handleCartToggle(el) }>
                       <Text style={styles.cart_btn_text_on}>In Cart</Text>
                     </TouchableOpacity>
                   </LinearGradient>
                 ) : (
-                  <TouchableOpacity style={styles.cart_btn} onPress={ _ => handleCartToggle(el.id) }>
+                  <TouchableOpacity style={styles.cart_btn} onPress={ _ => handleCartToggle(el) }>
                     <Text style={styles.cart_btn_text}>Add To Cart</Text>
                   </TouchableOpacity>
                 )}
