@@ -7,6 +7,7 @@ export default React.createContext({
   isUserAuthenticated: false,
   handleCart : (prod) => {},
   changeItemQuantity: (q, el) => {},
+  changeItemCost: (q, el) => {},
   handleFilterList: (id) => {},
   getMerch : _ => {}
 });

@@ -46,16 +46,23 @@ export default class GlobalState extends React.Component{
     } else {
       let updatedCart = [...cart, prod];
       this.setState({ cart: updatedCart });
-      console.log(updatedCart);
     }
   };
 
+  changeItemCost = (q, el) => {
+    let updatedCost = [...this.state.cart];
+    let i = updatedCost.indexOf(el);
+    let newQuantity = q;
+    let price = updatedCost[i].price;
+    updatedCost[i].price = price * newQuantity;
+  };
+
   changeItemQuantity = (q, el) => {
-    let updatedQuantity = [...this.state.cart];
-    let index = updatedQuantity.indexOf(el);
-    // console.log(q);
-    updatedQuantity[index].quantity = q;
-    console.log(updatedQuantity);
+    let cart = [...this.state.cart];
+    let i = cart.indexOf(el);
+
+    cart[i].quantity = q;
+    this.setState({ cart: cart });
   };
 
   handleFilterList = (id) => {
@@ -96,6 +103,7 @@ export default class GlobalState extends React.Component{
           filterList: this.state.filterList,
           isUserAuthenticated: this.state.isUserAuthenticated,
           changeItemQuantity: this.changeItemQuantity,
+          changeItemCost: this.changeItemCost,
           handleCart: this.handleCart,
           handleFilterList: this.handleFilterList,
         }}>

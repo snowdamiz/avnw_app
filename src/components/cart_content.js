@@ -17,7 +17,18 @@ import {
 } from 'react-native';
 
 export default function CartContent(props) {
+  const [total, setTotal] = useState(0);
   const cartContext = useContext(Context);
+
+  useEffect(() => {
+    let cart = cartContext.cart;
+    let total = 0;
+    cart.map(el => {
+      total = total + (el.price * el.quantity);
+    })
+
+    setTotal(total);
+  },[cartContext.cart])
 
   return (
     <View style={styles.container}>
@@ -43,9 +54,11 @@ export default function CartContent(props) {
                         style={styles.cart_container_content_Q_input}
                         placeholder={`${el.quantity}`}
                         placeholderTextColor='#000'
+                        // value={}
+                        // value={cartContext.cart.quantity}
                         onChangeText={q => cartContext.changeItemQuantity(q, el)}>
                       </TextInput>
-                      <Text style={styles.cart_container_content_QP_price}>{el.price}</Text>
+                      <Text style={styles.cart_container_content_QP_price}>{el.price * el.quantity}</Text>
                       <TouchableOpacity style={styles.cart_container_content_removeBTN} onPress={ _ => cartContext.handleCart(el)}>
                         <Image style={styles.cart_container_content_removeIMG} source={RemoveIMG} />
                       </TouchableOpacity>
@@ -56,6 +69,21 @@ export default function CartContent(props) {
             )}
           </View>
         </View>
+        { cartContext.cart.length > 0 ? (
+          <View style={styles.cart_footer}>
+            <View style={styles.cart_footer_price_box}>
+              <Text style={styles.cart_footer_price_text}>Total Price:</Text>
+              <View style={styles.cart_footer_price_circle}>
+                <Text style={styles.cart_footer_price_amount}>{total}</Text>
+              </View>
+            </View>
+            <LinearGradient colors={['#04A3E1', '#009cd8', '#009cd8']} style={styles.gradient} >
+              <TouchableOpacity style={styles.cart_btn}>
+                <Text style={styles.cart_btn_text}>Order</Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          </View>
+        ) : null }
       </ScrollView>
     </View>
   );
@@ -166,7 +194,7 @@ const styles = StyleSheet.create({
               height: 24,
               width: 24,
               borderWidth: 1,
-              marginRight: 62,
+              marginRight: 60,
               justifyContent: 'center',
               alignItems: 'center',
               textAlign: 'center',
@@ -195,4 +223,119 @@ const styles = StyleSheet.create({
               width: 20,
               height: 20,
             },
+
+    gradient: {
+      alignItems: 'center',
+      borderRadius: 6, 
+    },
+
+    cart_footer: {
+      width: '100%',
+      // borderWidth: 1,
+      marginTop: 15,
+      marginBottom: 15,
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+
+      cart_footer_price_box: {
+        // width: '45%',
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderRadius: 6,
+        backgroundColor: '#fff',
+        // borderWidth: 1,
+        marginRight: 15,
+        paddingTop: 8,
+        paddingBottom: 8,
+        paddingLeft: 20,
+        paddingRight: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 0,
+        },
+        shadowOpacity: 0.28,
+        shadowRadius: 3.2,
+        elevation: 6,
+      },
+
+        cart_footer_price_text: {
+          fontWeight: 'bold',
+          color: 'gray',
+        },
+
+        cart_footer_price_circle: {
+          width: 32,
+          height: 32,
+          borderRadius: 17,
+          // borderWidth: 1,
+          marginLeft: 10,
+          backgroundColor: '#009cd8',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+
+          cart_footer_price_amount: {
+            fontWeight: 'bold',
+            color: '#fff',
+          },
+
+    cart_btn: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 120,
+      height: 50,
+      // borderWidth: 1,
+      borderRadius: 6,
+    },
+
+      cart_btn_text: {
+        fontWeight: 'bold',
+        color: '#fff',
+        fontSize: 15,
+      },
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
