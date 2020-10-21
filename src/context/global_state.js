@@ -4,21 +4,45 @@ import { merch, user } from '../../dummydb.js';
 
 export default class GlobalState extends React.Component{
   state = {
+    user: {
+      id: '',
+      name: '',
+      email: '',
+      phone: '',
+      address: '',
+      unit: '',
+      city: '',
+      state: '',
+      zip: '',
+    },
     cart: [],
+    cartError: false,
     merch: [],
     filterList: [],
     isUserAuthenticated: false,
   }
 
   componentDidMount() {
+    this.getMerchCategories();
+    this.getUser();
+  };
+
+  getUser = _ => {
+    let curUser = user;
+    this.setState({ user: curUser });
+    // console.log(curUser);
+    // console.log(this.state.user);
+  }
+  
+  getMerchCategories = _ => {
     let getMerchCategories = [];
     let getMerch = merch;
     this.setState({ merch: getMerch });
-
+  
     for (let i = 0; i < getMerch.length; i++) {
       getMerchCategories.push(getMerch[i].category);
     }
-
+  
     this.setState({ filterList: getMerchCategories });
   };
  
@@ -49,20 +73,18 @@ export default class GlobalState extends React.Component{
     }
   };
 
-  changeItemCost = (q, el) => {
-    let updatedCost = [...this.state.cart];
-    let i = updatedCost.indexOf(el);
-    let newQuantity = q;
-    let price = updatedCost[i].price;
-    updatedCost[i].price = price * newQuantity;
-  };
-
   changeItemQuantity = (q, el) => {
+    var numRegex = /^[0-9]+$/;
     let cart = [...this.state.cart];
     let i = cart.indexOf(el);
 
-    cart[i].quantity = q;
-    this.setState({ cart: cart });
+    if (q.match(numRegex)) {
+      cart[i].quantity = q;
+      this.setState({ cart: cart });
+      this.setState({ cartError: false });
+    } else {
+      this.setState({ cartError: !this.state.cartError });
+    }
   };
 
   handleFilterList = (id) => {
@@ -98,12 +120,14 @@ export default class GlobalState extends React.Component{
     return (
       <Context.Provider 
         value={{
+          user: this.state.user,
           cart: this.state.cart,
+          cartError: this.state.cartError,
           merch: this.state.merch,
           filterList: this.state.filterList,
           isUserAuthenticated: this.state.isUserAuthenticated,
+          getUser: this.getUser,
           changeItemQuantity: this.changeItemQuantity,
-          changeItemCost: this.changeItemCost,
           handleCart: this.handleCart,
           handleFilterList: this.handleFilterList,
         }}>

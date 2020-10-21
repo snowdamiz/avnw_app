@@ -35,9 +35,14 @@ export const merch = [
 
 export const user = {
   id: 1,
-  name: "name",
+  name: "Snow Theflake",
   phone: "5043333333",
-  email: "email@gmail.com"
+  email: "email@gmail.com",
+  address: "2139 SE Road St",
+  unit: "",
+  city: "Portland",
+  state: "Oregon",
+  zip: "97223",
 }
 
 export const merch_categories = [

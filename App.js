@@ -9,6 +9,8 @@ import Booking from './src/views/booking.js';
 import Cart from './src/views/cart.js';
 import Profile from './src/views/profile.js';
 import Login from './src/views/login.js';
+import MerchOrderOverview from './src/views/merch_order_overview.js';
+import BasicInfoStep from './src/views/basic_info_step.js';
 
 export default function App() {
   return (
@@ -29,6 +31,12 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="Login">
             { props => <Login {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="MerchOrderOverview">
+            { props => <MerchOrderOverview {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="BasicInfoStep">
+            { props => <BasicInfoStep {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

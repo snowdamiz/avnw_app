@@ -33,12 +33,9 @@ export default function StoreContent(props) {
     } else {
       setMerchResults(results);
     }
-
   },[cartContext.filterList]);
 
-  const handleCartToggle = (prod) => {
-    cartContext.handleCart(prod);
-  };
+  const handleCartToggle = (prod) => cartContext.handleCart(prod);
 
   return (
     <View style={styles.container}>
@@ -82,6 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
+    // borderWidth: 1,
   },
 
     store: {
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         borderColor: '#E2E2E2',
         backgroundColor: '#fff',
-        marginTop: 15,
+        marginTop: 8,
         shadowColor: "#000",
         shadowOffset: {
           width: 0,
@@ -114,8 +112,8 @@ const styles = StyleSheet.create({
         prod_img: {
           width: '100%',
           height: 120,
-          borderTopRightRadius: 8,
-          borderTopLeftRadius: 8,
+          borderTopRightRadius: 6,
+          borderTopLeftRadius: 6,
         },
 
         prod_price: {
@@ -145,8 +143,8 @@ const styles = StyleSheet.create({
           justifyContent: 'space-between',
           width: '100%',
           height: 160,
-          borderBottomRightRadius: 8,
-          borderBottomLeftRadius: 8,
+          borderBottomRightRadius: 6,
+          borderBottomLeftRadius: 6,
           padding: 12,
           backgroundColor: '#F2F2F2',
         },
@@ -204,20 +202,6 @@ const styles = StyleSheet.create({
       gradient: {
         // marginBottom: 15,
         alignItems: 'center',
-        borderRadius: 8, 
+        borderRadius: 6, 
       },
-
-      book_btn: {
-        width: Dimensions.get('screen').width - 30,
-        height: 60,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-
-        book_btn_text: {
-          color: '#fff',
-          fontWeight: 'bold',
-          fontSize: 16,
-        }
 });

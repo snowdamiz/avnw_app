@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingRight: 15,
     paddingLeft: 15,
+    paddingBottom: 8,
     justifyContent: 'space-between',
     zIndex: 3,
   },
@@ -201,8 +202,6 @@ const styles = StyleSheet.create({
         filter_container_content: {
           flexDirection: 'column',
           justifyContent: 'flex-start',
-          // alignItems: 'center',
-          // marginTop: 10,
         },
 
           filter_container_content_btn: {

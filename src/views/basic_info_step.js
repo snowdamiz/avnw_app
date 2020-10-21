@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '../components/header.js';
-import CartContent from '../components/cart_content.js';
+import BasicInfoStepContent from '../components/basic_info_step_content.js';
 
 import {
   StyleSheet,
@@ -9,14 +9,14 @@ import {
   StatusBar,
 } from 'react-native';
 
-export default function Cart(props) {
+export default function BasicInfoStep(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Header navigation={props.navigation} />
-      <CartContent navigation={props.navigation}/>
+      <BasicInfoStepContent navigation={props.navigation} />
     </SafeAreaView>
-  )
+  );
 };
 
 const styles = StyleSheet.create({

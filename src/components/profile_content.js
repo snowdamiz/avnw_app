@@ -11,7 +11,7 @@ import {
   ScrollView,
 } from 'react-native';
 
-export default function ProfileContent(props, { navigation }) {
+export default function ProfileContent(props) {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.profile}>
