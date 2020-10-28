@@ -38,7 +38,11 @@ export default function BookingStepThree(props) {
     if (location.address && location.city && location.state && location.zip) {
       setError(false);  
       cartContext.handleShootLocation(location);
-      props.navigation.navigate('Cart');
+      if (cartContext.shootLocationToggle) {
+        props.navigation.navigate('MerchOrderOverview');
+      } else {
+        props.navigation.navigate('Cart');
+      }
     } else setError(true);
   }
 

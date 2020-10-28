@@ -7,6 +7,7 @@ export default React.createContext({
   curGallery: [],
   cart: [],
   shootLocation: [],
+  shootLocationToggle: false,
   cartError: false,
   merch: [],
   services: [],
@@ -20,4 +21,5 @@ export default React.createContext({
   getMerch : _ => {},
   setCurPhotographer: (el) => {},
   setCurGallery: (el) => {},
+  handleShootLocationToggle: _ => {},
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import Context from './context';
 import { merch, user, photographers, services } from '../../dummydb.js';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default class GlobalState extends React.Component{
   state = {
@@ -21,6 +22,7 @@ export default class GlobalState extends React.Component{
       bio: ``,
       profile_image: '',
     },
+    shootLocationToggle: false,
     shootLocation: [],
     services: [],
     curPhotographer: null,
@@ -151,7 +153,10 @@ export default class GlobalState extends React.Component{
     }
   };
 
-  // getMerch();
+  handleShootLocationToggle = _ => {
+    let toggle = this.state.shootLocationToggle;
+    this.setState({ shootLocationToggle: !toggle });
+  }
 
   render(){
     return (
@@ -163,6 +168,7 @@ export default class GlobalState extends React.Component{
           curGallery: this.state.curGallery,
           cart: this.state.cart,
           shootLocation: this.state.shootLocation,
+          shootLocationToggle: this.state.shootLocationToggle,
           cartError: this.state.cartError,
           merch: this.state.merch,
           services: this.state.services,
@@ -175,6 +181,7 @@ export default class GlobalState extends React.Component{
           handleShootLocation: this.handleShootLocation,
           handleCart: this.handleCart,
           handleFilterList: this.handleFilterList,
+          handleShootLocationToggle: this.handleShootLocationToggle,
         }}>
           
       {this.props.children}

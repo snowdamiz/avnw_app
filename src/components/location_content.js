@@ -27,20 +27,20 @@ export default function LocationContent(props) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={[styles.header, toggle ? styles.header_on : null]} onPress={ _ => setToggle(!toggle)}>
-        <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Photoshoot Location</Text>
+      <TouchableOpacity style={[styles.header, cartContext.shootLocationToggle ? styles.header_on : null]} onPress={ _ => cartContext.handleShootLocationToggle()}>
+        <Text style={[styles.header_text, cartContext.shootLocationToggle ? styles.header_text_on : null]}>Photoshoot Location</Text>
         <View style={styles.header_btns}>
-          { toggle ? (
-            <TouchableOpacity style={styles.edit_img_box}>
-              <Image source={ toggle ? EditOnIMG : EditIMG } style={[styles.header_edit_IMG, toggle ? styles.header_edit_IMG_on : null]} />
+          { cartContext.shootLocationToggle ? (
+            <TouchableOpacity style={styles.edit_img_box} onPress={ _ => props.navigation.navigate('BookingStepThree') }>
+              <Image source={ cartContext.shootLocationToggle ? EditOnIMG : EditIMG } style={[styles.header_edit_IMG, cartContext.shootLocationToggle ? styles.header_edit_IMG_on : null]} />
             </TouchableOpacity>
           ) : null }
-          <TouchableOpacity onPress={ _ => setToggle(!toggle) }>
-            <View style={ toggle ? styles.arrow_btn_up : styles.arrow_btn_down}></View>
+          <TouchableOpacity onPress={ _ => cartContext.handleShootLocationToggle() }>
+            <View style={ cartContext.shootLocationToggle ? styles.arrow_btn_up : styles.arrow_btn_down}></View>
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
-      { toggle ? (
+      { cartContext.shootLocationToggle ? (
         <View style={styles.container_box}>
           <View style={styles.content_g}>
             <Text style={styles.content_title}>Street Address:</Text>

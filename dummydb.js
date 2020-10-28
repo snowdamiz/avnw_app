@@ -41,7 +41,7 @@ export const merch = [
   },
   {
     id: 5,
-    product: "Sweatshirt Square Back Black and White",
+    product: "AV Sweatshirt Black and White",
     price: 20,
     desc: "Sweatshirt with a AVNW logo on the back",
     category: "dfg",
