@@ -23,6 +23,8 @@ export default class GlobalState extends React.Component{
       profile_image: '',
     },
     shootLocationToggle: false,
+    basicInfoToggle: false,
+    shippingInfoToggle: false,
     shootLocation: [],
     services: [],
     curPhotographer: null,
@@ -158,6 +160,16 @@ export default class GlobalState extends React.Component{
     this.setState({ shootLocationToggle: !toggle });
   }
 
+  handleBasicInfoToggle = _ => {
+    let toggle = this.state.basicInfoToggle;
+    this.setState({ basicInfoToggle: !toggle });
+  }
+
+  handleShippingInfoToggle = _ => {
+    let toggle = this.state.shippingInfoToggle;
+    this.setState({ shippingInfoToggle: !toggle });
+  }
+
   render(){
     return (
       <Context.Provider 
@@ -169,6 +181,8 @@ export default class GlobalState extends React.Component{
           cart: this.state.cart,
           shootLocation: this.state.shootLocation,
           shootLocationToggle: this.state.shootLocationToggle,
+          basicInfoToggle: this.state.basicInfoToggle,
+          shippingInfoToggle: this.state.shippingInfoToggle,
           cartError: this.state.cartError,
           merch: this.state.merch,
           services: this.state.services,
@@ -182,6 +196,8 @@ export default class GlobalState extends React.Component{
           handleCart: this.handleCart,
           handleFilterList: this.handleFilterList,
           handleShootLocationToggle: this.handleShootLocationToggle,
+          handleBasicInfoToggle: this.handleBasicInfoToggle,
+          handleShippingInfoToggle: this.handleShippingInfoToggle,
         }}>
           
       {this.props.children}

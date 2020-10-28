@@ -8,6 +8,8 @@ export default React.createContext({
   cart: [],
   shootLocation: [],
   shootLocationToggle: false,
+  basicInfoToggle: false,
+  shippingInfoToggle: false,
   cartError: false,
   merch: [],
   services: [],
@@ -22,4 +24,6 @@ export default React.createContext({
   setCurPhotographer: (el) => {},
   setCurGallery: (el) => {},
   handleShootLocationToggle: _ => {},
+  handleBasicInfoToggle: _ => {},
+  handlShippingInfoToggle: _ => {},
 });
