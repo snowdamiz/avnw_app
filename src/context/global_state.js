@@ -37,6 +37,7 @@ export default class GlobalState extends React.Component{
     this.getUser();
     this.getPhotographers();
     this.getServices();
+    this.getMerch();
   };
 
   getUser = _ => {
@@ -54,6 +55,11 @@ export default class GlobalState extends React.Component{
     this.setState({ services: getServices });
   }
 
+  getMerch = _ => {
+    let getMerch = merch
+    this.setState({ merch: getMerch })
+  }
+
   setCurPhotographer = el => {
     this.setState({ curPhotographer: el });
   }
@@ -65,7 +71,6 @@ export default class GlobalState extends React.Component{
   getMerchCategories = _ => {
     let getMerchCategories = [];
     let getMerch = merch;
-    this.setState({ merch: getMerch });
   
     for (let i = 0; i < getMerch.length; i++) {
       getMerchCategories.push(getMerch[i].category);
@@ -76,7 +81,6 @@ export default class GlobalState extends React.Component{
 
   handleShootLocation = (el) => {
     this.setState({ shootLocation: el });
-    console.log(this.state.shootLocation);
   }
  
   handleCart = (prod) => {

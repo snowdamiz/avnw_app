@@ -98,13 +98,13 @@ export default function Header(props) {
           </TouchableNativeFeedback>
         </View>
 
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <View style={styles.navBtnBox}>
             <View style={styles.navBtnLine}></View>
             <View style={styles.navBtnLine}></View>
             <View style={styles.navBtnLine}></View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

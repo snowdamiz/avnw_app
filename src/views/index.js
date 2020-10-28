@@ -41,11 +41,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    // backgroundColor: '#009cd8',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    // borderWidth: 1,
-    // borderColor: 'red',
     width: '100%',
     height: '100%',
   },
@@ -55,18 +52,15 @@ const styles = StyleSheet.create({
       height: '100%',
       justifyContent: 'space-between',
       alignItems: 'center',
-      // borderWidth: 1,
     },
 
       logo: {
         width: 220,
         height: 220,
-        // marginBottom: 60,
         marginTop: 80,
       },
 
       buttons_container: {
-        // borderWidth: 1,
         marginBottom: 40,
         justifyContent: 'space-between',
         zIndex: 1,
@@ -79,14 +73,6 @@ const styles = StyleSheet.create({
           borderColor: '#fff',
           backgroundColor: '#fff',
           borderRadius: 12,
-          shadowColor: '#000000',
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 1,
-          shadowRadius: 5,
-          elevation: 5,
         },
 
         shoot_btn_text: {
@@ -99,19 +85,11 @@ const styles = StyleSheet.create({
         merch_btn: {
           width: Dimensions.get('screen').width - 80,
           padding: 14,
-          marginTop: 14,
+          marginTop: 18,
           borderWidth: 2,
           borderColor: '#00597b',
           backgroundColor: '#005d80',
           borderRadius: 12,
-          // shadowColor: '#000000',
-          // shadowOffset: {
-          //   width: 0,
-          //   height: 2,
-          // },
-          // shadowOpacity: 1,
-          // shadowRadius: 5,
-          // elevation: 5,
         },
 
         merch_btn_text: {
@@ -132,6 +110,5 @@ const styles = StyleSheet.create({
     gradient: {
       padding: 0,
       alignItems: 'center',
-      // borderRadius: 6,
     },
 });

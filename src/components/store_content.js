@@ -10,40 +10,43 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
 
 export default function StoreContent(props) {
-  const [merchResults, setMerchResults] = useState([]);
+  // const [merchResults, setMerchResults] = useState([]);
   const cartContext = useContext(Context);
 
-  useEffect(() => {
-    let filterList = cartContext.filterList;
-    let merch = cartContext.merch;
-    let results = [];
+  // useEffect(() => {
+    // let filterList = cartContext.filterList;
+    // let merch = cartContext.merch;
+    // let results = [];
 
-    filterList.forEach(e1 => 
-      merch.forEach(e2 => {
-      if (e1 === e2.category) {
-        results.push(e2);
-      }
-    }))
+    // filterList.forEach(e1 => 
+    //   merch.forEach(e2 => {
+    //   if (e1 === e2.category) {
+    //     results.push(e2);
+    //   }
+    // }))
 
-    if (results.length < 1) {
-      setMerchResults(cartContext.merch);
-    } else {
-      setMerchResults(results);
-    }
-  },[cartContext.filterList]);
+    // if (results.length < 1) {
+    //   setMerchResults(cartContext.merch);
+    // } else {
+    //   setMerchResults(results);
+    // }
+  // },[cartContext.filterList]);
 
   const handleCartToggle = (prod) => cartContext.handleCart(prod);
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.store}>
-        {merchResults.map((el) => {
+        {cartContext.merch.map((el) => {
           return (
             <View style={[styles.prod_box, styles.shadow1]} key={el.id}>
-              <View style={styles.prod_img}></View>
+              <View style={styles.prod_img_box}>
+                <Image source={{ uri: el.image }} style={styles.prod_img} />
+              </View>
               <View style={styles.prod_price}>
                 <Text style={styles.prod_price_text}>{`$${el.price}`}</Text>
               </View>
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
 
       prod_box: {
         width: Dimensions.get('screen').width / 2 - 24,
-        height: 280,
+        // height: 280,
         borderRadius: 8,
         borderColor: '#E2E2E2',
         backgroundColor: '#fff',
@@ -119,12 +122,17 @@ const styles = StyleSheet.create({
         // elevation: 5,
       },
 
-        prod_img: {
+        prod_img_box: {
           width: '100%',
           height: 120,
           borderTopRightRadius: 8,
           borderTopLeftRadius: 8,
         },
+
+          prod_img: {
+            width: '100%',
+            height: 120,
+          },
 
         prod_price: {
           position: 'absolute',
@@ -134,12 +142,12 @@ const styles = StyleSheet.create({
           borderWidth: 1,
           borderRadius: 22,
           borderColor: '#01A9A5',
-          width: 44,
-          height: 44,
+          width: 40,
+          height: 40,
           justifyContent: 'center',
           alignItems: 'center',
           top: 100,
-          right: 14,
+          right: 10,
           zIndex: 2,
         },
 
@@ -152,7 +160,7 @@ const styles = StyleSheet.create({
         prod_desc: {
           justifyContent: 'space-between',
           width: '100%',
-          height: 160,
+          height: 180,
           borderBottomRightRadius: 8,
           borderBottomLeftRadius: 8,
           padding: 12,
@@ -163,13 +171,14 @@ const styles = StyleSheet.create({
             paddingBottom: 5,
             color: '#666666',
             fontWeight: 'bold',
-            fontSize: 16,
-            width: 100,
+            fontSize: 14,
+            width: 105,
           },
 
           prod_desc_text: {
             color: 'gray',
-            fontSize: 14,
+            fontSize: 13,
+            paddingTop: 4,
           },
 
         cart_btn: {
