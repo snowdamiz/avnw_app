@@ -9,6 +9,7 @@ import CartIMG from '../assets/cart.png';
 import ProfileIMG from '../assets/profile.png';
 import LogoIMG from '../assets/logo.png';
 import CloseIMG from '../assets/close.png';
+import FilterIMG from '../assets/filter.png';
 
 import {
   StyleSheet,
@@ -36,26 +37,26 @@ export default function Header(props) {
 
   return (
     <View style={styles.container}>
-      <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Store')} >
-        <LinearGradient colors={['#01aef1', '#009cd8', '#009cd8']} style={styles.gradient} >
+      <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Index')} >
+        {/* <LinearGradient colors={['#01aef1', '#009cd8', '#009cd8']} style={styles.gradient} > */}
           <View name="logo" style={styles.logo}>
             <Image source={LogoIMG} style={styles.logoIMG} />
           </View>
-        </LinearGradient>
+        {/* </LinearGradient> */}
       </TouchableNativeFeedback>
 
       <View name="navBox" style={styles.navBox}>
-        { route.name === 'Store' ? (
+        {/* { route.name === 'Store' ? (
           <TouchableNativeFeedback onPress={handleFilterToggle} >
             <View name="filter" style={styles.filter}>
               { filterToggle ? (
                 <Image source={CloseIMG} style={styles.close_IMG} />
               ) : (
-                <Text style={styles.filterText}>Filter</Text>
+                <Image source={FilterIMG} style={styles.filter_IMG} />
               ) }
             </View>
           </TouchableNativeFeedback>
-        ) :null }
+        ) :null } */}
 
         { filterToggle ? (
           <View name="filter_container" style={styles.filter_container}>
@@ -96,6 +97,14 @@ export default function Header(props) {
             </View>  
           </TouchableNativeFeedback>
         </View>
+
+        <TouchableOpacity>
+          <View style={styles.navBtnBox}>
+            <View style={styles.navBtnLine}></View>
+            <View style={styles.navBtnLine}></View>
+            <View style={styles.navBtnLine}></View>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -108,14 +117,15 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingRight: 15,
     paddingLeft: 15,
-    paddingBottom: 8,
+    paddingBottom: 15,
     justifyContent: 'space-between',
     zIndex: 3,
+    backgroundColor: '#009cd8',
   },
 
     logo: {
-      width: 60,
-      height: 60,
+      width: 40,
+      height: 40,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 6,
@@ -133,26 +143,28 @@ const styles = StyleSheet.create({
     },
 
     navBox: {
-      height: 60,
+      height: 42,
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'center',
       alignSelf: 'flex-end',
+      // borderWidth: 1,
     },
 
       filter: {
-        width: 60,
-        height: 60,
+        width: 42,
+        height: 42,
         backgroundColor: '#fff',
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.28,
-        shadowRadius: 3.2,
-        elevation: 8,
+        // shadowColor: "#000",
+        // shadowOffset: {
+        //   width: 0,
+        //   height: 2,
+        // },
+        // shadowOpacity: 0.28,
+        // shadowRadius: 3.2,
+        // elevation: 8,
         marginRight: 15,
-        borderRadius: 6,
+        borderRadius: 21,
         justifyContent: 'center',
         alignItems: 'center',
       },
@@ -163,10 +175,9 @@ const styles = StyleSheet.create({
         opacity: 0.35,
       },
 
-      filterText: {
-        color: '#000',
-        fontWeight: 'bold',
-        opacity: 0.4,
+      filter_IMG: {
+        width: 26,
+        height: 26,
       },
 
       filter_container: {
@@ -221,36 +232,37 @@ const styles = StyleSheet.create({
           },
 
       menu_wrap: {
-        width: 120,
-        height: 60,
-        borderRadius: 6,
+        width: 100,
+        height: 42,
+        borderRadius: 21,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
         shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.28,
-        shadowRadius: 3.2,
-        elevation: 8,
+        // shadowOffset: {
+        //   width: 0,
+        //   height: 2,
+        // },
+        // shadowOpacity: 0.28,
+        // shadowRadius: 3.2,
+        // elevation: 8,
+        // borderWidth: 1,
       },
 
         cart: {
-          width: 60,
-          height: 60,
+          width: 52,
+          height: 42,
           justifyContent: 'center',
           alignItems: 'center',
-          borderTopLeftRadius: 6,
-          borderBottomLeftRadius: 6,
+          borderTopLeftRadius: 21,
+          borderBottomLeftRadius: 21,
           backgroundColor: '#fff',
         },
 
         cartIMG: {
           width: 24,
           height: 24,
-          opacity: 0.35,
+          opacity: 0.4,
           marginLeft: 8,
         },
 
@@ -258,8 +270,8 @@ const styles = StyleSheet.create({
           width: 16,
           height: 16,
           borderRadius: 8,
-          bottom: 12,
-          left: 20,
+          bottom: 6,
+          left: 14,
           position: 'absolute',
           backgroundColor: 'red',
           justifyContent: 'center',
@@ -273,12 +285,12 @@ const styles = StyleSheet.create({
           },
 
         profile: {
-          width: 60,
-          height: 60,
+          width: 52,
+          height: 42,
           justifyContent: 'center',
           alignItems: 'center',
-          borderTopRightRadius: 6,
-          borderBottomRightRadius: 6,
+          borderTopRightRadius: 21,
+          borderBottomRightRadius: 21,
           backgroundColor: '#fff',
         },
 
@@ -286,6 +298,21 @@ const styles = StyleSheet.create({
           width: 24,
           height: 24,
           marginRight: 8,
-          opacity: 0.35,
-        }
+          opacity: 0.4,
+        },
+
+        navBtnBox: {
+          width: 26,
+          height: 20,
+          // borderWidth: 1,
+          marginLeft: 20,
+          justifyContent: 'space-between',
+        },
+
+        navBtnLine: {
+          width: '100%',
+          height: 4,
+          borderRadius: 6,
+          backgroundColor: '#fdfdfd',
+        },
 });

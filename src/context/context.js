@@ -2,6 +2,9 @@ import React from 'react';
 
 export default React.createContext({
   user: [],
+  photographers: [],
+  curPhotographer: null,
+  curGallery: [],
   cart: [],
   cartError: false,
   merch: [],
@@ -11,5 +14,7 @@ export default React.createContext({
   handleCart : (prod) => {},
   changeItemQuantity: (q, el) => {},
   handleFilterList: (id) => {},
-  getMerch : _ => {}
+  getMerch : _ => {},
+  setCurPhotographer: (el) => {},
+  setCurGallery: (el) => {},
 });

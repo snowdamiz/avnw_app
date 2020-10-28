@@ -49,7 +49,7 @@ export default function CartContent(props) {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.cart}>
-        <View style={styles.cart_container}>
+        <View style={[styles.cart_container, styles.shadow1]}>
           <View style={styles.cart_container_header}>
             <Text style={styles.cart_container_header_text}>Item</Text>
             <View style={styles.cart_container_header_QP}>
@@ -117,7 +117,18 @@ export default function CartContent(props) {
   );
 };
 
+const elevationShadowStyle = (elevation) => {
+  return {
+    elevation,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 0.5 * elevation },
+    shadowOpacity: 0.3,
+    shadowRadius: 0.8 * elevation
+  };
+}
+
 const styles = StyleSheet.create({
+  shadow1: elevationShadowStyle(5),
   container: {
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -147,12 +158,12 @@ const styles = StyleSheet.create({
 
       cart_container: {
         width: '100%',
-        marginTop: 8,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.28,
-        shadowRadius: 6,
-        elevation: 4,
+        marginTop: 15,
+        // shadowColor: "#000",
+        // shadowOffset: { width: 0, height: 0 },
+        // shadowOpacity: 0.28,
+        // shadowRadius: 6,
+        // elevation: 4,
         borderRadius: 6,
       },
 

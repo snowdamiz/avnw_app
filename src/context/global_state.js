@@ -1,6 +1,6 @@
 import React from 'react';
 import Context from './context';
-import { merch, user } from '../../dummydb.js';
+import { merch, user, photographers } from '../../dummydb.js';
 
 export default class GlobalState extends React.Component{
   state = {
@@ -15,6 +15,14 @@ export default class GlobalState extends React.Component{
       state: '',
       zip: '',
     },
+    photographers: {
+      id: '',
+      name: '',
+      bio: ``,
+      profile_image: '',
+    },
+    curPhotographer: null,
+    curGallery: [],
     cart: [],
     cartError: false,
     merch: [],
@@ -25,13 +33,25 @@ export default class GlobalState extends React.Component{
   componentDidMount() {
     this.getMerchCategories();
     this.getUser();
+    this.getPhotographers();
   };
 
   getUser = _ => {
     let curUser = user;
     this.setState({ user: curUser });
-    // console.log(curUser);
-    // console.log(this.state.user);
+  }
+
+  getPhotographers = _ => {
+    let curPhotographers = photographers;
+    this.setState({ photographers: curPhotographers });
+  }
+
+  setCurPhotographer = el => {
+    this.setState({ curPhotographer: el });
+  }
+
+  setCurGallery = el => {
+    this.setState({ curGallery: el });
   }
   
   getMerchCategories = _ => {
@@ -121,11 +141,16 @@ export default class GlobalState extends React.Component{
       <Context.Provider 
         value={{
           user: this.state.user,
+          photographers: this.state.photographers,
+          curPhotographer: this.state.curPhotographer,
+          curGallery: this.state.curGallery,
           cart: this.state.cart,
           cartError: this.state.cartError,
           merch: this.state.merch,
           filterList: this.state.filterList,
           isUserAuthenticated: this.state.isUserAuthenticated,
+          setCurGallery: this.setCurGallery,
+          setCurPhotographer: this.setCurPhotographer,
           getUser: this.getUser,
           changeItemQuantity: this.changeItemQuantity,
           handleCart: this.handleCart,

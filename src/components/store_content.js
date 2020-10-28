@@ -42,7 +42,7 @@ export default function StoreContent(props) {
       <ScrollView contentContainerStyle={styles.store}>
         {merchResults.map((el) => {
           return (
-            <View style={styles.prod_box} key={el.id}>
+            <View style={[styles.prod_box, styles.shadow1]} key={el.id}>
               <View style={styles.prod_img}></View>
               <View style={styles.prod_price}>
                 <Text style={styles.prod_price_text}>{`$${el.price}`}</Text>
@@ -72,14 +72,25 @@ export default function StoreContent(props) {
   );
 };
 
+const elevationShadowStyle = (elevation) => {
+  return {
+    elevation,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 0.5 * elevation },
+    shadowOpacity: 0.3,
+    shadowRadius: 0.8 * elevation
+  };
+}
+
+
 const styles = StyleSheet.create({
+  shadow1: elevationShadowStyle(5),
   container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    // borderWidth: 1,
   },
 
     store: {
@@ -90,30 +101,29 @@ const styles = StyleSheet.create({
       paddingRight: 15,
       paddingLeft: 15,
       paddingBottom: 15,
+      paddingTop: 5,
     },
 
       prod_box: {
         width: Dimensions.get('screen').width / 2 - 24,
         height: 280,
-        borderRadius: 6,
+        borderRadius: 8,
         borderColor: '#E2E2E2',
         backgroundColor: '#fff',
         marginTop: 8,
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 0,
-        },
-        shadowOpacity: 0.28,
-        shadowRadius: 6,
-        elevation: 5,
+        marginBottom: 7,
+        // shadowColor: "#000",
+        // shadowOffset: { width: 0, height: 0 },
+        // shadowOpacity: 0.28,
+        // shadowRadius: 6,
+        // elevation: 5,
       },
 
         prod_img: {
           width: '100%',
           height: 120,
-          borderTopRightRadius: 6,
-          borderTopLeftRadius: 6,
+          borderTopRightRadius: 8,
+          borderTopLeftRadius: 8,
         },
 
         prod_price: {
@@ -143,15 +153,15 @@ const styles = StyleSheet.create({
           justifyContent: 'space-between',
           width: '100%',
           height: 160,
-          borderBottomRightRadius: 6,
-          borderBottomLeftRadius: 6,
+          borderBottomRightRadius: 8,
+          borderBottomLeftRadius: 8,
           padding: 12,
           backgroundColor: '#F2F2F2',
         },
 
           prod_desc_title: {
             paddingBottom: 5,
-            color: 'grey',
+            color: '#666666',
             fontWeight: 'bold',
             fontSize: 16,
             width: 100,
@@ -170,7 +180,7 @@ const styles = StyleSheet.create({
           height: 42,
           borderWidth: 1,
           borderColor: '#DDDDDD',
-          borderRadius: 6,
+          borderRadius: 8,
         },
 
           cart_btn_text: {
@@ -186,7 +196,7 @@ const styles = StyleSheet.create({
           height: 42,
           borderWidth: 1,
           borderColor: '#DDDDDD',
-          borderRadius: 6,
+          borderRadius: 8,
         },
 
           cart_btn_text_on: {
@@ -194,14 +204,9 @@ const styles = StyleSheet.create({
             fontWeight: 'bold',
             fontSize: 12,
           },
-
-    book_btn_wrap: {
-      paddingTop: 15,
-    },
-
+          
       gradient: {
-        // marginBottom: 15,
         alignItems: 'center',
-        borderRadius: 6, 
+        borderRadius: 8, 
       },
 });
