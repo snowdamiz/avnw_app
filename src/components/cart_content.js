@@ -53,7 +53,7 @@ export default function CartContent(props) {
           <View style={styles.cart_container_header}>
             <Text style={styles.cart_container_header_text}>Item</Text>
             <View style={styles.cart_container_header_QP}>
-              <Text style={styles.cart_container_header_QP_text}>Quantity</Text>
+              <Text style={styles.cart_container_header_QP_text}>Ct</Text>
               <Text style={styles.cart_container_header_QP_text}>Price</Text>
             </View>
           </View>
@@ -227,16 +227,17 @@ const styles = StyleSheet.create({
 
           cart_container_content_QP: {
             flexDirection: 'row',
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             alignItems: 'center',
             marginRight: 8,
           },
 
             cart_container_content_Q_input: {
               height: 24,
-              width: 24,
+              // width: 24,
+              padding: 1,
               borderWidth: 1,
-              marginRight: 60,
+              marginRight: 22,
               justifyContent: 'center',
               alignItems: 'center',
               textAlign: 'center',
