@@ -161,11 +161,6 @@ const styles = StyleSheet.create({
       cart_container: {
         width: '100%',
         marginTop: 15,
-        // shadowColor: "#000",
-        // shadowOffset: { width: 0, height: 0 },
-        // shadowOpacity: 0.28,
-        // shadowRadius: 6,
-        // elevation: 4,
         borderRadius: 6,
       },
 

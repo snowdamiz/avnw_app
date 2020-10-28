@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect, useContext } from 'react';
 import Context from '../context/context.js';
 import Instagram from '../insta/instagram.js';
 
@@ -66,32 +65,20 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    // borderWidth: 1,
-    // borderColor: 'red',
-    // width: '100%',
-    // height: '100%',
-    // borderWidth: 1,
   },
 
     content: {
-      // width: '100%',
       width: Dimensions.get('screen').width,
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      // flexWrap: 'wrap',
-      // borderWidth: 1,
-      // borderColor: 'red',
-      // padding: 20,
     },
 
     content_header: {
       marginTop: 15,
-      // width: Dimensions.get('screen').width,
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      // borderWidth: 1,
     },
 
     close_btn: {
@@ -111,35 +98,24 @@ const styles = StyleSheet.create({
       height: 160,
       borderRadius: 80,
       marginTop: -20,
-      // shadowColor: '#000',
-      // shadowOffset: { width: 0, height: 2 },
-      // shadowOpacity: 1,
-      // shadowRadius: 1,
-      // elevation: 4,
-      // zIndex: 3,
-      // borderWidth: 1,
     },
 
     profile_info: {
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'row',
-      // width: 200,
-      // height: 45,
       paddingTop: 5,
       paddingBottom: 5,
       paddingLeft: 15,
       paddingRight: 15,
       marginTop: -30,
       borderRadius: 12,
-      // borderWidth: 1,
       backgroundColor: '#fefefe',
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 1,
       shadowRadius: 1,
       elevation: 4,
-      // top: 0,
     },
 
       instagram_img: {
@@ -152,15 +128,12 @@ const styles = StyleSheet.create({
       },
 
       gallery_box: {
-        // width: '100%',
         padding: 20,
-        // borderWidth: 1,
         marginTop: 10,
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
         alignItems: 'center',
-        // flex: 1,
       },
 
         gallery_img: {
@@ -168,7 +141,6 @@ const styles = StyleSheet.create({
           height: 200,
           marginBottom: 15,
           borderRadius: 10,
-          // borderWidth: 2,
           borderColor: '#565656',
         },
 });

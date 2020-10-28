@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 
 import Context from '../context/context.js';
@@ -8,8 +7,6 @@ import { merch_categories } from '../../dummydb.js';
 import CartIMG from '../assets/cart.png';
 import ProfileIMG from '../assets/profile.png';
 import LogoIMG from '../assets/logo.png';
-import CloseIMG from '../assets/close.png';
-import FilterIMG from '../assets/filter.png';
 
 import {
   StyleSheet,
@@ -38,11 +35,9 @@ export default function Header(props) {
   return (
     <View style={styles.container}>
       <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Index')} >
-        {/* <LinearGradient colors={['#01aef1', '#009cd8', '#009cd8']} style={styles.gradient} > */}
-          <View name="logo" style={styles.logo}>
-            <Image source={LogoIMG} style={styles.logoIMG} />
-          </View>
-        {/* </LinearGradient> */}
+        <View name="logo" style={styles.logo}>
+          <Image source={LogoIMG} style={styles.logoIMG} />
+        </View>
       </TouchableNativeFeedback>
 
       <View name="navBox" style={styles.navBox}>
@@ -97,14 +92,6 @@ export default function Header(props) {
             </View>  
           </TouchableNativeFeedback>
         </View>
-
-        {/* <TouchableOpacity>
-          <View style={styles.navBtnBox}>
-            <View style={styles.navBtnLine}></View>
-            <View style={styles.navBtnLine}></View>
-            <View style={styles.navBtnLine}></View>
-          </View>
-        </TouchableOpacity> */}
       </View>
     </View>
   );

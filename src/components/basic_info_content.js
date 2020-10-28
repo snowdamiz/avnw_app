@@ -10,10 +10,7 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableNativeFeedback,
-  TextInput,
   TouchableOpacity,
-  ScrollView,
   Image,
   Dimensions,
 } from 'react-native';
@@ -21,21 +18,6 @@ import {
 export default function ShippingContent(props) {
   const cartContext = useContext(Context);
   const route = useRoute();
-
-  // useEffect(() => {
-  //   let cart = cartContext.cart;
-  //   let total = 0;
-  //   cart.map(el => {
-  //     total = total + (el.price * el.quantity);
-  //   })
-
-  //   setTotal(total);
-  // },[cartContext.cart])
-
-  // const getUser = () => {
-  //   if (cartContext.user.id === "") return ''
-  //   else return 'MerchOrderOverview'
-  // }
 
   return (
     <View style={styles.container}>
@@ -83,7 +65,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
-      padding: 12,
+      padding: 15,
       borderBottomColor: '#DDDDDD',
       borderTopColor: '#fff',
       borderLeftColor: '#fff',

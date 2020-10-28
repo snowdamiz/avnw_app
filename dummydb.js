@@ -87,7 +87,7 @@ export const merch = [
     category: "dfg",
     quantity: 1,
     type: 'merch',
-    iamge: 'https://i.ibb.co/ZhCbxsL/item-10.jpg',
+    image: 'https://i.ibb.co/ZhCbxsL/item-10.jpg',
   },
   {
     id: 10,

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 
@@ -10,8 +10,6 @@ import {
   SafeAreaView,
   StatusBar,
   View,
-  ScrollView,
-  Image,
   TouchableOpacity,
   TextInput,
   Text,
@@ -187,7 +185,7 @@ const styles = StyleSheet.create({
         zip_input: { width: 100,},
 
     continue_btn: {
-      marginTop: 30,
+      marginTop: 25,
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',

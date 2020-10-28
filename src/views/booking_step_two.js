@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 
@@ -11,7 +11,6 @@ import {
   StatusBar,
   View,
   ScrollView,
-  Image,
   TouchableOpacity,
   Text,
 } from 'react-native';
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
           borderRadius: 8,
           backgroundColor: '#f1f1f1',
           borderWidth: 1,
-          borderColor: 'lightgray',
+          borderColor: '#ebebeb',
           marginBottom: 15,
           flexDirection: 'column',
           justifyContent: 'center',
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
               fontSize: 15,
               fontWeight: 'bold',
               color: '#000',
-              opacity: 0.6,
+              opacity: 0.55,
             },
 
             service_info_desc: {
@@ -174,7 +173,7 @@ const styles = StyleSheet.create({
                 fontSize: 14,
                 fontWeight: 'bold',
                 marginRight: 5,
-                opacity: 0.6,
+                opacity: 0.55,
               },
 
               service_btns_price_circle: {

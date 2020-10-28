@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import BG from '../assets/bg3.png';

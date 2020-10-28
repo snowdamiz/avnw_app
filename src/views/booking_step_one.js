@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 
@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 
 export default function BookingStepOne(props) {
-  const [showTip, setShowTip] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
   const route = useRoute();
@@ -165,10 +164,10 @@ const styles = StyleSheet.create({
         },
 
         details_bio: {
-          fontSize: 14,
+          fontSize: 13,
           color: '#000',
-          lineHeight: 19,
-          opacity: 0.5,
+          lineHeight: 18.5,
+          opacity: 0.55,
         },
 
         details_btn_box: {

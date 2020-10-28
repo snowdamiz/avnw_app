@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
 
 import Context from '../context/context.js';
 import CartContent from '../components/cart_content.js';
@@ -8,12 +7,8 @@ import ShippingContent from './shipping_content.js';
 import LocationContent from './location_content.js';
 
 import {
-  Dimensions,
   StyleSheet,
   View,
-  Text,
-  TextInput,
-  TouchableOpacity,
   ScrollView,
 } from 'react-native';
 
@@ -29,21 +24,13 @@ export default function MerchOrderOverviewContent(props) {
       results.push(cartContext.cart[i].type);
     }
 
-    if (results.includes('merch')) {
-      setHasMerch(true);
-    } else {
-      setHasMerch(false);
-    }
+    if (results.includes('merch')) setHasMerch(true);
+    else setHasMerch(false);
 
-    if (results.includes('service')) {
-      setHasService(true);
-    } else {
-      setHasService(false);
-    }
+    if (results.includes('service')) setHasService(true);
+    else setHasService(false);
+
   }, [cartContext.cart]);
-
-  console.log(hasMerch);
-  console.log(hasService);
 
   return (
     <View style={styles.container}>

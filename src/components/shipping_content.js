@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useContext } from 'react';
 import { useRoute } from '@react-navigation/native';
 
-import RemoveIMG from '../assets/error.png';
 import EditIMG from '../assets/edit.png';
 import Context from '../context/context.js';
 
@@ -10,10 +8,7 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableNativeFeedback,
-  TextInput,
   TouchableOpacity,
-  ScrollView,
   Image,
   Dimensions,
 } from 'react-native';
@@ -21,21 +16,6 @@ import {
 export default function ShippingContent(props) {
   const cartContext = useContext(Context);
   const route = useRoute();
-
-  // useEffect(() => {
-  //   let cart = cartContext.cart;
-  //   let total = 0;
-  //   cart.map(el => {
-  //     total = total + (el.price * el.quantity);
-  //   })
-
-  //   setTotal(total);
-  // },[cartContext.cart])
-
-  // const getUser = () => {
-  //   if (cartContext.user.id === "") return ''
-  //   else return 'MerchOrderOverview'
-  // }
 
   return (
     <View style={styles.container}>
@@ -77,7 +57,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginRight: 15,
     marginLeft: 15,
-    // marginBottom: 10,
     borderRadius: 6,
     backgroundColor: '#fff',
     shadowColor: "#000",
@@ -92,7 +71,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
-      padding: 12,
+      padding: 15,
       borderBottomColor: '#DDDDDD',
       borderTopColor: '#fff',
       borderLeftColor: '#fff',

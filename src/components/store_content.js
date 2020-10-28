@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import Context from '../context/context.js';
@@ -14,27 +14,7 @@ import {
 } from 'react-native';
 
 export default function StoreContent(props) {
-  // const [merchResults, setMerchResults] = useState([]);
   const cartContext = useContext(Context);
-
-  // useEffect(() => {
-    // let filterList = cartContext.filterList;
-    // let merch = cartContext.merch;
-    // let results = [];
-
-    // filterList.forEach(e1 => 
-    //   merch.forEach(e2 => {
-    //   if (e1 === e2.category) {
-    //     results.push(e2);
-    //   }
-    // }))
-
-    // if (results.length < 1) {
-    //   setMerchResults(cartContext.merch);
-    // } else {
-    //   setMerchResults(results);
-    // }
-  // },[cartContext.filterList]);
 
   const handleCartToggle = (prod) => cartContext.handleCart(prod);
 
@@ -94,6 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
+    backgroundColor: '#fdfdfd',
   },
 
     store: {
@@ -109,22 +90,16 @@ const styles = StyleSheet.create({
 
       prod_box: {
         width: Dimensions.get('screen').width / 2 - 24,
-        // height: 280,
         borderRadius: 8,
-        borderColor: '#E2E2E2',
         backgroundColor: '#fff',
         marginTop: 8,
         marginBottom: 7,
-        // shadowColor: "#000",
-        // shadowOffset: { width: 0, height: 0 },
-        // shadowOpacity: 0.28,
-        // shadowRadius: 6,
-        // elevation: 5,
+        alignItems: 'center',
       },
 
         prod_img_box: {
-          width: '100%',
-          height: 120,
+          width: 110,
+          height: 110,
           borderTopRightRadius: 8,
           borderTopLeftRadius: 8,
         },
@@ -132,6 +107,8 @@ const styles = StyleSheet.create({
           prod_img: {
             width: '100%',
             height: 120,
+            borderTopRightRadius: 8,
+            borderTopLeftRadius: 8,
           },
 
         prod_price: {
@@ -172,7 +149,7 @@ const styles = StyleSheet.create({
             color: '#666666',
             fontWeight: 'bold',
             fontSize: 14,
-            width: 105,
+            width: 100,
           },
 
           prod_desc_text: {

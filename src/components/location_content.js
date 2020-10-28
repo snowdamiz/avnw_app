@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 
 import RemoveIMG from '../assets/error.png';
@@ -10,10 +9,7 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableNativeFeedback,
-  TextInput,
   TouchableOpacity,
-  ScrollView,
   Image,
   Dimensions,
 } from 'react-native';
@@ -27,8 +23,6 @@ export default function LocationContent(props) {
   useEffect( _ => {
     setShootLocation(cartContext.shootLocation);
   }, [cartContext.shootLocation])
-
-  console.log(cartContext.shootLocation)
 
   return (
     <View style={styles.container}>
@@ -84,7 +78,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
-      padding: 12,
+      padding: 15,
       borderBottomColor: '#DDDDDD',
       borderTopColor: '#fff',
       borderLeftColor: '#fff',
