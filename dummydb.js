@@ -6,6 +6,7 @@ export const merch = [
     desc: "AVNW Blue and White snap-back hat",
     category: "Hats",
     quantity: 1,
+    type: 'merch',
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const merch = [
     desc: "Alpha Visuals windshield decal",
     category: "Decals",
     quantity: 1,
+    type: 'merch',
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ export const merch = [
     desc: "AVNW logo sweatshirt",
     category: "Sweatshirts",
     quantity: 1,
+    type: 'merch',
   },
   {
     id: 4,
@@ -30,6 +33,7 @@ export const merch = [
     desc: "BMW e46 RDM Photograph (digital)",
     category: "Photos",
     quantity: 1,
+    type: 'merch',
   },
   {
     id: 5,
@@ -38,6 +42,7 @@ export const merch = [
     desc: "Black Alpha Visuals shirt",
     category: "asdf",
     quantity: 1,
+    type: 'merch',
   },
   {
     id: 6,
@@ -46,6 +51,7 @@ export const merch = [
     desc: "BMW e46 RDM Wall Art",
     category: "dfg",
     quantity: 1,
+    type: 'merch',
   }
 ]
 
@@ -57,7 +63,7 @@ export const user = {
   address: "2139 SE Road St",
   unit: "",
   city: "Portland",
-  state: "Oregon",
+  state: "OR",
   zip: "97223",
 }
 
@@ -108,5 +114,48 @@ export const merch_categories = [
   {
     id: "4",
     category: "Photos",
+  },
+]
+
+export const services = [
+  {
+    id: '1',
+    product: 'Car Shoot',
+    desc: 'Up to 10 photos. Must be on Sunday before, or during RDM',
+    price: 40,
+    type: 'service',
+    quantity: 1,
+  },
+  {
+    id: '2',
+    product: 'Portrait Session',
+    desc: 'Up to 11 photos. Must be on Sunday before, or during RDM',
+    price: 40,
+    type: 'service',
+    quantity: 1,
+  },
+  {
+    id: '3',
+    product: 'Wedding or Engagement',
+    desc: 'Up to 12 photos. Must be on Sunday before, or during RDM',
+    price: 40,
+    type: 'service',
+    quantity: 1,
+  },
+  {
+    id: '4',
+    product: 'Rolling Shots',
+    desc: 'Up to 13 photos. Must be on Sunday before, or during RDM',
+    price: 40,
+    type: 'service',
+    quantity: 1,
+  },
+  {
+    id: '5',
+    product: 'Family Session',
+    desc: 'Up to 14 photos. Must be on Sunday before, or during RDM',
+    price: 40,
+    type: 'service',
+    quantity: 1,
   },
 ]

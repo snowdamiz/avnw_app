@@ -7,6 +7,8 @@ import GlobalState from './src/context/global_state.js';
 import Index from './src/views/index.js';
 import Store from './src/views/store.js';
 import BookingStepOne from './src/views/booking_step_one.js';
+import BookingStepTwo from  './src/views/booking_step_two.js';
+import BookingStepThree from './src/views/booking_step_three.js';
 import Cart from './src/views/cart.js';
 import Profile from './src/views/profile.js';
 import Login from './src/views/login.js';
@@ -27,6 +29,12 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="BookingStepOne">
             { props => <BookingStepOne {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="BookingStepTwo">
+            { props => <BookingStepTwo {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="BookingStepThree">
+            { props => <BookingStepThree {...props} />}
           </Stack.Screen>
           <Stack.Screen name="Cart">
             { props => <Cart {...props} />}

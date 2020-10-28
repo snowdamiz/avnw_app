@@ -74,10 +74,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     width: Dimensions.get('screen').width - 30,
-    marginTop: 20,
+    marginTop: 15,
     marginRight: 15,
     marginLeft: 15,
-    marginBottom: 10,
+    // marginBottom: 10,
     borderRadius: 6,
     backgroundColor: '#fff',
     shadowColor: "#000",
@@ -102,13 +102,13 @@ const styles = StyleSheet.create({
       header_text: {
         fontSize: 15,
         fontWeight: 'bold',
-        opacity: 0.45,
+        opacity: 0.5,
       },
 
       header_edit_IMG: {
         width: 16,
         height: 16,
-        opacity: 0.45,
+        opacity: 0.5,
       },
 
     content: {

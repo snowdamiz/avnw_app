@@ -18,13 +18,6 @@ import {
 export default function BookingStepOne(props) {
   const [showTip, setShowTip] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
-  // const [curPhotographer, setCurPhotographer] = useState();
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShowTip(false);
-    }, 3000)
-  },[])
 
   const route = useRoute();
   const cartContext = useContext(Context);
@@ -33,11 +26,6 @@ export default function BookingStepOne(props) {
     setShowDetails(true);
     cartContext.setCurPhotographer(el);
   }
-
-  
-  // console.log(curPhotographer);;
-  // console.log(cartContext.photographers);
-  // console.log(showDetails);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -62,12 +50,6 @@ export default function BookingStepOne(props) {
                 </TouchableOpacity>
               )
             })}
-            { showTip ? (
-              <View style={styles.tool_tip_box}>
-                <View style={styles.tool_tip_triangle}></View>
-                <Text style={styles.tool_tip}>Select one of us to learn more!</Text>
-              </View>
-            ) : null}
           </View>
           { showDetails ? (
             <View style={styles.details_box}>
@@ -79,7 +61,9 @@ export default function BookingStepOne(props) {
                   onPress={ _ => props.navigation.navigate('Gallery')}>
                   <Text style={styles.gallery_btn_text}>See my Gallery</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[ styles.details_btn, styles.choose_btn]}>
+                <TouchableOpacity
+                  style={[ styles.details_btn, styles.choose_btn]}
+                  onPress={ _ => props.navigation.navigate('BookingStepTwo')}>
                   <Text style={styles.choose_btn_text}>Choose {cartContext.curPhotographer.name}</Text>
                 </TouchableOpacity>
               </View>
@@ -148,35 +132,8 @@ const styles = StyleSheet.create({
           borderRadius: 35,
         },
 
-      tool_tip_box: {
-        position: 'absolute',
-        top: 200,
-      },
-      
-        tool_tip_triangle: {
-          width: 0,
-          height: 0,
-          borderLeftWidth: 15,
-          borderRightWidth: 15,
-          borderBottomWidth: 20,
-          borderStyle: 'solid',
-          backgroundColor: 'transparent',
-          borderLeftColor: 'transparent',
-          borderRightColor: 'transparent',
-          borderBottomColor: '#fefefe',
-          marginLeft: 42,
-        },
-
-        tool_tip: {
-          padding: 12,
-          borderRadius: 10,
-          backgroundColor: '#fefefe',
-          color: '#575757',
-          fontSize: 14,
-        },
-
       details_box: {
-        width: Dimensions.get('screen').width - 40,
+        width: Dimensions.get('screen').width - 60,
         padding: 20,
         backgroundColor: '#fefefe',
         marginTop: 25,
@@ -202,14 +159,16 @@ const styles = StyleSheet.create({
         details_name: {
           fontSize: 22,
           fontWeight: 'bold',
-          color: '#565656',
+          color: '#000',
           paddingBottom: 12,
+          opacity: 0.6,
         },
 
         details_bio: {
-          fontSize: 15,
-          color: '#565656',
-          lineHeight: 18,
+          fontSize: 14,
+          color: '#000',
+          lineHeight: 19,
+          opacity: 0.5,
         },
 
         details_btn_box: {
@@ -219,7 +178,7 @@ const styles = StyleSheet.create({
         },
 
           details_btn: {
-            width: Dimensions.get('screen').width / 2 - 50,
+            width: Dimensions.get('screen').width / 2 - 60,
             padding: 10,
             marginTop: 20,
             borderRadius: 6,
@@ -234,6 +193,7 @@ const styles = StyleSheet.create({
             gallery_btn_text: {
               color: '#fff',
               fontWeight: 'bold',
+              fontSize: 12,
             },
 
           choose_btn: {
@@ -243,5 +203,6 @@ const styles = StyleSheet.create({
             choose_btn_text: {
               color: '#fff',
               fontWeight: 'bold',
+              fontSize: 12,
             }
 });

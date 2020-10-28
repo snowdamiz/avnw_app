@@ -18,44 +18,45 @@ import {
   Dimensions,
 } from 'react-native';
 
-export default function ShippingContent(props) {
+export default function LocationContent(props) {
   const cartContext = useContext(Context);
   const route = useRoute();
 
-  // useEffect(() => {
-  //   let cart = cartContext.cart;
-  //   let total = 0;
-  //   cart.map(el => {
-  //     total = total + (el.price * el.quantity);
-  //   })
+  const [shootLocation, setShootLocation] = useState([]);
 
-  //   setTotal(total);
-  // },[cartContext.cart])
+  useEffect( _ => {
+    setShootLocation(cartContext.shootLocation);
+  }, [cartContext.shootLocation])
 
-  // const getUser = () => {
-  //   if (cartContext.user.id === "") return ''
-  //   else return 'MerchOrderOverview'
-  // }
+  console.log(cartContext.shootLocation)
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.header_text}>Basic Information</Text>
-        <TouchableOpacity style={styles.header_edit}>
+        <Text style={styles.header_text}>Shoot Location</Text>
+        <TouchableOpacity style={styles.header_edit} onPress={ _ => props.navigation.navigate('BookingStepThree')}>
           <Image source={EditIMG} style={styles.header_edit_IMG} />
         </TouchableOpacity>
       </View>
       <View style={styles.content_g}>
-        <Text style={styles.content_title}>Name:</Text>
-        <Text style={styles.content_text}>{cartContext.user.name}</Text>
+        <Text style={styles.content_title}>Street Address:</Text>
+        <Text style={styles.content_text}>{shootLocation.address}</Text>
       </View>
       <View style={styles.content}>
-        <Text style={styles.content_title}>Email:</Text>
-        <Text style={styles.content_text}>{cartContext.user.email}</Text>
+        <Text style={styles.content_title}>Unit Number:</Text>
+        <Text style={styles.content_text}>{shootLocation.unit}</Text>
+      </View>
+      <View style={styles.content_g}>
+        <Text style={styles.content_title}>City:</Text>
+        <Text style={styles.content_text}>{shootLocation.city}</Text>
+      </View>
+      <View style={styles.content}>
+        <Text style={styles.content_title}>State:</Text>
+        <Text style={styles.content_text}>{shootLocation.state}</Text>
       </View>
       <View style={styles.content_gbr}>
-        <Text style={styles.content_title}>Phone:</Text>
-        <Text style={styles.content_text}>{cartContext.user.phone}</Text>
+        <Text style={styles.content_title}>Zip Code:</Text>
+        <Text style={styles.content_text}>{shootLocation.zip}</Text>
       </View>
     </View>
   );
@@ -72,10 +73,10 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: '#fff',
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
     shadowRadius: 5,
-    elevation: 6,
+    elevation: 4,
   },
 
     header: {
@@ -94,7 +95,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
         opacity: 0.5,
-        color: '#000',
       },
 
       header_edit_IMG: {

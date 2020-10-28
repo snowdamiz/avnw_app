@@ -63,16 +63,18 @@ export default function CartContent(props) {
             ) : (
               cartContext.cart.map((el) => {
                 return (
-                  <View style={styles.cart_container_content_box} key={el.id}>
+                  <View style={styles.cart_container_content_box} key={el.desc}>
                     <Text style={styles.cart_container_content_item}>{el.product}</Text>
                     <View style={styles.cart_container_content_QP}>
-                      <TextInput 
-                        style={styles.cart_container_content_Q_input}
-                        placeholder={`${el.quantity}`}
-                        placeholderTextColor='#000'
-                        keyboardType={'numeric'}
-                        onChangeText={q => cartContext.changeItemQuantity(q, el)}>
-                      </TextInput>
+                      { el.type === 'merch' ? (
+                        <TextInput 
+                          style={styles.cart_container_content_Q_input}
+                          placeholder={`${el.quantity}`}
+                          placeholderTextColor='#000'
+                          keyboardType={'numeric'}
+                          onChangeText={q => cartContext.changeItemQuantity(q, el)}>
+                        </TextInput>
+                      ) : null }
                       <Text style={styles.cart_container_content_QP_price}>{el.price * el.quantity}</Text>
                       <TouchableOpacity
                         style={styles.cart_container_content_removeBTN}
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
 
           cart_container_header_text: {
             fontWeight: 'bold',
-            opacity: 0.45,
+            opacity: 0.5,
           },
           
           cart_container_header_QP: {

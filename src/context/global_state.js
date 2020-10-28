@@ -1,6 +1,6 @@
 import React from 'react';
 import Context from './context';
-import { merch, user, photographers } from '../../dummydb.js';
+import { merch, user, photographers, services } from '../../dummydb.js';
 
 export default class GlobalState extends React.Component{
   state = {
@@ -21,6 +21,8 @@ export default class GlobalState extends React.Component{
       bio: ``,
       profile_image: '',
     },
+    shootLocation: [],
+    services: [],
     curPhotographer: null,
     curGallery: [],
     cart: [],
@@ -34,6 +36,7 @@ export default class GlobalState extends React.Component{
     this.getMerchCategories();
     this.getUser();
     this.getPhotographers();
+    this.getServices();
   };
 
   getUser = _ => {
@@ -44,6 +47,11 @@ export default class GlobalState extends React.Component{
   getPhotographers = _ => {
     let curPhotographers = photographers;
     this.setState({ photographers: curPhotographers });
+  }
+
+  getServices = _ => {
+    let getServices = services;
+    this.setState({ services: getServices });
   }
 
   setCurPhotographer = el => {
@@ -65,6 +73,11 @@ export default class GlobalState extends React.Component{
   
     this.setState({ filterList: getMerchCategories });
   };
+
+  handleShootLocation = (el) => {
+    this.setState({ shootLocation: el });
+    console.log(this.state.shootLocation);
+  }
  
   handleCart = (prod) => {
     let cart = this.state.cart;
@@ -145,14 +158,17 @@ export default class GlobalState extends React.Component{
           curPhotographer: this.state.curPhotographer,
           curGallery: this.state.curGallery,
           cart: this.state.cart,
+          shootLocation: this.state.shootLocation,
           cartError: this.state.cartError,
           merch: this.state.merch,
+          services: this.state.services,
           filterList: this.state.filterList,
           isUserAuthenticated: this.state.isUserAuthenticated,
           setCurGallery: this.setCurGallery,
           setCurPhotographer: this.setCurPhotographer,
           getUser: this.getUser,
           changeItemQuantity: this.changeItemQuantity,
+          handleShootLocation: this.handleShootLocation,
           handleCart: this.handleCart,
           handleFilterList: this.handleFilterList,
         }}>
