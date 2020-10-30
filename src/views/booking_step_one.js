@@ -16,10 +16,10 @@ import {
 } from 'react-native';
 
 export default function BookingStepOne(props) {
-  const [showDetails, setShowDetails] = useState(false);
-
-  const route = useRoute();
   const cartContext = useContext(Context);
+  const route = useRoute();
+
+  const [showDetails, setShowDetails] = useState(false);
 
   const handleDetails = el => {
     setShowDetails(true);

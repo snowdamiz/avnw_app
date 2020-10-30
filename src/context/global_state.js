@@ -30,10 +30,11 @@ export default class GlobalState extends React.Component{
     curPhotographer: null,
     curGallery: [],
     cart: [],
-    cartError: false,
     merch: [],
     filterList: [],
     isUserAuthenticated: false,
+    cartError: false,
+    serviceError: false,
   }
 
   componentDidMount() {
@@ -170,6 +171,11 @@ export default class GlobalState extends React.Component{
     this.setState({ shippingInfoToggle: !toggle });
   }
 
+  handleServiceError = res => {
+    this.setState({ serviceError: res });
+    // console.log(res);
+  }
+
   render(){
     return (
       <Context.Provider 
@@ -183,11 +189,12 @@ export default class GlobalState extends React.Component{
           shootLocationToggle: this.state.shootLocationToggle,
           basicInfoToggle: this.state.basicInfoToggle,
           shippingInfoToggle: this.state.shippingInfoToggle,
-          cartError: this.state.cartError,
           merch: this.state.merch,
           services: this.state.services,
           filterList: this.state.filterList,
           isUserAuthenticated: this.state.isUserAuthenticated,
+          cartError: this.state.cartError,
+          serviceError: this.state.serviceError,
           setCurGallery: this.setCurGallery,
           setCurPhotographer: this.setCurPhotographer,
           getUser: this.getUser,
@@ -198,6 +205,7 @@ export default class GlobalState extends React.Component{
           handleShootLocationToggle: this.handleShootLocationToggle,
           handleBasicInfoToggle: this.handleBasicInfoToggle,
           handleShippingInfoToggle: this.handleShippingInfoToggle,
+          handleServiceError: this.handleServiceError,
         }}>
           
       {this.props.children}

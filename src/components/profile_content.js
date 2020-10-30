@@ -15,7 +15,6 @@ export default function ProfileContent(props) {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.profile}>
-        {}
       </ScrollView>
     </View>
   );

@@ -18,31 +18,30 @@ import {
 import { useRoute } from '@react-navigation/native';
 
 export default function CartContent(props) {
-  const [total, setTotal] = useState(0);
   const cartContext = useContext(Context);
-
   const route = useRoute();
+
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     let cart = cartContext.cart;
     let total = 0;
-    cart.map(el => {
-      total = total + (el.price * el.quantity);
-    })
+    cart.map(el => total = total + (el.price * el.quantity))
 
     setTotal(total);
   },[cartContext.cart])
 
   const handleOrderBtn = _ => {
-    if (route.name === 'Cart') {
-      props.navigation.navigate(getUser())
-    } else {
-      props.navigation.navigate('Store');
-    }
+    let nav = props.navigation;
+    let location = route.name;
+
+    if (location === 'Cart') nav.navigate(getUser())
+    else nav.navigate('Store');
   }
 
   const getUser = () => {
-    if (cartContext.user.id === "") return ''
+    let id = cartContext.user.id;
+    if (!id) return ''
     else return 'MerchOrderOverview'
   }
 
@@ -63,7 +62,7 @@ export default function CartContent(props) {
             ) : (
               cartContext.cart.map((el) => {
                 return (
-                  <View style={styles.cart_container_content_box} key={el.desc}>
+                  <View key={el.desc} style={styles.cart_container_content_box}>
                     <Text style={styles.cart_container_content_item}>{el.product}</Text>
                     <View style={styles.cart_container_content_QP}>
                       { el.type === 'merch' ? (

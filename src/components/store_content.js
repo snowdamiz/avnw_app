@@ -16,7 +16,7 @@ import {
 export default function StoreContent(props) {
   const cartContext = useContext(Context);
 
-  const handleCartToggle = (prod) => cartContext.handleCart(prod);
+  const handleCartToggle = prod => cartContext.handleCart(prod);
 
   return (
     <View style={styles.container}>

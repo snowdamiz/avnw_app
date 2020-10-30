@@ -31,7 +31,9 @@ export default function Gallery(props) {
     <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
         <ScrollView contentContainerStyle={styles.content}>
-          <TouchableOpacity style={styles.close_btn} onPress={ _ => props.navigation.navigate('BookingStepOne')}>
+          <TouchableOpacity
+            style={styles.close_btn}
+            onPress={ _ => props.navigation.navigate('BookingStepOne')}>
             <Image style={styles.close_img} source={CloseIMG} />
           </TouchableOpacity>
           <View style={styles.content_header}>

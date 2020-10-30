@@ -27,6 +27,7 @@ export default function BookingStepThree(props) {
   const [error, setError] = useState(false);
 
   const handleSubmit = _ => {
+    let nav = props.navigation;
     const location = {
       address: address,
       unit: unit,
@@ -38,11 +39,10 @@ export default function BookingStepThree(props) {
     if (location.address && location.city && location.state && location.zip) {
       setError(false);  
       cartContext.handleShootLocation(location);
-      if (cartContext.shootLocationToggle) {
-        props.navigation.navigate('MerchOrderOverview');
-      } else {
-        props.navigation.navigate('Cart');
-      }
+
+      if (cartContext.shootLocationToggle) nav.navigate('MerchOrderOverview');
+      else nav.navigate('Cart');
+      
     } else setError(true);
   }
 

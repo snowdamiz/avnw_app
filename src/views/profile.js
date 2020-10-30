@@ -14,7 +14,6 @@ export default function Profile(props) {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Header navigation={props.navigation} />
-
     </SafeAreaView>
   )
 };
@@ -26,6 +25,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   }
 });

@@ -13,15 +13,17 @@ import {
 } from 'react-native';
 
 export default function MerchOrderOverviewContent(props) {
+  const cartContext = useContext(Context);
+  
   const [hasMerch, setHasMerch] = useState(false);
   const [hasService, setHasService] = useState(false);
-  const cartContext = useContext(Context);
 
   useEffect(() => {
     let results = [];
+    let cart = cartContext.cart;
 
-    for (let i = 0; i < cartContext.cart.length; i++ ) {
-      results.push(cartContext.cart[i].type);
+    for (let i = 0; i < cart.length; i++ ) {
+      results.push(cart[i].type);
     }
 
     if (results.includes('merch')) setHasMerch(true);
@@ -29,7 +31,6 @@ export default function MerchOrderOverviewContent(props) {
 
     if (results.includes('service')) setHasService(true);
     else setHasService(false);
-
   }, [cartContext.cart]);
 
   return (

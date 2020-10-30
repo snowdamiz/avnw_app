@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 
 export default function LocationContent(props) {
-  const [toggle, setToggle] = useState(false);
   const cartContext = useContext(Context);
   const route = useRoute();
 
@@ -27,12 +26,16 @@ export default function LocationContent(props) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={[styles.header, cartContext.shootLocationToggle ? styles.header_on : null]} onPress={ _ => cartContext.handleShootLocationToggle()}>
+      <TouchableOpacity
+        style={[styles.header, cartContext.shootLocationToggle ? styles.header_on : null]}
+        onPress={ _ => cartContext.handleShootLocationToggle()}>
         <Text style={[styles.header_text, cartContext.shootLocationToggle ? styles.header_text_on : null]}>Photoshoot Location</Text>
         <View style={styles.header_btns}>
           { cartContext.shootLocationToggle ? (
             <TouchableOpacity style={styles.edit_img_box} onPress={ _ => props.navigation.navigate('BookingStepThree') }>
-              <Image source={ cartContext.shootLocationToggle ? EditOnIMG : EditIMG } style={[styles.header_edit_IMG, cartContext.shootLocationToggle ? styles.header_edit_IMG_on : null]} />
+              <Image
+                source={ cartContext.shootLocationToggle ? EditOnIMG : EditIMG }
+                style={[styles.header_edit_IMG, cartContext.shootLocationToggle ? styles.header_edit_IMG_on : null]} />
             </TouchableOpacity>
           ) : null }
           <TouchableOpacity onPress={ _ => cartContext.handleShootLocationToggle() }>
@@ -42,7 +45,7 @@ export default function LocationContent(props) {
       </TouchableOpacity>
       { cartContext.shootLocationToggle ? (
         <View style={styles.container_box}>
-          <View style={styles.content_g}>
+          <View style={styles.content}>
             <Text style={styles.content_title}>Street Address:</Text>
             <Text style={styles.content_text}>{shootLocation.address}</Text>
           </View>
@@ -50,7 +53,7 @@ export default function LocationContent(props) {
             <Text style={styles.content_title}>Unit Number:</Text>
             <Text style={styles.content_text}>{shootLocation.unit}</Text>
           </View>
-          <View style={styles.content_g}>
+          <View style={styles.content}>
             <Text style={styles.content_title}>City:</Text>
             <Text style={styles.content_text}>{shootLocation.city}</Text>
           </View>
@@ -176,7 +179,10 @@ const styles = StyleSheet.create({
 
     content: {
       width: '100%',
-      padding: 10,
+      paddingTop: 10,
+      // paddingBottom: 5,
+      paddingLeft: 10,
+      paddingRight: 10,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -189,16 +195,22 @@ const styles = StyleSheet.create({
       content_g: {
         backgroundColor: '#E8E8E8',
         width: '100%',
-        padding: 10,
+        // paddingTop: 5,
+        // paddingBottom: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
       },
       
       content_gbr: {
-        backgroundColor: '#E8E8E8',
+        // backgroundColor: '#E8E8E8',
         width: '100%',
-        padding: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

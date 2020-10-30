@@ -15,18 +15,23 @@ import {
 } from 'react-native';
 
 export default function ShippingContent(props) {
-  const [toggle, setToggle] = useState(false);
   const cartContext = useContext(Context);
   const route = useRoute();
 
+  const [toggle, setToggle] = useState(false);
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={[styles.header, toggle ? styles.header_on : null]} onPress={ _ => setToggle(!toggle)}>
+      <TouchableOpacity
+        style={[styles.header, toggle ? styles.header_on : null]}
+        onPress={ _ => setToggle(!toggle)}>
         <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Basic Information</Text>
         <View style={styles.header_btns}>
           { toggle ? (
             <TouchableOpacity style={styles.edit_img_box}>
-              <Image source={ toggle ? EditOnIMG : EditIMG } style={[styles.header_edit_IMG, toggle ? styles.header_edit_IMG_on : null]} />
+              <Image
+                source={ toggle ? EditOnIMG : EditIMG }
+                style={[styles.header_edit_IMG, toggle ? styles.header_edit_IMG_on : null]} />
             </TouchableOpacity>
           ) : null }
           <TouchableOpacity onPress={ _ => setToggle(!toggle) }>
@@ -36,7 +41,7 @@ export default function ShippingContent(props) {
       </TouchableOpacity>
       { toggle ? (
         <View style={styles.container_box}>
-          <View style={styles.content_g}>
+          <View style={styles.content}>
             <Text style={styles.content_title}>Name:</Text>
             <Text style={styles.content_text}>{cartContext.user.name}</Text>
           </View>
@@ -162,7 +167,10 @@ const styles = StyleSheet.create({
 
     content: {
       width: '100%',
-      padding: 10,
+      paddingTop: 10,
+      // paddingBottom: 5,
+      paddingLeft: 10,
+      paddingRight: 10,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -175,16 +183,22 @@ const styles = StyleSheet.create({
       content_g: {
         backgroundColor: '#E8E8E8',
         width: '100%',
-        padding: 10,
+        // paddingTop: 5,
+        // paddingBottom: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
       },
       
       content_gbr: {
-        backgroundColor: '#E8E8E8',
+        // backgroundColor: '#E8E8E8',
         width: '100%',
-        padding: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -202,7 +216,6 @@ const styles = StyleSheet.create({
           opacity: 0.5,
         },
 });
-
 
 
 

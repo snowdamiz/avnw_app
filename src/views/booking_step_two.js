@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 
@@ -20,6 +20,23 @@ export default function BookingStepTwo(props) {
   const cartContext = useContext(Context);
 
   const handleServiceToggle = el => cartContext.handleCart(el);
+
+  const handleNavigation = _ => {
+    let nav = props.navigation;
+    let cart = cartContext.cart;
+    let res = [];
+
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].type.includes( 'service' )) {
+        res.push(cart[i]);
+      }
+    }
+
+    if (res.length > 0) {
+      cartContext.handleServiceError(false);
+      nav.navigate('BookingStepThree');
+    } else cartContext.handleServiceError(true);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,7 +76,12 @@ export default function BookingStepTwo(props) {
               )
             })}
           </View>
-          <TouchableOpacity style={styles.continue_btn} onPress={ _ => props.navigation.navigate('BookingStepThree')}>
+          { cartContext.serviceError ? (
+            <View style={styles.err_box}>
+              <Text style={styles.err_text}>Please select a service</Text>
+            </View>
+          ) : null }
+          <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleNavigation() }>
             <Text style={styles.continue_btn_text}>Continue</Text>
             <View style={styles.continue_btn_arrow}></View>
           </TouchableOpacity>
@@ -104,9 +126,9 @@ const styles = StyleSheet.create({
 
       services_box: {
         marginTop: 30,
-        marginBottom: 20,
+        marginBottom: 10,
         padding: 5,
-        width: Dimensions.get('screen').width - 40,
+        width: Dimensions.get('screen').width - 26,
         borderRadius: 10,
         backgroundColor: '#fefefe',
         flexDirection: 'row',
@@ -116,7 +138,7 @@ const styles = StyleSheet.create({
       },
 
         service: { 
-          width: Dimensions.get('screen').width - 65,
+          width: Dimensions.get('screen').width - 46,
           padding: 15,
           borderRadius: 8,
           backgroundColor: '#f1f1f1',
@@ -198,7 +220,7 @@ const styles = StyleSheet.create({
           backgroundColor: '#fff',
           height: 48,
           borderRadius: 8,
-          width: Dimensions.get('screen').width / 2 * 0.5,
+          width: Dimensions.get('screen').width / 2 * 0.55,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 1,
@@ -223,6 +245,7 @@ const styles = StyleSheet.create({
           },
 
     continue_btn: {
+      marginTop: 15,
       marginBottom: 30,
       flexDirection: 'row',
       justifyContent: 'center',
@@ -249,4 +272,17 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#fff',
       },
+
+  err_box: {
+    width: Dimensions.get('screen').width - 40,
+    padding: 10,
+    backgroundColor: '#fefefe',
+    borderRadius: 8,
+  },
+
+    err_text: {
+      color: '#000',
+      opacity: 0.5,
+      fontSize: 12,
+    }
 });

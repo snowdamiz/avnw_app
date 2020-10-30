@@ -18,19 +18,16 @@ import {
 import {TouchableOpacity} from 'react-native-gesture-handler'
 
 export default function Header(props) {
-  const [filterToggle, setFilterToggle] = useState(false);
-  const [cart, setCart] = useState([]);
-
-  const route = useRoute();
   const cartContext = useContext(Context);
+  const route = useRoute();
+  
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     setCart(cartContext.cart);
   },[cartContext.cart]);
 
   const checkAuth = _ => cartContext.isUserAuthenticated ? 'Profile' : 'Login';
-  const handleFilterSelect = (id) => cartContext.handleFilterList(id);
-  const handleFilterToggle = _ => setFilterToggle(!filterToggle);
 
   return (
     <View style={styles.container}>
@@ -39,20 +36,7 @@ export default function Header(props) {
           <Image source={LogoIMG} style={styles.logoIMG} />
         </View>
       </TouchableNativeFeedback>
-
       <View name="navBox" style={styles.navBox}>
-        {/* { route.name === 'Store' ? (
-          <TouchableNativeFeedback onPress={handleFilterToggle} >
-            <View name="filter" style={styles.filter}>
-              { filterToggle ? (
-                <Image source={CloseIMG} style={styles.close_IMG} />
-              ) : (
-                <Image source={FilterIMG} style={styles.filter_IMG} />
-              ) }
-            </View>
-          </TouchableNativeFeedback>
-        ) :null } */}
-
         { filterToggle ? (
           <View name="filter_container" style={styles.filter_container}>
             <View style={styles.filter_container_content}>
@@ -73,7 +57,6 @@ export default function Header(props) {
             </View>
           </View>
         ) : null }
-        
         <View style={styles.menu_wrap} >
           <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Cart')} >
             <View name="cart" style={styles.cart}>
@@ -85,7 +68,6 @@ export default function Header(props) {
               ) : null }
             </View>  
           </TouchableNativeFeedback>
-
           <TouchableNativeFeedback onPress={ _ => props.navigation.navigate(checkAuth())} >
             <View name="profile" style={styles.profile}>
               <Image source={ProfileIMG} style={styles.profileIMG} />
