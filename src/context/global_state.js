@@ -1,5 +1,6 @@
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import Context from './context';
 
 import { merch, user, photographers, services } from '../../dummydb.js';
@@ -78,14 +79,20 @@ export default class GlobalState extends React.Component{
     }
   }
 
-  getPhotographers = _ => {
-    let curPhotographers = photographers;
-    this.setState({ photographers: curPhotographers });
+  getPhotographers = async _ => {
+    try {
+      await axios.get('http://192.168.51.241:5000/photographers')
+        .then(res => this.setState({ photographers: res.data }))
+        .catch(err => console.log(err))
+    } catch (err) { console.log(err) }
   }
 
-  getServices = _ => {
-    let getServices = services;
-    this.setState({ services: getServices });
+  getServices = async _ => {
+    try {
+      await axios.get('http://192.168.51.241:5000/services')
+        .then(res => this.setState({ services: res.data }))
+        .catch(err => console.log(err) )
+    } catch (err) { console.log(err) }
   }
 
   getMerch = _ => {
@@ -215,7 +222,6 @@ export default class GlobalState extends React.Component{
           changeItemQuantity: this.changeItemQuantity,
           handleShootLocation: this.handleShootLocation,
           handleCart: this.handleCart,
-          handleFilterList: this.handleFilterList,
           handleShootLocationToggle: this.handleShootLocationToggle,
           handleBasicInfoToggle: this.handleBasicInfoToggle,
           handleShippingInfoToggle: this.handleShippingInfoToggle,

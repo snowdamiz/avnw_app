@@ -25,7 +25,6 @@ export default React.createContext({
   handleCart : (prod) => {},
   handleShootLocation: (el) => {},
   changeItemQuantity: (q, el) => {},
-  handleFilterList: (id) => {},
   getMerch: _ => {},
   setCurPhotographer: (el) => {},
   setCurGallery: (el) => {},

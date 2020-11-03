@@ -61,7 +61,7 @@ export default function BookingStepTwo(props) {
                 <View key={el.id} style={styles.service}>
                   <View style={styles.service_info}>
                     <Text style={styles.service_info_title}>{el.product}</Text>
-                    <Text style={styles.service_info_desc}>{el.desc}</Text>
+                    <Text style={styles.service_info_desc}>{el.description}</Text>
                   </View>
                   <View style={styles.service_btns}>
                     <View style={styles.service_btns_price_box}>
