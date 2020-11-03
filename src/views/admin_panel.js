@@ -23,59 +23,100 @@ export default function AdminPanel(props) {
   const [photographerInsta, setPhotographerInsta] = useState();
   const [photographerImage, setPhotographerImage] = useState();
   const [photographerBio, setPhotographerBio] = useState();
+  const [cover, setCover] = useState(false);
   const [err, setErr] = useState(0);
     
-    const cartContext = useContext(Context);
-    
-    const handlePhotographerName = e => setPhotographerName(e);
-    const handlePhotographerInsta = e => setPhotographerInsta(e);
-    const handlePhotographerBio = e => setPhotographerBio(e);
-    const handlePhotographerImage = e => setPhotographerImage(e);
+  const cartContext = useContext(Context);
 
-    const handleCancel = _ => {
-      cartContext.handleNewPhotographerToggle();
-      setPhotographerName('');
-      setPhotographerInsta('');
-      setPhotographerImage('');
-      setPhotographerBio('');
-    }
+  useEffect( _ => {
+    setPhotographerName(cartContext.photographerEdit.name);
+    setPhotographerInsta(cartContext.photographerEdit.insta_username);
+    setPhotographerImage(cartContext.photographerEdit.profile_image);
+    setPhotographerBio(cartContext.photographerEdit.bio);
 
-    const handleAdd = async _ => {
-      if (photographerName && photographerInsta && photographerImage && photographerBio) {
-        const photographer = {
-          name: photographerName,
-          insta_username: photographerInsta,
-          profile_image: photographerImage,
-          bio: photographerBio,
-          createdAt: new Date(),
-        }
+    console.log(cartContext.photographerEdit);
+  }, [cartContext.photographerEdit])
 
-        try {
-          const token = await AsyncStorage.getItem('token');
-          const config = { headers: { Authorization: token }}
+  useEffect( _ => {
+    if (cartContext.newPhotographerToggle || cartContext.editPhotographerToggle) {
+      setCover(true)
+    } else setCover(false);
+  }, [cartContext.newPhotographerToggle, cartContext.editPhotographerToggle])
+  
+  const handlePhotographerName = e => setPhotographerName(e);
+  const handlePhotographerInsta = e => setPhotographerInsta(e);
+  const handlePhotographerBio = e => setPhotographerBio(e);
+  const handlePhotographerImage = e => setPhotographerImage(e);
 
-          await axios.post('http://192.168.51.241:5000/photographers/', photographer, config)
-            .then(res => {
-              // cartContext.getPhotographers();
-              cartContext.handleNewPhotographerToggle();
-            })
-            .catch(err => console.log(err))
-        } catch(err) { console.log(err) }
-      } else setErr(1);
-    }
+  const handleCancelPhotographerNew = _ => {
+    cartContext.handleNewPhotographerToggle();
+    // setPhotographerName('');
+    // setPhotographerInsta('');
+    // setPhotographerImage('');
+    // setPhotographerBio('');
+  }
+  
+  const handleCancelPhotographerEdit = _ => {
+    cartContext.handleEditPhotographerToggle();
+  }
+
+  const handleAdd = async _ => {
+    if (photographerName && photographerInsta && photographerImage && photographerBio) {
+      const photographer = {
+        name: photographerName,
+        insta_username: photographerInsta,
+        profile_image: photographerImage,
+        bio: photographerBio,
+        createdAt: new Date(),
+      }
+
+      try {
+        const token = await AsyncStorage.getItem('token');
+        const config = { headers: { Authorization: token }}
+
+        await axios.post('http://192.168.51.241:5000/photographers/', photographer, config)
+          .then(res => cartContext.handleNewPhotographerToggle())
+          .catch(err => console.log(err))
+      } catch(err) { console.log(err) }
+    } else setErr(1);
+  }
+
+  const handleEdit = async (el) => {
+    if (photographerName && photographerInsta && photographerImage && photographerBio) {
+      const photographer = {
+        name: photographerName,
+        insta_username: photographerInsta,
+        profile_image: photographerImage,
+        bio: photographerBio,
+      }
+
+      try {
+        const token = await AsyncStorage.getItem('token');
+        const config = { headers: { Authorization: token }}
+        let id = cartContext.photographerEdit.id;
+        console.log(id);
+
+        await axios.put(`http://192.168.51.241:5000/photographers/${id}`, photographer, config)
+          .then(res => {
+            cartContext.handleEditPhotographerToggle();
+            cartContext.getPhotographers();
+          })
+          .catch(err => console.log(err))
+      } catch(err) { console.log(err) }
+    } else setErr(1);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Header navigation={props.navigation} />
-      { cartContext.newPhotographerToggle ? <View style={styles.cover}></View> : null }
+      { cover ? <View style={styles.cover}></View> : null }
       { cartContext.newPhotographerToggle ? (
         <View style={styles.new_box}>
           <Text style={styles.new_title}>New Photographer</Text>
           <View style={styles.new_content}>
             <TextInput 
               style={[styles.input]}
-              // autoCapitalize='none'
               placeholder={'Name'}
               placeholderTextColor='#393939'
               onChangeText={(e) => handlePhotographerName(e)}
@@ -83,7 +124,6 @@ export default function AdminPanel(props) {
             </TextInput>
             <TextInput 
               style={[styles.input]}
-              // autoCapitalize='none'
               placeholder={'Instagram Handle'}
               placeholderTextColor='#393939'
               onChangeText={(e) => handlePhotographerInsta(e)}
@@ -91,7 +131,6 @@ export default function AdminPanel(props) {
             </TextInput>
             <TextInput 
               style={[styles.input]}
-              // autoCapitalize='none'
               placeholder={'Image URL'}
               placeholderTextColor='#393939'
               onChangeText={(e) => handlePhotographerImage(e)}
@@ -99,7 +138,6 @@ export default function AdminPanel(props) {
             </TextInput>
             <TextInput 
               style={[styles.input, styles.bio_intput]}
-              // autoCapitalize='none'
               multiline={true}
               placeholder={'Bio'}
               placeholderTextColor='#393939'
@@ -108,15 +146,59 @@ export default function AdminPanel(props) {
             </TextInput>
           </View>
           <View style={styles.btns_box}>
-            <TouchableOpacity style={styles.btn} onPress={ _ => handleCancel()}>
+            <TouchableOpacity style={styles.btn} onPress={ _ => handleCancelPhotographerNew()}>
               <Text style={styles.btn_text}>Cancel</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.btn, styles.btn_add]} onPress={ _ => handleAdd()}>
+            <TouchableOpacity style={[styles.btn, styles.btn_add]} onPress={el => handleAdd(el)}>
               <Text style={styles.btn_text}>Add</Text>
             </TouchableOpacity>
           </View>
         </View>
       ): null }
+      { cartContext.editPhotographerToggle ? (
+        <View style={styles.new_box}>
+        <Text style={styles.new_title}>Edit Photographer</Text>
+        <View style={styles.new_content}>
+          <TextInput 
+            style={[styles.input]}
+            // placeholder={'Name'}
+            placeholderTextColor='#393939'
+            onChangeText={(e) => handlePhotographerName(e)}
+            value={photographerName}>
+          </TextInput>
+          <TextInput 
+            style={[styles.input]}
+            placeholder={'Instagram Handle'}
+            placeholderTextColor='#393939'
+            onChangeText={(e) => handlePhotographerInsta(e)}
+            value={photographerInsta}>
+          </TextInput>
+          <TextInput 
+            style={[styles.input]}
+            placeholder={'Image URL'}
+            placeholderTextColor='#393939'
+            onChangeText={(e) => handlePhotographerImage(e)}
+            value={photographerImage}>
+          </TextInput>
+          <TextInput 
+            style={[styles.input, styles.bio_intput]}
+            multiline={true}
+            placeholder={'Bio'}
+            placeholderTextColor='#393939'
+            onChangeText={(e) => handlePhotographerBio(e)}
+            value={photographerBio}>
+          </TextInput>
+        </View>
+        <View style={styles.btns_box}>
+          <TouchableOpacity style={styles.btn} onPress={ _ => handleCancelPhotographerEdit()}>
+            <Text style={styles.btn_text}>Cancel</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.btn, styles.btn_add]} onPress={ el => handleEdit(el)}>
+            <Text style={styles.btn_text}>Confirm</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      ) : null }
       <ScrollView contentContainerStyle={styles.scroll}>
         <PhotographersContent navigation={props.navigation} />  
       </ScrollView>
@@ -169,7 +251,7 @@ const styles = StyleSheet.create({
         input: {
           // borderWidth: 1,
           width: Dimensions.get('screen').width - 110,
-          padding: 8,
+          padding: 12,
           paddingLeft: 10,
           borderRadius: 4,
           backgroundColor: '#fff',
@@ -187,6 +269,7 @@ const styles = StyleSheet.create({
         bio_intput: {
           height: 150,
           textAlignVertical: 'top',
+          lineHeight: 20,
         },
 
     btns_box: {

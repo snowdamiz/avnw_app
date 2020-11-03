@@ -17,7 +17,7 @@ import {
   ScrollView,
 } from 'react-native';
 
-export default function PhotographersContent(props) {
+export default function ServicesContent(props) {
   const [toggle, setToggle] = useState(false);
 
   const cartContext = useContext(Context);
@@ -25,17 +25,12 @@ export default function PhotographersContent(props) {
   
   useEffect( _ => {
     cartContext.getPhotographers();
-  },[cartContext.photographerEdit])
-
-  const handleEditPhotographer = el => {
-    cartContext.setEditPhotographer(el);
-    cartContext.handleEditPhotographerToggle();
-  }
+  },[cartContext.services])
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={[styles.header, toggle ? styles.header_on : null]} onPress={ _ => setToggle(!toggle)}>
-        <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Photographers</Text>
+        <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Services</Text>
         <View style={styles.header_btns}>
           { toggle ? (
             <TouchableOpacity
@@ -67,7 +62,7 @@ export default function PhotographersContent(props) {
                   </View>
                 </View>
                 <View style={styles.btns}>
-                  <TouchableOpacity style={[styles.btn]} onPress={ _ => handleEditPhotographer(el)}>
+                  <TouchableOpacity style={[styles.btn]}>
                     <Image source={EditIMG} style={[styles.btn_IMG]} />
                   </TouchableOpacity>
                   <TouchableOpacity style={[styles.btn]}>
