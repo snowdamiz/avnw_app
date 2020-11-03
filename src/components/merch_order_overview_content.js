@@ -51,6 +51,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: '100%',
-    zIndex: 1,
-  },
+  }
 });

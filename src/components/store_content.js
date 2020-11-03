@@ -46,7 +46,10 @@ export default function StoreContent(props) {
                     </TouchableOpacity>
                   </LinearGradient>
                 ) : (
-                  <TouchableOpacity style={styles.cart_btn} onPress={ _ => handleCartToggle(el) }>
+                  <TouchableOpacity
+                    style={styles.cart_btn}
+                    disabled={cartContext.menuToggle}
+                    onPress={ _ => handleCartToggle(el) }>
                     <Text style={styles.cart_btn_text}>Add To Cart</Text>
                   </TouchableOpacity>
                 )}
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
 
       prod_box: {
         width: Dimensions.get('screen').width / 2 - 24,
-        borderRadius: 8,
+        borderRadius: 6,
         backgroundColor: '#fff',
         marginTop: 8,
         marginBottom: 7,
@@ -104,15 +107,15 @@ const styles = StyleSheet.create({
         prod_img_box: {
           width: 110,
           height: 110,
-          borderTopRightRadius: 8,
-          borderTopLeftRadius: 8,
+          borderTopRightRadius: 6,
+          borderTopLeftRadius: 6,
         },
 
           prod_img: {
             width: '100%',
             height: 120,
-            borderTopRightRadius: 8,
-            borderTopLeftRadius: 8,
+            borderTopRightRadius: 6,
+            borderTopLeftRadius: 6,
           },
 
         prod_price: {
@@ -142,8 +145,8 @@ const styles = StyleSheet.create({
           justifyContent: 'space-between',
           width: '100%',
           height: 180,
-          borderBottomRightRadius: 8,
-          borderBottomLeftRadius: 8,
+          borderBottomRightRadius: 6,
+          borderBottomLeftRadius: 6,
           padding: 12,
           backgroundColor: '#F2F2F2',
         },
@@ -170,7 +173,7 @@ const styles = StyleSheet.create({
           height: 42,
           borderWidth: 1,
           borderColor: '#DDDDDD',
-          borderRadius: 8,
+          borderRadius: 6,
         },
 
           cart_btn_text: {
@@ -186,7 +189,7 @@ const styles = StyleSheet.create({
           height: 42,
           borderWidth: 1,
           borderColor: '#DDDDDD',
-          borderRadius: 8,
+          borderRadius: 6,
         },
 
           cart_btn_text_on: {

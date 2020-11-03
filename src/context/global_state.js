@@ -23,11 +23,12 @@ export default class GlobalState extends React.Component{
     cart: [],
     merch: [],
     filterList: [],
-    isUserAuthenticated: false,
     cartError: false,
     serviceError: false,
     token: '',
     previousRoute: '',
+    accountType: '',
+    menuToggle: false,
   }
 
   componentDidMount() {
@@ -41,12 +42,15 @@ export default class GlobalState extends React.Component{
   getLoginToken = async _ => {
     const getToken = await AsyncStorage.getItem('token');
     const getUser = await AsyncStorage.getItem('user');
+
     if (getToken !== null) {
       this.setState({ token: getToken })
       this.setState({ user: JSON.parse(getUser) })
+      this.setState({ accountType: JSON.parse(getUser).account_type })
     } else {
       this.setState({ token: '' });
       this.setState({ user: [] })
+      this.setState({ accountType: '' })
     }
   }
 
@@ -57,6 +61,7 @@ export default class GlobalState extends React.Component{
        await AsyncStorage.setItem('user', jsonUser)
        this.setState({ token: token })
        this.setState({ user: user })
+       this.setState({ accountType: user.account_type })
     } catch (err) {
       console.log(err);
     }
@@ -203,6 +208,11 @@ export default class GlobalState extends React.Component{
     this.setState({ previousRoute: route });
   }
 
+  handleMenuToggle = _ => {
+    let toggle = this.state.menuToggle;
+    this.setState({ menuToggle: !toggle })
+  }
+
   render(){
     return (
       <Context.Provider 
@@ -219,15 +229,15 @@ export default class GlobalState extends React.Component{
           merch: this.state.merch,
           services: this.state.services,
           filterList: this.state.filterList,
-          isUserAuthenticated: this.state.isUserAuthenticated,
           cartError: this.state.cartError,
           serviceError: this.state.serviceError,
           token: this.state.token,
           previousRoute: this.state.previousRoute,
+          accountType: this.state.accountType,
+          menuToggle: this.state.menuToggle,
           setLoginToken: this.setLoginToken,
           getLoginToken: this.getLoginToken,
           handleSignout: this.handleSignout,
-          // setLoginUser: this.setLoginUser,
           setCurGallery: this.setCurGallery,
           setCurPhotographer: this.setCurPhotographer,
           changeItemQuantity: this.changeItemQuantity,
@@ -239,6 +249,7 @@ export default class GlobalState extends React.Component{
           handleShippingInfoToggle: this.handleShippingInfoToggle,
           handleServiceError: this.handleServiceError,
           setPreviousRoute: this.setPreviousRoute,
+          handleMenuToggle: this.handleMenuToggle,
         }}>
           
       {this.props.children}

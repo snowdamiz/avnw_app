@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
           borderWidth: 2,
           borderColor: '#fff',
           backgroundColor: '#fff',
-          borderRadius: 12,
+          borderRadius: 8,
         },
 
         shoot_btn_text: {
@@ -85,11 +85,11 @@ const styles = StyleSheet.create({
         merch_btn: {
           width: Dimensions.get('screen').width - 80,
           padding: 14,
-          marginTop: 18,
+          marginTop: 14,
           borderWidth: 2,
-          borderColor: '#00597b',
-          backgroundColor: '#005d80',
-          borderRadius: 12,
+          borderColor: '#005575',
+          backgroundColor: '#005575',
+          borderRadius: 8,
         },
 
         merch_btn_text: {

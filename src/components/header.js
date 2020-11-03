@@ -18,13 +18,11 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function Header(props) {
-  const [menuToggle, setMenuToggle] = useState(false);
-
   const route = useRoute();
   const cartContext = useContext(Context);
 
-  const checkLoggedInUser = _ => {
-    if (cartContext.token) setMenuToggle(!menuToggle);
+  const handleProfileBtn = _ => {
+    if (cartContext.token) cartContext.handleMenuToggle();
     else props.navigation.navigate('Login')
   }
 
@@ -32,6 +30,7 @@ export default function Header(props) {
     cartContext.handleSignout();
     props.navigation.navigate('Index')
   }
+  console.log(cartContext.accountType);
 
   return (
     <View style={styles.container}>
@@ -52,17 +51,17 @@ export default function Header(props) {
               ) : null }
             </View>  
           </TouchableNativeFeedback>
-          <TouchableNativeFeedback onPress={ _ => checkLoggedInUser()} >
+          <TouchableNativeFeedback onPress={ _ => handleProfileBtn()} >
             <View name="profile" style={styles.profile}>
               <Image source={ProfileIMG} style={styles.profileIMG} />
             </View>  
           </TouchableNativeFeedback>
         </View>
       </View>
-      { menuToggle ? (
+      { cartContext.menuToggle ? (
         <View style={styles.cover}></View>
         ): null }
-      { menuToggle ? (
+      { cartContext.menuToggle ? (
         <View style={styles.profile_menu_box}>
           <TouchableOpacity style={[ styles.btn, styles.btn_first]}>
             <Text style={[styles.btn_text]}>Profile</Text>
@@ -70,6 +69,11 @@ export default function Header(props) {
           <TouchableOpacity style={[ styles.btn]}>
             <Text style={[styles.btn_text]}>My Orders</Text>
           </TouchableOpacity>
+          { cartContext.accountType === 'admin' ? (
+            <TouchableOpacity style={[ styles.btn]}>
+              <Text style={[styles.btn_text]}>Admin Panel</Text>
+            </TouchableOpacity>
+          ) : null }
           <TouchableOpacity style={[styles.btn, styles.btn_last]} onPressIn={ _ => handleSignout()}>
             <Text style={[styles.btn_text, styles.signout_btn_text]}>Sign Out</Text>
           </TouchableOpacity>
