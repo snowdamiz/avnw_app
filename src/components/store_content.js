@@ -26,6 +26,7 @@ export default function StoreContent(props) {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.store}>
         {cartContext.merch.map((el) => {
+          console.log(el);
           return (
             <View style={[styles.prod_box, styles.shadow1]} key={el.id}>
               <View style={styles.prod_img_box}>
@@ -37,7 +38,7 @@ export default function StoreContent(props) {
               <View style={styles.prod_desc}>
                 <View>
                   <Text style={styles.prod_desc_title}>{el.product}</Text>
-                  <Text style={styles.prod_desc_text}>{el.desc}</Text>
+                  <Text style={styles.prod_desc_text}>{el.description}</Text>
                 </View>
                 { cartContext.cart.includes(el) ? (
                   <LinearGradient colors={['#04A3E1', '#009cd8', '#009cd8']} style={styles.gradient} >

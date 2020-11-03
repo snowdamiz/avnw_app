@@ -15,6 +15,7 @@ import Login from './src/views/login.js';
 import MerchOrderOverview from './src/views/merch_order_overview.js';
 import BasicInfoStep from './src/views/basic_info_step.js';
 import Gallery from './src/views/gallery.js';
+import AdminPanel from './src/views/admin_panel.js';
 
 export default function App() {
   return (
@@ -53,6 +54,9 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="Gallery">
             { props => <Gallery {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="AdminPanel">
+            { props => <AdminPanel {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
