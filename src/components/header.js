@@ -26,6 +26,15 @@ export default function Header(props) {
     else props.navigation.navigate('Login')
   }
 
+  const handleCartBtn = _ => {
+    if (cartContext.menuToggle) {
+      cartContext.handleMenuToggle()
+      props.navigation.navigate('Cart')
+    } else {
+      props.navigation.navigate('Cart')
+    }
+  }
+
   const handleSignout = _ => {
     cartContext.handleSignout();
     props.navigation.navigate('Index')
@@ -41,7 +50,7 @@ export default function Header(props) {
       </TouchableNativeFeedback>
       <View name="navBox" style={styles.navBox}>        
         <View style={styles.menu_wrap} >
-          <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Cart')} >
+          <TouchableNativeFeedback onPress={ _ => handleCartBtn()} >
             <View name="cart" style={styles.cart}>
               <Image source={CartIMG} style={styles.cartIMG} />
               {cartContext.cart.length > 0 ? (
@@ -59,7 +68,12 @@ export default function Header(props) {
         </View>
       </View>
       { cartContext.menuToggle ? (
-        <View style={styles.cover}></View>
+        <View style={styles.cover}>
+          <TouchableOpacity
+            style={styles.profile_menu_reset}
+            onPressIn={ _ => cartContext.handleMenuToggle()}>
+          </TouchableOpacity>
+        </View>
         ): null }
       { cartContext.menuToggle ? (
         <View style={styles.profile_menu_box}>
@@ -228,7 +242,7 @@ const styles = StyleSheet.create({
     profile_menu_box: {
       zIndex: 1,
       position: 'absolute',
-      width: 120,
+      width: 140,
       // height: 150,
       // borderWidth: 1,
       borderRadius: 8,
@@ -276,5 +290,9 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       // borderWidth: 1,
       opacity: 0.5,
-    }
+    },
+
+      profile_menu_reset: {
+        height: '100%',
+      }
 });

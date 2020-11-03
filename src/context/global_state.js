@@ -157,33 +157,6 @@ export default class GlobalState extends React.Component{
     }
   };
 
-  handleFilterList = (id) => {
-    let filterList = this.state.filterList;
-    let filterLength = this.state.filterList.length;
-    let isAlreadyInList = false;
-
-    if (filterLength > 0) {
-      for (let i = 0; i < filterLength; i++) {
-        if (filterList[i] === id) {
-          isAlreadyInList = true;
-          break;
-        }
-      }
-
-      if (isAlreadyInList) {
-        let removeFilterItem = [...filterList];
-        removeFilterItem.splice(filterList.indexOf(id), 1);
-        this.setState({ filterList: removeFilterItem });
-      } else {
-        let newFilterItemList = [...filterList, id];
-        this.setState({ filterList: newFilterItemList });
-      }
-    } else {
-      let updatedFilterList = [...filterList, id];
-      this.setState({ filterList: updatedFilterList});
-    }
-  };
-
   handleShootLocationToggle = _ => {
     let toggle = this.state.shootLocationToggle;
     this.setState({ shootLocationToggle: !toggle });
@@ -201,7 +174,6 @@ export default class GlobalState extends React.Component{
 
   handleServiceError = res => {
     this.setState({ serviceError: res });
-    // console.log(res);
   }
 
   setPreviousRoute = route => {
