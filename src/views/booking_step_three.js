@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 
@@ -19,12 +19,18 @@ export default function BookingStepThree(props) {
   const cartContext = useContext(Context);
   const route = useRoute();
 
+  const [error, setError] = useState(false);
   const [address, setAddress] = useState(cartContext.user.address);
   const [unit, setUnit] = useState(cartContext.user.unit);
   const [city, setCity] = useState(cartContext.user.city);
   const [state, setState] = useState(cartContext.user.state);
-  const [zip, setZip] = useState(cartContext.user.zip);
-  const [error, setError] = useState(false);
+  const [zipCode, setZipCode] = useState(cartContext.user.zip);
+  
+  // useEffect( _ => {
+  //   cartContext.getLoginToken();
+    // setAddress(cartContext.user.address);
+    // console.log(cartContext.user.address);
+  // }, []) 
 
   const handleSubmit = _ => {
     let nav = props.navigation;
@@ -33,10 +39,10 @@ export default function BookingStepThree(props) {
       unit: unit,
       city: city,
       state: state,
-      zip: zip,
+      zip: zipCode,
     }
 
-    if (location.address && location.city && location.state && location.zip) {
+    if (location.city && location.state) {
       setError(false);  
       cartContext.handleShootLocation(location);
 
@@ -45,6 +51,9 @@ export default function BookingStepThree(props) {
       
     } else setError(true);
   }
+
+  console.log(typeof zipCode);
+  // console.log(typeof cartContext.user.zip);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,7 +67,7 @@ export default function BookingStepThree(props) {
           <View style={styles.address_box}>
             { error ? (
               <View style={styles.error_box}>
-                <Text style={styles.error_text}>Please use a valid address</Text>
+                <Text style={styles.error_text}>Only City and State are required</Text>
               </View>
             ): null}
             <TextInput 
@@ -76,14 +85,14 @@ export default function BookingStepThree(props) {
               value={unit}>
             </TextInput>
             <TextInput 
-              style={[styles.input, styles.city_input]}
+              style={[styles.input, error ? styles.city_input_err : styles.city_input]}
               placeholder={'City'}
               placeholderTextColor='#fff'
               onChangeText={e => setCity(e)}
               value={city}>
             </TextInput>
             <TextInput 
-              style={[styles.input, styles.state_input]}
+              style={[styles.input, error ? styles.state_input_err : styles.state_input]}
               placeholder={'State'}
               placeholderTextColor='#fff'
               onChangeText={e => setState(e)}
@@ -93,9 +102,9 @@ export default function BookingStepThree(props) {
               style={[styles.input, styles.zip_input]}
               placeholder={'Zip'}
               placeholderTextColor='#fff'
-              onChangeText={e => setZip(e)}
-              keyboardType={'numeric'}
-              value={zip}>
+              onChangeText={e => setZipCode(e)}
+              value={zipCode ? zipCode.toString() : zipCode}
+              keyboardType={'numeric'}>
             </TextInput>
           </View>
           <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleSubmit() }>
@@ -186,7 +195,19 @@ const styles = StyleSheet.create({
         unit_input: { width: 100 },
         city_input: { width: Dimensions.get('screen').width - 240 },
         state_input: { width: 60 },
-        zip_input: { width: 100,},
+        zip_input: { width: 100 },
+
+        city_input_err: {
+          borderWidth: 1,
+          borderColor: 'pink',
+          width: Dimensions.get('screen').width - 240
+        },
+
+        state_input_err: {
+          borderWidth: 1,
+          borderColor: 'pink',
+          width: 60
+        },
 
     continue_btn: {
       marginTop: 25,

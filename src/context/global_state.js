@@ -1,21 +1,12 @@
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Context from './context';
+
 import { merch, user, photographers, services } from '../../dummydb.js';
-import { FlatList } from 'react-native-gesture-handler';
 
 export default class GlobalState extends React.Component{
   state = {
-    user: {
-      id: '',
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      unit: '',
-      city: '',
-      state: '',
-      zip: '',
-    },
+    user: [],
     photographers: {
       id: '',
       name: '',
@@ -35,19 +26,51 @@ export default class GlobalState extends React.Component{
     isUserAuthenticated: false,
     cartError: false,
     serviceError: false,
+    token: '',
+    previousRoute: '',
   }
 
   componentDidMount() {
+    this.getLoginToken();
     this.getMerchCategories();
-    this.getUser();
     this.getPhotographers();
     this.getServices();
     this.getMerch();
   };
 
-  getUser = _ => {
-    let curUser = user;
-    this.setState({ user: curUser });
+  getLoginToken = async _ => {
+    const getToken = await AsyncStorage.getItem('token');
+    const getUser = await AsyncStorage.getItem('user');
+    if (getToken !== null) {
+      this.setState({ token: getToken })
+      this.setState({ user: JSON.parse(getUser) })
+    } else {
+      this.setState({ token: '' });
+      this.setState({ user: [] })
+    }
+  }
+
+  setLoginToken = async (token, user) => {
+    const jsonUser = JSON.stringify(user);
+    try {
+       await AsyncStorage.setItem('token', token)
+       await AsyncStorage.setItem('user', jsonUser)
+       this.setState({ token: token })
+       this.setState({ user: user })
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  handleSignout = async _ => {
+    try {
+      await AsyncStorage.removeItem('token');
+      await AsyncStorage.removeItem('user');
+      this.setState({ token: '' })
+      this.setState({ user: [] })
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   getPhotographers = _ => {
@@ -176,6 +199,10 @@ export default class GlobalState extends React.Component{
     // console.log(res);
   }
 
+  setPreviousRoute = route => {
+    this.setState({ previousRoute: route });
+  }
+
   render(){
     return (
       <Context.Provider 
@@ -195,9 +222,14 @@ export default class GlobalState extends React.Component{
           isUserAuthenticated: this.state.isUserAuthenticated,
           cartError: this.state.cartError,
           serviceError: this.state.serviceError,
+          token: this.state.token,
+          previousRoute: this.state.previousRoute,
+          setLoginToken: this.setLoginToken,
+          getLoginToken: this.getLoginToken,
+          handleSignout: this.handleSignout,
+          // setLoginUser: this.setLoginUser,
           setCurGallery: this.setCurGallery,
           setCurPhotographer: this.setCurPhotographer,
-          getUser: this.getUser,
           changeItemQuantity: this.changeItemQuantity,
           handleShootLocation: this.handleShootLocation,
           handleCart: this.handleCart,
@@ -206,6 +238,7 @@ export default class GlobalState extends React.Component{
           handleBasicInfoToggle: this.handleBasicInfoToggle,
           handleShippingInfoToggle: this.handleShippingInfoToggle,
           handleServiceError: this.handleServiceError,
+          setPreviousRoute: this.setPreviousRoute,
         }}>
           
       {this.props.children}

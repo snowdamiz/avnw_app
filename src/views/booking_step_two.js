@@ -19,6 +19,10 @@ export default function BookingStepTwo(props) {
   const route = useRoute();
   const cartContext = useContext(Context);
 
+  useEffect( _ => {
+    cartContext.setPreviousRoute('BookingStepThree');
+  }, [])
+
   const handleServiceToggle = el => cartContext.handleCart(el);
 
   const handleNavigation = _ => {
@@ -34,7 +38,11 @@ export default function BookingStepTwo(props) {
 
     if (res.length > 0) {
       cartContext.handleServiceError(false);
-      nav.navigate('BookingStepThree');
+      if (cartContext.token) {
+        nav.navigate('BookingStepThree')
+      } else {
+        nav.navigate('Login')
+      }
     } else cartContext.handleServiceError(true);
   }
 

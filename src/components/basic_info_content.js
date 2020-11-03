@@ -15,23 +15,18 @@ import {
 } from 'react-native';
 
 export default function ShippingContent(props) {
+  const [toggle, setToggle] = useState(false);
   const cartContext = useContext(Context);
   const route = useRoute();
 
-  const [toggle, setToggle] = useState(false);
-
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={[styles.header, toggle ? styles.header_on : null]}
-        onPress={ _ => setToggle(!toggle)}>
+      <TouchableOpacity style={[styles.header, toggle ? styles.header_on : null]} onPress={ _ => setToggle(!toggle)}>
         <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Basic Information</Text>
         <View style={styles.header_btns}>
           { toggle ? (
             <TouchableOpacity style={styles.edit_img_box}>
-              <Image
-                source={ toggle ? EditOnIMG : EditIMG }
-                style={[styles.header_edit_IMG, toggle ? styles.header_edit_IMG_on : null]} />
+              <Image source={ toggle ? EditOnIMG : EditIMG } style={[styles.header_edit_IMG, toggle ? styles.header_edit_IMG_on : null]} />
             </TouchableOpacity>
           ) : null }
           <TouchableOpacity onPress={ _ => setToggle(!toggle) }>

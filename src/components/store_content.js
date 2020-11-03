@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import Context from '../context/context.js';
@@ -16,7 +16,11 @@ import {
 export default function StoreContent(props) {
   const cartContext = useContext(Context);
 
-  const handleCartToggle = prod => cartContext.handleCart(prod);
+  useEffect( _ => {
+    cartContext.setPreviousRoute('Store');
+  }, [])
+
+  const handleCartToggle = (prod) => cartContext.handleCart(prod);
 
   return (
     <View style={styles.container}>

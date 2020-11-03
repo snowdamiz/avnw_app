@@ -2,32 +2,36 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useRoute } from '@react-navigation/native';
 
 import Context from '../context/context.js';
-import { merch_categories } from '../../dummydb.js';
 
 import CartIMG from '../assets/cart.png';
 import ProfileIMG from '../assets/profile.png';
 import LogoIMG from '../assets/logo.png';
 
 import {
+  Dimensions,
   StyleSheet,
   View,
   Image,
   Text,
   TouchableNativeFeedback,
 } from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function Header(props) {
-  const cartContext = useContext(Context);
+  const [menuToggle, setMenuToggle] = useState(false);
+
   const route = useRoute();
-  
-  const [cart, setCart] = useState([]);
+  const cartContext = useContext(Context);
 
-  useEffect(() => {
-    setCart(cartContext.cart);
-  },[cartContext.cart]);
+  const checkLoggedInUser = _ => {
+    if (cartContext.token) setMenuToggle(!menuToggle);
+    else props.navigation.navigate('Login')
+  }
 
-  const checkAuth = _ => cartContext.isUserAuthenticated ? 'Profile' : 'Login';
+  const handleSignout = _ => {
+    cartContext.handleSignout();
+    props.navigation.navigate('Index')
+  }
 
   return (
     <View style={styles.container}>
@@ -36,45 +40,41 @@ export default function Header(props) {
           <Image source={LogoIMG} style={styles.logoIMG} />
         </View>
       </TouchableNativeFeedback>
-      <View name="navBox" style={styles.navBox}>
-        { filterToggle ? (
-          <View name="filter_container" style={styles.filter_container}>
-            <View style={styles.filter_container_content}>
-              { merch_categories.map((el) => {
-                return (
-                  <TouchableOpacity
-                    key={el.id}
-                    style={styles.filter_container_content_btn}
-                    onPress={ _ => handleFilterSelect(el.category) }>
-                    { cartContext.filterList.includes(el.category) ? (
-                      <Text style={styles.filter_container_content_text_on}>{el.category}</Text>
-                    ) : (
-                      <Text style={styles.filter_container_content_text}>{el.category}</Text>
-                    )}
-                  </TouchableOpacity>
-                )
-              })}
-            </View>
-          </View>
-        ) : null }
+      <View name="navBox" style={styles.navBox}>        
         <View style={styles.menu_wrap} >
           <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Cart')} >
             <View name="cart" style={styles.cart}>
               <Image source={CartIMG} style={styles.cartIMG} />
-              {cart.length > 0 ? (
+              {cartContext.cart.length > 0 ? (
                 <View style={styles.cart_notification}>
-                  <Text style={styles.cart_notification_text}>{cart.length}</Text>
+                  <Text style={styles.cart_notification_text}>{cartContext.cart.length}</Text>
                 </View>
               ) : null }
             </View>  
           </TouchableNativeFeedback>
-          <TouchableNativeFeedback onPress={ _ => props.navigation.navigate(checkAuth())} >
+          <TouchableNativeFeedback onPress={ _ => checkLoggedInUser()} >
             <View name="profile" style={styles.profile}>
               <Image source={ProfileIMG} style={styles.profileIMG} />
             </View>  
           </TouchableNativeFeedback>
         </View>
       </View>
+      { menuToggle ? (
+        <View style={styles.cover}></View>
+        ): null }
+      { menuToggle ? (
+        <View style={styles.profile_menu_box}>
+          <TouchableOpacity style={[ styles.btn, styles.btn_first]}>
+            <Text style={[styles.btn_text]}>Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[ styles.btn]}>
+            <Text style={[styles.btn_text]}>My Orders</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.btn, styles.btn_last]} onPressIn={ _ => handleSignout()}>
+            <Text style={[styles.btn_text, styles.signout_btn_text]}>Sign Out</Text>
+          </TouchableOpacity>
+        </View>
+      ): null }
     </View>
   );
 };
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingBottom: 15,
     justifyContent: 'space-between',
-    zIndex: 3,
+    zIndex: 1,
     backgroundColor: '#009cd8',
   },
 
@@ -144,62 +144,6 @@ const styles = StyleSheet.create({
         opacity: 0.35,
       },
 
-      filter_IMG: {
-        width: 26,
-        height: 26,
-      },
-
-      filter_container: {
-        width: 150,
-        marginTop: 74,
-        borderRadius: 6,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 20,
-        paddingBottom: 25,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        position: 'absolute',
-        backgroundColor: '#fff',
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 0,
-        },
-        shadowOpacity: 0.50,
-        shadowRadius: 10,
-        elevation: 20,
-        zIndex: 1,
-      },
-
-        filter_container_header_title: {
-          fontSize: 15,
-          fontWeight: 'bold',
-          color: '#7D7D7D',
-        },
-
-        filter_container_content: {
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-        },
-
-          filter_container_content_btn: {
-            // borderWidth: 1,
-          },  
-
-          filter_container_content_text: {
-            color: '#7D7D7D',
-            padding: 6,
-            fontWeight: 'bold',
-          },
-
-          filter_container_content_text_on: {
-            color: '#009cd8',
-            padding: 6,
-            fontWeight: 'bold',
-          },
-
       menu_wrap: {
         width: 100,
         height: 42,
@@ -208,14 +152,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         shadowColor: "#000",
-        // shadowOffset: {
-        //   width: 0,
-        //   height: 2,
-        // },
-        // shadowOpacity: 0.28,
-        // shadowRadius: 3.2,
-        // elevation: 8,
-        // borderWidth: 1,
       },
 
         cart: {
@@ -231,7 +167,7 @@ const styles = StyleSheet.create({
         cartIMG: {
           width: 24,
           height: 24,
-          opacity: 0.4,
+          opacity: 0.45,
           marginLeft: 8,
         },
 
@@ -267,7 +203,7 @@ const styles = StyleSheet.create({
           width: 24,
           height: 24,
           marginRight: 8,
-          opacity: 0.4,
+          opacity: 0.45,
         },
 
         navBtnBox: {
@@ -284,4 +220,57 @@ const styles = StyleSheet.create({
           borderRadius: 6,
           backgroundColor: '#fdfdfd',
         },
+
+    profile_menu_box: {
+      zIndex: 1,
+      position: 'absolute',
+      width: 120,
+      // height: 150,
+      // borderWidth: 1,
+      borderRadius: 8,
+      backgroundColor: '#fff',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 0,
+      },
+      shadowOpacity: 0.7,
+      shadowRadius: 10,
+      elevation: 6,
+      right: 15,
+      top: 65,
+    },
+
+      btn: {
+        width: '100%',
+        // borderWidth: 1,
+      },
+
+      btn_first: {
+        marginTop: 10,
+      },
+
+      btn_last: {
+        marginBottom: 10,
+      },
+
+        btn_text: {
+          opacity: 0.6,
+          textAlign: 'center',
+          padding: 5,
+        },
+
+        signout_btn_text: {
+          fontWeight: 'bold',
+        },
+
+    cover: {
+      marginTop: 80,
+      position: 'absolute',
+      width: Dimensions.get('screen').width,
+      height: Dimensions.get('screen').height,
+      backgroundColor: '#fff',
+      // borderWidth: 1,
+      opacity: 0.5,
+    }
 });

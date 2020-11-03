@@ -14,8 +14,7 @@ export default function Login(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <Header navigation={props.navigation} />
-      <LoginContent />
+      <LoginContent navigation={props.navigation} />
     </SafeAreaView>
   )
 };
