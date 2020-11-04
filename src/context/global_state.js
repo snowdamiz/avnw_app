@@ -33,6 +33,7 @@ export default class GlobalState extends React.Component{
     accountType: '',
     menuToggle: false,
     photographerEdit: [],
+    deletePhotographerConfirmation: false,
   }
 
   componentDidMount() {
@@ -80,6 +81,10 @@ export default class GlobalState extends React.Component{
     } catch (err) {
       console.log(err);
     }
+  }
+
+  setPhotographers = el => {
+    this.setState({ photographers: el })
   }
 
   getPhotographers = async _ => {
@@ -188,6 +193,7 @@ export default class GlobalState extends React.Component{
   handleNewPhotographerToggle = _ => {
     let toggle = this.state.newPhotographerToggle;
     this.setState({ newPhotographerToggle: !toggle })
+    this.setState({ photographerEdit: [] })
   }
 
   handleEditPhotographerToggle = _ => {
@@ -216,7 +222,11 @@ export default class GlobalState extends React.Component{
 
   setEditPhotographer = el => {
     this.setState({ photographerEdit: el })
-    console.log(el);
+  }
+
+  handleDeletePhotographerConfirmation = _ => {
+    let toggle = this.state.deletePhotographerConfirmation;
+    this.setState({ deletePhotographerConfirmation: !toggle});
   }
 
   render(){
@@ -244,7 +254,7 @@ export default class GlobalState extends React.Component{
           accountType: this.state.accountType,
           menuToggle: this.state.menuToggle,
           photographerEdit: this.state.photographerEdit,
-          // newPhotographerName: this.state.newPhotographerName,
+          deletePhotographerConfirmation: this.state.deletePhotographerConfirmation,
           setLoginToken: this.setLoginToken,
           getLoginToken: this.getLoginToken,
           handleSignout: this.handleSignout,
@@ -262,8 +272,10 @@ export default class GlobalState extends React.Component{
           setPreviousRoute: this.setPreviousRoute,
           handleMenuToggle: this.handleMenuToggle,
           handleNewPhotographerName: this.handleNewPhotographerName,
+          setPhotographers: this.setPhotographers,
           getPhotographers: this.getPhotographers,
           setEditPhotographer: this.setEditPhotographer,
+          handleDeletePhotographerConfirmation: this.handleDeletePhotographerConfirmation,
         }}>
           
       {this.props.children}

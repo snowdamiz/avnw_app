@@ -25,12 +25,6 @@ export default function BookingStepThree(props) {
   const [city, setCity] = useState(cartContext.user.city);
   const [state, setState] = useState(cartContext.user.state);
   const [zipCode, setZipCode] = useState(cartContext.user.zip);
-  
-  // useEffect( _ => {
-  //   cartContext.getLoginToken();
-    // setAddress(cartContext.user.address);
-    // console.log(cartContext.user.address);
-  // }, []) 
 
   const handleSubmit = _ => {
     let nav = props.navigation;
@@ -51,9 +45,6 @@ export default function BookingStepThree(props) {
       
     } else setError(true);
   }
-
-  console.log(typeof zipCode);
-  // console.log(typeof cartContext.user.zip);
 
   return (
     <SafeAreaView style={styles.container}>

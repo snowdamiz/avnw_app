@@ -26,7 +26,6 @@ export default function StoreContent(props) {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.store}>
         {cartContext.merch.map((el) => {
-          console.log(el);
           return (
             <View style={[styles.prod_box, styles.shadow1]} key={el.id}>
               <View style={styles.prod_img_box}>

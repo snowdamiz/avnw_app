@@ -22,7 +22,7 @@ export default React.createContext({
   accountType: '',
   menuToggle: false,
   photographerEdit: [],
-  // newPhotographerName: '',
+  deletePhotographerConfirmation: false,
   setLoginToken: (token, user) => {},
   getLoginToken: _ => {},
   handleSignout: _ => {},
@@ -41,5 +41,7 @@ export default React.createContext({
   setPreviousRoute: route => {},
   handleMenuToggle: _ => {},
   handleNewPhotographerName: (e) => {},
+  setPhotographers: (el) => {},
   getPhotographers: _ => {},
+  handleDeletePhotographerConfirmation: _ => {},
 });

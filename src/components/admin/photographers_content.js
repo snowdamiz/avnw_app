@@ -19,6 +19,7 @@ import {
 
 export default function PhotographersContent(props) {
   const [toggle, setToggle] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
 
   const cartContext = useContext(Context);
   const route = useRoute();
@@ -32,9 +33,16 @@ export default function PhotographersContent(props) {
     cartContext.handleEditPhotographerToggle();
   }
 
+  const handleDeletePhotographer = el => {
+    cartContext.setEditPhotographer(el);
+    cartContext.handleDeletePhotographerConfirmation();
+  }
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={[styles.header, toggle ? styles.header_on : null]} onPress={ _ => setToggle(!toggle)}>
+      <TouchableOpacity
+        style={[styles.header, toggle ? styles.header_on : null]}
+        onPress={ _ => setToggle(!toggle)}>
         <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Photographers</Text>
         <View style={styles.header_btns}>
           { toggle ? (
@@ -67,10 +75,14 @@ export default function PhotographersContent(props) {
                   </View>
                 </View>
                 <View style={styles.btns}>
-                  <TouchableOpacity style={[styles.btn]} onPress={ _ => handleEditPhotographer(el)}>
+                  <TouchableOpacity
+                    style={[styles.btn]}
+                    onPress={ _ => handleEditPhotographer(el)}>
                     <Image source={EditIMG} style={[styles.btn_IMG]} />
                   </TouchableOpacity>
-                  <TouchableOpacity style={[styles.btn]}>
+                  <TouchableOpacity
+                    style={[styles.btn]}
+                    onPress={ _ => handleDeletePhotographer(el)}>
                     <Image source={DeleteIMG} style={[styles.btn_IMG]} />
                   </TouchableOpacity>
                 </View>
@@ -215,6 +227,11 @@ const styles = StyleSheet.create({
 
       photographer_content: {
         // borderWidth: 1,
+      },
+
+      confirmation_box: {
+        width: '80%',
+        borderWidth: 1,
       },
 
         photographer_row: {

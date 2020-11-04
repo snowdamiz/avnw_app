@@ -16,7 +16,7 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function AdminPanel(props) {
   const [photographerName, setPhotographerName] = useState();
@@ -33,12 +33,10 @@ export default function AdminPanel(props) {
     setPhotographerInsta(cartContext.photographerEdit.insta_username);
     setPhotographerImage(cartContext.photographerEdit.profile_image);
     setPhotographerBio(cartContext.photographerEdit.bio);
-
-    console.log(cartContext.photographerEdit);
   }, [cartContext.photographerEdit])
 
   useEffect( _ => {
-    if (cartContext.newPhotographerToggle || cartContext.editPhotographerToggle) {
+    if (cartContext.newPhotographerToggle || cartContext.editPhotographerToggle || cartContext.deletePhotographerConfirmation) {
       setCover(true)
     } else setCover(false);
   }, [cartContext.newPhotographerToggle, cartContext.editPhotographerToggle])
@@ -94,7 +92,6 @@ export default function AdminPanel(props) {
         const token = await AsyncStorage.getItem('token');
         const config = { headers: { Authorization: token }}
         let id = cartContext.photographerEdit.id;
-        console.log(id);
 
         await axios.put(`http://192.168.51.241:5000/photographers/${id}`, photographer, config)
           .then(res => {
@@ -106,11 +103,49 @@ export default function AdminPanel(props) {
     } else setErr(1);
   }
 
+  const handleConfirmDelete = async _ => {
+    const data = {
+      deletedAt: new Date(),
+    }
+
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const config = { headers: { Authorization: token }}
+      let id = cartContext.photographerEdit.id;
+      console.log(id);
+
+      await axios.put(`http://192.168.51.241:5000/photographers/${id}`, data, config)
+        .then(res => {
+          cartContext.getPhotographers();
+          cartContext.handleDeletePhotographerConfirmation();
+        })
+        .catch(err => console.log(err))
+    } catch (err) { console.log(err) }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Header navigation={props.navigation} />
       { cover ? <View style={styles.cover}></View> : null }
+      { cartContext.deletePhotographerConfirmation ? (
+        <View style={styles.delete_confirmation}>
+          <Text style={styles.delete_confirmation_text}>
+            Are you sure you want to delete this user?
+          </Text>
+          <View style={styles.confirmation_btns}>
+            <TouchableOpacity
+              style={styles.confirm_btn}
+              onPress={ _ => handleConfirmDelete()}>
+              <Text style={styles.confirm_btn_text}>Confirm</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.deny_btn}>
+              <Text style={styles.deny_btn_text}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : null }
       { cartContext.newPhotographerToggle ? (
         <View style={styles.new_box}>
           <Text style={styles.new_title}>New Photographer</Text>
@@ -301,9 +336,74 @@ const styles = StyleSheet.create({
           padding: 10,
         },
 
-  scroll: {
+    delete_confirmation: {
+      width: 300,
+      height: 150,
+      // borderWidth: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'absolute',
+      backgroundColor: '#fff',
+      borderRadius: 6,
+      zIndex: 1,
+      top: '30%',
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 0,
+      },
+      shadowOpacity: 1,
+      shadowRadius: 6,
+      elevation: 8,
+      // marginTop: 12,
+    },
 
-  },
+      delete_confirmation_text: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        width: '70%',
+        opacity: 0.6,
+        textAlign: 'center',
+        marginBottom: 20,
+      },
+
+      confirmation_btns: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      },
+
+        confirm_btn: {
+          width: Dimensions.get('screen').width / 2 - 90,
+          // borderWidth: 1,
+          textAlign: 'center',
+          borderRadius: 4,
+          marginRight: 5,
+          backgroundColor: '#009cd8'
+        },
+
+        deny_btn: {
+          width: Dimensions.get('screen').width / 2 - 80,
+          // borderWidth: 1,
+          textAlign: 'center',
+          borderRadius: 4,
+          marginLeft: 5,
+          backgroundColor: '#005575',
+        },
+
+          confirm_btn_text: {
+            textAlign: 'center',
+            padding: 10,
+            color: '#fff',
+            fontWeight: 'bold',
+          },
+
+          deny_btn_text: {
+            textAlign: 'center',
+            padding: 10,
+            color: '#fff',
+            fontWeight: 'bold',
+          },
 
     cover: {
       position: 'absolute',
