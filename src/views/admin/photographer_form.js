@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import Context from '../../context/context.js';
-import Header from '../../components/header.js';
-
 import { StyleSheet, View, Text, TextInput, Dimensions, KeyboardAvoidingView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Context from '../../context/context.js';
+import Header from '../../components/header.js';
 
 export default function AdminPanel(props) {
   const [photographerName, setPhotographerName] = useState();
@@ -157,40 +156,42 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    zIndex: 2,
   },
 
     wrap: {
-      width: Dimensions.get('screen').width - 60,
+      width: '100%',
       borderRadius: 6,
       justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: '#fff',
-      top: 30,
-      zIndex: 1,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.8,
-      shadowRadius: 3.2,
-      elevation: 8,
+      marginTop: 30,
+      // zIndex: 1,
+      // shadowColor: "#000",
+      // shadowOffset: {
+      //   width: 0,
+      //   height: 2,
+      // },
+      // shadowOpacity: 0.8,
+      // shadowRadius: 3.2,
+      // elevation: 8,
     },
 
       title: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 22,
         opacity: 0.6,
-        marginTop: 30,
+        alignSelf: 'flex-start',
+        marginLeft: 30,
       },
 
       content: {
-        marginTop: 15,
+        // marginTop: 10,
         marginBottom: 15,
       },
 
         input: {
-          width: Dimensions.get('screen').width - 110,
+          width: Dimensions.get('screen').width - 60,
           padding: 12,
           paddingLeft: 10,
           borderRadius: 4,
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
         },
 
     btns_box: {
-      width: Dimensions.get('screen').width - 110,
+      width: Dimensions.get('screen').width - 60,
       marginBottom: 15,
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     },
 
       btn: {
-        width: Dimensions.get('screen').width / 2 - 62,
+        width: Dimensions.get('screen').width / 2 - 36,
         borderRadius: 4,
         backgroundColor: '#005575',
       },
@@ -236,6 +237,6 @@ const styles = StyleSheet.create({
           fontWeight: 'bold',
           color: '#fff',
           opacity: 0.9,
-          padding: 10,
+          padding: 12,
         },
 });

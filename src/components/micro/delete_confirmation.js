@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import Context from '../../context/context.js';
-
 import { StyleSheet, View, Text, Dimensions,} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Context from '../../context/context.js';
 
 export default function AdminPanel() {
   const cartContext = useContext(Context);
@@ -18,9 +17,9 @@ export default function AdminPanel() {
       const config = { headers: { Authorization: token }}
       let id = cartContext.photographerEdit.id;
 
-      await axios.put(`http://192.168.51.241:5000/photographers/${id}`, data, config)
+      await axios.put(`https://avnw-api.herokuapp.com/photographers/${id}`, data, config)
         .then(res => {
-          cartContext.getPhotographers();
+          cartContext.setPhotographers(res.data);
           cartContext.handleDeletePhotographerConfirmation();
         })
         .catch(err => console.log(err))
@@ -36,7 +35,7 @@ export default function AdminPanel() {
     <View>
       <View style={styles.wrap}>
         <Text style={styles.text}>
-          Are you sure you want to delete this user?
+          Are you sure you want to delete {cartContext.photographerEdit.name}
         </Text>
         <View style={styles.btns}>
           <TouchableOpacity
@@ -57,31 +56,22 @@ export default function AdminPanel() {
 
 const styles = StyleSheet.create({
   wrap: {
-    width: 300,
+    width: '100%',
     height: 150,
-    // borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
     backgroundColor: '#fff',
     borderRadius: 6,
     zIndex: 1,
-    top: 25,
-    left: Dimensions.get('screen').width / 2 - 175,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 6,
-    elevation: 8,
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: 'lightgray',
   },
 
     text: {
       fontSize: 15,
       fontWeight: 'bold',
-      width: '70%',
+      width: '85%',
       opacity: 0.6,
       textAlign: 'center',
       marginBottom: 20,

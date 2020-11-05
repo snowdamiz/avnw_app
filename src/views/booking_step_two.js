@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
 
       text_box: {
         marginTop: 40,
+        marginBottom: 15,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',

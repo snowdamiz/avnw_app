@@ -39,7 +39,7 @@ export default function Login(props) {
       const auth = { email: email, password: password };
 
       try {
-        await axios.post('http://192.168.51.241:5000/user/login', auth)
+        await axios.post('https://avnw-api.herokuapp.com/user/login', auth)
           .then(res => {
             cartContext.setLoginToken(res.data.token, res.data.user[0]);
             props.navigation.navigate(cartContext.previousRoute);
@@ -73,7 +73,7 @@ export default function Login(props) {
       };
 
       try {
-        await axios.post('http://192.168.51.241:5000/user/register', user)
+        await axios.post('https://avnw-api.herokuapp.com/user/register', user)
           .then(res => {
             cartContext.setLoginToken(res.data.token, res.data.user);
             props.navigation.navigate(cartContext.previousRoute);

@@ -3,8 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Context from './context';
 
-import { merch, user, photographers, services } from '../../dummydb.js';
-
 export default class GlobalState extends React.Component{
   state = {
     user: [],
@@ -39,7 +37,6 @@ export default class GlobalState extends React.Component{
 
   componentDidMount() {
     this.getLoginToken();
-    this.getMerchCategories();
     this.getPhotographers();
     this.getServices();
     this.getMerch();
@@ -90,15 +87,15 @@ export default class GlobalState extends React.Component{
 
   getPhotographers = async _ => {
     try {
-      await axios.get('http://192.168.51.241:5000/photographers')
-        .then(res => this.setState({ photographers: res.data }))
+      await axios.get('https://avnw-api.herokuapp.com/photographers')
+      .then(res => this.setState({ photographers: res.data }))
         .catch(err => console.log(err))
     } catch (err) { console.log(err) }
   }
 
   getServices = async _ => {
     try {
-      await axios.get('http://192.168.51.241:5000/services')
+      await axios.get('https://avnw-api.herokuapp.com/services')
         .then(res => this.setState({ services: res.data }))
         .catch(err => console.log(err) )
     } catch (err) { console.log(err) }
@@ -106,7 +103,7 @@ export default class GlobalState extends React.Component{
 
   getMerch = async _ => {
     try {
-      await axios.get('http://192.168.51.241:5000/store')
+      await axios.get('https://avnw-api.herokuapp.com/store')
         .then(res => this.setState({ merch: res.data }))
         .catch(err => console.log(err) )
     } catch (err) { console.log(err) }
@@ -119,17 +116,6 @@ export default class GlobalState extends React.Component{
   setCurGallery = el => {
     this.setState({ curGallery: el });
   }
-  
-  getMerchCategories = _ => {
-    let getMerchCategories = [];
-    let getMerch = merch;
-  
-    for (let i = 0; i < getMerch.length; i++) {
-      getMerchCategories.push(getMerch[i].category);
-    }
-  
-    this.setState({ filterList: getMerchCategories });
-  };
 
   handleShootLocation = (el) => {
     this.setState({ shootLocation: el });

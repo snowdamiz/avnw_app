@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useRoute } from '@react-navigation/native';
-
+import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
 import DeleteConfirmation from '../micro/delete_confirmation.js';
 import EditIMG from '../../assets/edit.png';
 import AddIMG from '../../assets/add.png';
@@ -8,27 +7,17 @@ import AddOnIMG from '../../assets/add_on.png';
 import DeleteIMG from '../../assets/trash.png';
 import Context from '../../context/context.js';
 
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  ScrollView,
-} from 'react-native';
 
 export default function PhotographersContent(props) {
   const [toggle, setToggle] = useState(false);
-  const [confirmation, setConfirmation] = useState(false);
 
   const cartContext = useContext(Context);
-  const route = useRoute();
   
   useEffect( _ => {
     cartContext.getPhotographers();
   },[cartContext.photographerEdit])
 
+  // Set form type to nav to
   const handlePhotographerInteraction = el => {
     if (el) {
       cartContext.handleAdminPhotographerInteraction('edit');
@@ -41,6 +30,7 @@ export default function PhotographersContent(props) {
     }
   }
 
+  // Handle Photographer Delete
   const handleDeletePhotographer = el => {
     cartContext.setEditPhotographer(el);
     cartContext.handleDeletePhotographerConfirmation();
@@ -109,10 +99,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     width: Dimensions.get('screen').width - 30,
-    // height: '100%',
     marginTop: 15,
     marginBottom: 30,
-    // paddingBottom: 30,
     marginRight: 15,
     marginLeft: 15,
     borderRadius: 6,
@@ -134,7 +122,6 @@ const styles = StyleSheet.create({
       paddingRight: 15,
       paddingLeft: 15,
       height: 55,
-      // borderBottomColor: '#DDDDDD',
       borderTopColor: '#fff',
       borderLeftColor: '#fff',
       borderRightColor: '#fff',
@@ -144,8 +131,6 @@ const styles = StyleSheet.create({
 
     header_on: {
       backgroundColor: '#009cd8',
-      // borderWidth: 2,
-      // borderColor: '#009cd8',
     },
 
       header_text: {
@@ -170,7 +155,6 @@ const styles = StyleSheet.create({
         add_photographer_box: {
           width: 30,
           height: 30,
-          // borderWidth: 1,
           justifyContent: 'center',
           alignItems: 'center',
           marginRight: 10,
@@ -180,7 +164,6 @@ const styles = StyleSheet.create({
             width: 16,
             height: 16,
             opacity: 0.5,
-            // marginRight: 15,
           },
 
           header_add_IMG_on: {
@@ -216,10 +199,7 @@ const styles = StyleSheet.create({
         },
 
   container_box: {
-    // borderWidth: 1,
-    // borderColor: '#009cd8',
     paddingBottom: 10,
-    // marginBottom: 30,
   },
 
     photographer_card: {
@@ -235,7 +215,6 @@ const styles = StyleSheet.create({
     },
 
       photographer_content: {
-        // borderWidth: 1,
       },
 
       confirmation_box: {
@@ -266,11 +245,9 @@ const styles = StyleSheet.create({
           },
 
         btns: {
-          // borderWidth: 1,
           flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center',
-          // width: '100%',
         },
 
           btn: {
@@ -279,7 +256,6 @@ const styles = StyleSheet.create({
             width: 34,
             height: 34,
             borderRadius: 17,
-            // borderWidth: 1,
             marginLeft: 4,
           },
 
@@ -287,7 +263,6 @@ const styles = StyleSheet.create({
               width: 20,
               height: 20,
               opacity: 0.65,
-              // borderRadius: 17,
             }
 
 });

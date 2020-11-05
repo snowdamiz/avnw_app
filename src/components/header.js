@@ -1,13 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useRoute } from '@react-navigation/native';
-
+import React, { useContext } from 'react';
+import { Dimensions, StyleSheet, View, Image, Text, TouchableNativeFeedback } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import Context from '../context/context.js';
 import CartIMG from '../assets/cart.png';
 import ProfileIMG from '../assets/profile.png';
 import LogoIMG from '../assets/logo.png';
-
-import { Dimensions, StyleSheet, View, Image, Text, TouchableNativeFeedback } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function Header(props) {
   const cartContext = useContext(Context);
@@ -115,6 +112,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     zIndex: 1,
     backgroundColor: '#009cd8',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 10,
+    shadowOpacity: 0.6,
+    shadowRadius: 3
   },
 
     logo: {
