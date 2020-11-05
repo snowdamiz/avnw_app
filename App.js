@@ -16,6 +16,7 @@ import MerchOrderOverview from './src/views/merch_order_overview.js';
 import BasicInfoStep from './src/views/basic_info_step.js';
 import Gallery from './src/views/gallery.js';
 import AdminPanel from './src/views/admin_panel.js';
+import PhotographerForm from './src/views/admin/photographer_form.js';
 
 export default function App() {
   return (
@@ -57,6 +58,9 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="AdminPanel">
             { props => <AdminPanel {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="PhotographerForm">
+            { props => <PhotographerForm {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

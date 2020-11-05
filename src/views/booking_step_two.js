@@ -49,12 +49,17 @@ export default function BookingStepTwo(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <LinearGradient colors={['#009cd8', '#018bc0', '#018bc0']} style={styles.gradient} >
+      <LinearGradient colors={['#fff', '#fff', '#fff']} style={styles.gradient} >
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.text_box}>
             <Text style={styles.text_title}>Step Two</Text>
             <Text style={styles.text_content}>Choose your photoshoot</Text>
           </View>
+          { cartContext.serviceError ? (
+            <View style={styles.err_box}>
+              <Text style={styles.err_text}>Please select a service</Text>
+            </View>
+          ) : null }
           <View style={styles.services_box}>
             { cartContext.services.map((el) => {
               return (
@@ -84,11 +89,6 @@ export default function BookingStepTwo(props) {
               )
             })}
           </View>
-          { cartContext.serviceError ? (
-            <View style={styles.err_box}>
-              <Text style={styles.err_text}>Please select a service</Text>
-            </View>
-          ) : null }
           <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleNavigation() }>
             <Text style={styles.continue_btn_text}>Continue</Text>
             <View style={styles.continue_btn_arrow}></View>
@@ -122,22 +122,24 @@ const styles = StyleSheet.create({
       },
 
         text_title: {
-          color: '#fefefe',
+          color: '#000',
           fontWeight: 'bold',
           fontSize: 28,
+          opacity: 0.6,
         },
 
         text_content: {
-          color: '#fefefe',
+          color: '#000',
           fontSize: 17,
+          opacity: 0.6,
         },
 
       services_box: {
-        marginTop: 30,
+        // marginTop: 30,
         marginBottom: 10,
         padding: 5,
         width: Dimensions.get('screen').width - 26,
-        borderRadius: 10,
+        borderRadius: 8,
         backgroundColor: '#fefefe',
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -148,14 +150,19 @@ const styles = StyleSheet.create({
         service: { 
           width: Dimensions.get('screen').width - 46,
           padding: 15,
-          borderRadius: 8,
-          backgroundColor: '#f1f1f1',
+          borderRadius: 6,
+          backgroundColor: '#efefef',
           borderWidth: 1,
           borderColor: '#ebebeb',
           marginBottom: 15,
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          // shadowColor: '#000',
+          // shadowOffset: { width: 0, height: 0 },
+          // shadowOpacity: 1,
+          // shadowRadius: 8,
+          // elevation: 4,
         },
 
           service_info: {
@@ -166,7 +173,7 @@ const styles = StyleSheet.create({
               fontSize: 15,
               fontWeight: 'bold',
               color: '#000',
-              opacity: 0.55,
+              opacity: 0.6,
             },
 
             service_info_desc: {
@@ -190,12 +197,12 @@ const styles = StyleSheet.create({
               width: '60%',
               height: 48,
               backgroundColor: '#fff',
-              borderRadius: 8,
+              borderRadius: 6,
               shadowColor: '#000',
               shadowOffset: { width: 0, height: 0 },
-              shadowOpacity: 1,
-              shadowRadius: 1,
-              elevation: 2,
+              shadowOpacity: 0.6,
+              shadowRadius: 6,
+              elevation: 3,
             },
 
               service_btns_price_title: {
@@ -227,13 +234,13 @@ const styles = StyleSheet.create({
           alignItems: 'center',
           backgroundColor: '#fff',
           height: 48,
-          borderRadius: 8,
+          borderRadius: 6,
           width: Dimensions.get('screen').width / 2 * 0.55,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 1,
-          shadowRadius: 1,
-          elevation: 2,
+          shadowOpacity: 0.6,
+          shadowRadius: 6,
+          elevation: 3,
         },
 
         service_btns_add_on: {
@@ -254,7 +261,7 @@ const styles = StyleSheet.create({
 
     continue_btn: {
       marginTop: 15,
-      marginBottom: 30,
+      marginBottom: 20,
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
@@ -270,27 +277,30 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         borderTopColor: 'transparent',
         borderBottomColor: 'transparent',
-        borderLeftColor: '#fefefe',
+        borderLeftColor: '#000',
         marginLeft: 10,
         marginTop: 5,
+        opacity: 0.65,
       },
 
       continue_btn_text: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#fff',
+        color: '#000',
+        opacity: 0.65,
       },
 
   err_box: {
     width: Dimensions.get('screen').width - 40,
     padding: 10,
-    backgroundColor: '#fefefe',
-    borderRadius: 8,
+    backgroundColor: 'pink',
+    borderRadius: 6,
+    marginTop: 30,
   },
 
     err_text: {
       color: '#000',
       opacity: 0.5,
-      fontSize: 12,
+      fontSize: 13,
     }
 });

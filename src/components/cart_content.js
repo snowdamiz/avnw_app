@@ -44,10 +44,7 @@ export default function CartContent(props) {
     }
   }
 
-  // const getUser = () => {
-  //   if (cartContext.user.id === "") return ''
-  //   else return 'MerchOrderOverview'
-  // }
+  console.log(cartContext.cart);
 
   return (
     <View style={styles.container}>
@@ -66,7 +63,7 @@ export default function CartContent(props) {
             ) : (
               cartContext.cart.map((el) => {
                 return (
-                  <View style={styles.cart_container_content_box} key={el.desc}>
+                  <View style={styles.cart_container_content_box} key={el.id}>
                     <Text style={styles.cart_container_content_item}>{el.product}</Text>
                     <View style={styles.cart_container_content_QP}>
                       { el.type === 'merch' ? (

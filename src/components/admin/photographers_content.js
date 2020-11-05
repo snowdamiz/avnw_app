@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useRoute } from '@react-navigation/native';
 
+import DeleteConfirmation from '../micro/delete_confirmation.js';
 import EditIMG from '../../assets/edit.png';
 import AddIMG from '../../assets/add.png';
 import AddOnIMG from '../../assets/add_on.png';
@@ -28,9 +29,16 @@ export default function PhotographersContent(props) {
     cartContext.getPhotographers();
   },[cartContext.photographerEdit])
 
-  const handleEditPhotographer = el => {
-    cartContext.setEditPhotographer(el);
-    cartContext.handleEditPhotographerToggle();
+  const handlePhotographerInteraction = el => {
+    if (el) {
+      cartContext.handleAdminPhotographerInteraction('edit');
+      cartContext.setEditPhotographer(el);
+      props.navigation.navigate('PhotographerForm');
+    } else {
+      cartContext.handleAdminPhotographerInteraction('new');
+      cartContext.photographerEditRESET();
+      props.navigation.navigate('PhotographerForm');
+    }
   }
 
   const handleDeletePhotographer = el => {
@@ -47,8 +55,8 @@ export default function PhotographersContent(props) {
         <View style={styles.header_btns}>
           { toggle ? (
             <TouchableOpacity
-              style={styles.add_photographer_box}
-              onPress={ _ => cartContext.handleNewPhotographerToggle()}>
+            style={styles.add_photographer_box}
+            onPress={ _ => handlePhotographerInteraction()}>
               <Image
                 source={ toggle ? AddOnIMG : AddIMG }
                 style={[styles.header_add_IMG, toggle ? styles.header_add_IMG_on : null]} />
@@ -61,6 +69,7 @@ export default function PhotographersContent(props) {
       </TouchableOpacity>
       { toggle ? (
         <View style={styles.container_box}>
+          { cartContext.deletePhotographerConfirmation ? <DeleteConfirmation /> : null }
           { cartContext.photographers ? cartContext.photographers.map(el => {
             return (
               <View style={styles.photographer_card} key={el.id}>
@@ -77,7 +86,7 @@ export default function PhotographersContent(props) {
                 <View style={styles.btns}>
                   <TouchableOpacity
                     style={[styles.btn]}
-                    onPress={ _ => handleEditPhotographer(el)}>
+                    onPress={ _ => handlePhotographerInteraction(el)}>
                     <Image source={EditIMG} style={[styles.btn_IMG]} />
                   </TouchableOpacity>
                   <TouchableOpacity

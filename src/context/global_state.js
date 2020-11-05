@@ -34,6 +34,7 @@ export default class GlobalState extends React.Component{
     menuToggle: false,
     photographerEdit: [],
     deletePhotographerConfirmation: false,
+    adminPhotographerInteraction: '',
   }
 
   componentDidMount() {
@@ -190,17 +191,6 @@ export default class GlobalState extends React.Component{
     this.setState({ shippingInfoToggle: !toggle });
   }
 
-  handleNewPhotographerToggle = _ => {
-    let toggle = this.state.newPhotographerToggle;
-    this.setState({ newPhotographerToggle: !toggle })
-    this.setState({ photographerEdit: [] })
-  }
-
-  handleEditPhotographerToggle = _ => {
-    let toggle = this.state.editPhotographerToggle;
-    this.setState({ editPhotographerToggle: !toggle })
-  }
-
   handleServiceError = res => {
     this.setState({ serviceError: res });
   }
@@ -214,12 +204,6 @@ export default class GlobalState extends React.Component{
     this.setState({ menuToggle: !toggle })
   }
 
-  handleNewPhotographerName = e => {
-    this.setState( prevState => {
-      return prevState, e
-    })
-  }
-
   setEditPhotographer = el => {
     this.setState({ photographerEdit: el })
   }
@@ -228,6 +212,13 @@ export default class GlobalState extends React.Component{
     let toggle = this.state.deletePhotographerConfirmation;
     this.setState({ deletePhotographerConfirmation: !toggle});
   }
+
+  handleAdminPhotographerInteraction = status => {
+    console.log(status);
+    this.setState({ adminPhotographerInteraction: status });
+  }
+
+  photographerEditRESET = _ => this.setState({ photographerEdit: [] });
 
   render(){
     return (
@@ -242,8 +233,6 @@ export default class GlobalState extends React.Component{
           shootLocationToggle: this.state.shootLocationToggle,
           basicInfoToggle: this.state.basicInfoToggle,
           shippingInfoToggle: this.state.shippingInfoToggle,
-          newPhotographerToggle: this.state.newPhotographerToggle,
-          editPhotographerToggle: this.state.editPhotographerToggle,
           merch: this.state.merch,
           services: this.state.services,
           filterList: this.state.filterList,
@@ -254,6 +243,7 @@ export default class GlobalState extends React.Component{
           accountType: this.state.accountType,
           menuToggle: this.state.menuToggle,
           photographerEdit: this.state.photographerEdit,
+          adminPhotographerInteraction: this.state.adminPhotographerInteraction,
           deletePhotographerConfirmation: this.state.deletePhotographerConfirmation,
           setLoginToken: this.setLoginToken,
           getLoginToken: this.getLoginToken,
@@ -266,16 +256,15 @@ export default class GlobalState extends React.Component{
           handleShootLocationToggle: this.handleShootLocationToggle,
           handleBasicInfoToggle: this.handleBasicInfoToggle,
           handleShippingInfoToggle: this.handleShippingInfoToggle,
-          handleNewPhotographerToggle: this.handleNewPhotographerToggle,
-          handleEditPhotographerToggle: this.handleEditPhotographerToggle,
           handleServiceError: this.handleServiceError,
           setPreviousRoute: this.setPreviousRoute,
           handleMenuToggle: this.handleMenuToggle,
-          handleNewPhotographerName: this.handleNewPhotographerName,
           setPhotographers: this.setPhotographers,
           getPhotographers: this.getPhotographers,
           setEditPhotographer: this.setEditPhotographer,
           handleDeletePhotographerConfirmation: this.handleDeletePhotographerConfirmation,
+          handleAdminPhotographerInteraction: this.handleAdminPhotographerInteraction,
+          photographerEditRESET: this.photographerEditRESET,
         }}>
           
       {this.props.children}
