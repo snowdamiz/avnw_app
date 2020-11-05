@@ -31,8 +31,14 @@ export default class GlobalState extends React.Component{
     accountType: '',
     menuToggle: false,
     photographerEdit: [],
+    serviceEditing: [],
+    productEditing: [],
     deletePhotographerConfirmation: false,
+    deleteServiceConfirmation: false,
+    deleteProductConfirmation: false,
     adminPhotographerInteraction: '',
+    adminServiceInteraction: '',
+    adminProductInteraction: '',
   }
 
   componentDidMount() {
@@ -81,9 +87,9 @@ export default class GlobalState extends React.Component{
     }
   }
 
-  setPhotographers = el => {
-    this.setState({ photographers: el })
-  }
+  setPhotographers = el => this.setState({ photographers: el })
+  setServices = el => this.setState({ services: el })
+  setProducts = el => this.setState({ merch: el })
 
   getPhotographers = async _ => {
     try {
@@ -194,17 +200,44 @@ export default class GlobalState extends React.Component{
     this.setState({ photographerEdit: el })
   }
 
+  setEditService = el => {
+    this.setState({ serviceEditing: el })
+  }
+
+  setEditProduct = el => {
+    this.setState({ productEditing: el })
+  }
+
   handleDeletePhotographerConfirmation = _ => {
     let toggle = this.state.deletePhotographerConfirmation;
     this.setState({ deletePhotographerConfirmation: !toggle});
   }
 
+  handleDeleteServiceConfirmation = _ => {
+    let toggle = this.state.deleteServiceConfirmation;
+    this.setState({ deleteServiceConfirmation: !toggle })
+  }
+
+  handleDeleteProductConfirmation = _ => {
+    let toggle = this.state.deleteProductConfirmation;
+    this.setState({ deleteProductConfirmation: !toggle })
+  }
+
   handleAdminPhotographerInteraction = status => {
-    console.log(status);
     this.setState({ adminPhotographerInteraction: status });
   }
 
+  handleAdminServiceInteraction = status => {
+    this.setState({ adminServiceInteraction: status });
+  }
+
+  handleAdminProductInteraction = status => { 
+    this.setState({ adminProductInteraction: status })
+  }
+
   photographerEditRESET = _ => this.setState({ photographerEdit: [] });
+  serviceEditingRESET = _ => this.setState({ serviceEditing: [] })
+  productEditingRESET = _ => this.setState({ productEditing: [] })
 
   render(){
     return (
@@ -229,14 +262,21 @@ export default class GlobalState extends React.Component{
           accountType: this.state.accountType,
           menuToggle: this.state.menuToggle,
           photographerEdit: this.state.photographerEdit,
+          serviceEditing: this.state.serviceEditing,
+          productEditing: this.state.productEditing,
           adminPhotographerInteraction: this.state.adminPhotographerInteraction,
+          adminServiceInteraction: this.state.adminServiceInteraction,
+          adminProductInteraction: this.state.adminProductInteraction,
           deletePhotographerConfirmation: this.state.deletePhotographerConfirmation,
+          deleteServiceConfirmation: this.state.deleteServiceConfirmation,
+          deleteProductConfirmation: this.state.deleteProductConfirmation,
           setLoginToken: this.setLoginToken,
           getLoginToken: this.getLoginToken,
           handleSignout: this.handleSignout,
           setCurGallery: this.setCurGallery,
           setCurPhotographer: this.setCurPhotographer,
           changeItemQuantity: this.changeItemQuantity,
+          getMerch: this.getMerch,
           handleShootLocation: this.handleShootLocation,
           handleCart: this.handleCart,
           handleShootLocationToggle: this.handleShootLocationToggle,
@@ -247,12 +287,21 @@ export default class GlobalState extends React.Component{
           handleMenuToggle: this.handleMenuToggle,
           setPhotographers: this.setPhotographers,
           getPhotographers: this.getPhotographers,
+          setServices: this.setServices,
+          getServices: this.getServices,
+          setProducts: this.setProducts,
           setEditPhotographer: this.setEditPhotographer,
+          setEditService: this.setEditService,
+          setEditProduct: this.setEditProduct,
           handleDeletePhotographerConfirmation: this.handleDeletePhotographerConfirmation,
+          handleDeleteServiceConfirmation: this.handleDeleteServiceConfirmation,
+          handleDeleteProductConfirmation: this.handleDeleteProductConfirmation,
           handleAdminPhotographerInteraction: this.handleAdminPhotographerInteraction,
+          handleAdminServiceInteraction: this.handleAdminServiceInteraction,
+          handleAdminProductInteraction: this.handleAdminProductInteraction,
           photographerEditRESET: this.photographerEditRESET,
+          serviceEditingRESET: this.serviceEditingRESET,
         }}>
-          
       {this.props.children}
       </Context.Provider>
     );

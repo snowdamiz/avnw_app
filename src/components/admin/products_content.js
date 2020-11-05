@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
-import DeleteServiceConfirmation from '../micro/delete_service_confirmation.js';
+import DeleteProductConfirmation from '../micro/delete_product_confirmation.js';
 import EditIMG from '../../assets/edit.png';
 import AddIMG from '../../assets/add.png';
 import AddOnIMG from '../../assets/add_on.png';
@@ -8,32 +8,32 @@ import DeleteIMG from '../../assets/trash.png';
 import Context from '../../context/context.js';
 
 
-export default function ServicesContent(props) {
+export default function ProductContent(props) {
   const [toggle, setToggle] = useState(false);
 
   const cartContext = useContext(Context);
   
   useEffect( _ => {
-    cartContext.getServices();
-  },[cartContext.serviceEditing])
+    cartContext.getMerch();
+  },[cartContext.productEditing])
 
   // Set form type to nav to 
-  const handleServiceInteraction = el => {
+  const handleProductInteraction = el => {
     if (el) {
-      cartContext.handleAdminServiceInteraction('edit');
-      cartContext.setEditService(el);
-      props.navigation.navigate('ServiceForm');
+      cartContext.handleAdminProductInteraction('edit');
+      cartContext.setEditProduct(el);
+      props.navigation.navigate('ProductForm');
     } else {
-      cartContext.handleAdminServiceInteraction('new');
-      cartContext.serviceEditingRESET();
-      props.navigation.navigate('ServiceForm');
+      cartContext.handleAdminProductInteraction('new');
+      cartContext.productEditingRESET();
+      props.navigation.navigate('ProductForm');
     }
   }
 
   // Handle Photographer Delete
-  const handleDeleteService = el => {
-    cartContext.setEditService(el);
-    cartContext.handleDeleteServiceConfirmation();
+  const handleDeleteProduct = el => {
+    cartContext.setEditProduct(el);
+    cartContext.handleDeleteProductConfirmation();
   }
   
   return (
@@ -41,12 +41,12 @@ export default function ServicesContent(props) {
       <TouchableOpacity
         style={[styles.header, toggle ? styles.header_on : null]}
         onPress={ _ => setToggle(!toggle)}>
-        <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Services</Text>
+        <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Products</Text>
         <View style={styles.header_btns}>
           { toggle ? (
             <TouchableOpacity
             style={styles.add_photographer_box}
-            onPress={ _ => handleServiceInteraction()}>
+            onPress={ _ => handleProductInteraction()}>
               <Image
                 source={ toggle ? AddOnIMG : AddIMG }
                 style={[styles.header_add_IMG, toggle ? styles.header_add_IMG_on : null]} />
@@ -59,8 +59,8 @@ export default function ServicesContent(props) {
       </TouchableOpacity>
       { toggle ? (
         <View style={styles.container_box}>
-          { cartContext.deleteServiceConfirmation ? <DeleteServiceConfirmation /> : null }
-          { cartContext.services ? cartContext.services.map(el => {
+          { cartContext.deleteProductConfirmation ? <DeleteProductConfirmation /> : null }
+          { cartContext.merch ? cartContext.merch.map(el => {
             return (
               <View style={styles.photographer_card} key={el.id}>
                 <View style={styles.photographer_content}>
@@ -76,12 +76,12 @@ export default function ServicesContent(props) {
                 <View style={styles.btns}>
                   <TouchableOpacity
                     style={[styles.btn]}
-                    onPress={ _ => handleServiceInteraction(el)}>
+                    onPress={ _ => handleProductInteraction(el)}>
                     <Image source={EditIMG} style={[styles.btn_IMG]} />
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={[styles.btn]}
-                    onPress={ _ => handleDeleteService(el)}>
+                    onPress={ _ => handleDeleteProduct(el)}>
                     <Image source={DeleteIMG} style={[styles.btn_IMG]} />
                   </TouchableOpacity>
                 </View>

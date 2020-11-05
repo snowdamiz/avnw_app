@@ -6,54 +6,63 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Context from '../../context/context.js';
 import Header from '../../components/header.js';
 
-export default function PhotographerForm(props) {
-  const [photographerName, setPhotographerName] = useState();
-  const [photographerInsta, setPhotographerInsta] = useState();
-  const [photographerImage, setPhotographerImage] = useState();
-  const [photographerBio, setPhotographerBio] = useState();
+export default function ProductForm(props) {
+  const [productName, setProductName] = useState();
+  const [productDescription, setProductDescription] = useState();
+  const [productPrice, setProductPrice] = useState();
+  const [productCategory, setProductCategory] = useState();
+  const [productImage, setProductImage] = useState();
   const [err, setErr] = useState(0);
   
   const cartContext = useContext(Context);
 
   useEffect( _ => {
-    setPhotographerName(cartContext.photographerEdit.name);
-    setPhotographerInsta(cartContext.photographerEdit.insta_username);
-    setPhotographerImage(cartContext.photographerEdit.profile_image);
-    setPhotographerBio(cartContext.photographerEdit.bio);
-  }, [cartContext.photographerEdit])
+    if (cartContext.productEditing.price) {
+      setProductPrice(cartContext.productEditing.price.toString());
+    } else {
+      setProductPrice(cartContext.productEditing.price);
+    }
+    setProductName(cartContext.productEditing.product);
+    setProductDescription(cartContext.productEditing.description);
+    setProductCategory(cartContext.productEditing.category);
+    setProductImage(cartContext.productEditing.image);
+  }, [cartContext.productEditing])
   
-  const handlePhotographerName = e => setPhotographerName(e);
-  const handlePhotographerInsta = e => setPhotographerInsta(e);
-  const handlePhotographerBio = e => setPhotographerBio(e);
-  const handlePhotographerImage = e => setPhotographerImage(e);
+  const handleProductName = e => setProductName(e);
+  const handleProductDescription = e => setProductDescription(e);
+  const handleProductPrice = e => setProductPrice(e);
+  const handleProductCategory = e => setProductCategory(e);
+  const handleProductImage = e => setProductImage(e);
 
   // Handle Canel Button; Reset State and Navigate
   const handleCancel = _ => {
     props.navigation.navigate('AdminPanel');
-    setPhotographerName('');
-    setPhotographerInsta('');
-    setPhotographerImage('');
-    setPhotographerBio('');
+    setProductName('');
+    setProductDescription('');
+    setProductPrice('');
+    setProductCategory('');
+    setProductImage('');
   }
-
-  console.log(cartContext.photographerEdit.name)
 
   // Exicute ADD or EDIT function based on "formType"
   const handleFormType = async _ => {
-    let formType = cartContext.adminPhotographerInteraction;
-    console.log(formType);
+    let formType = cartContext.adminProductInteraction;
     if(formType === 'new') handleAdd()
-    else if (formType === 'edit') handleEdit();
+    else handleEdit();
+    console.log(formType);
   }
 
   // Handles adding new content
   const handleAdd = async _ => {
-    if (photographerName && photographerInsta && photographerImage && photographerBio) {
-      const photographer = {
-        name: photographerName,
-        insta_username: photographerInsta,
-        profile_image: photographerImage,
-        bio: photographerBio,
+    if (productName && productDescription && productPrice && productCategory && productImage) {
+      const product = {
+        product: productName,
+        description: productDescription,
+        price: parseInt(productPrice),
+        category: productCategory,
+        image: productImage,
+        type: 'merch',
+        quantity: 1,
         createdAt: new Date(),
       }
 
@@ -61,9 +70,9 @@ export default function PhotographerForm(props) {
         const token = await AsyncStorage.getItem('token');
         const config = { headers: { Authorization: token }}
 
-        await axios.post('https://avnw-api.herokuapp.com/photographers/', photographer, config)
+        await axios.post('https://avnw-api.herokuapp.com/store/', product, config)
           .then(res => {
-            cartContext.setPhotographers(res.data);
+            cartContext.setProducts(res.data);
             props.navigation.navigate('AdminPanel')
           })
           .catch(err => console.log(err))
@@ -73,22 +82,27 @@ export default function PhotographerForm(props) {
 
   // Handles editing content
   const handleEdit = async _ => {
-    if (photographerName && photographerInsta && photographerImage && photographerBio) {
-      const photographer = {
-        name: photographerName,
-        insta_username: photographerInsta,
-        profile_image: photographerImage,
-        bio: photographerBio,
+    console.log('here');
+    console.log(cartContext.productEditing.product);
+    if (productName && productDescription && productPrice && productCategory && productImage) {
+      const product = {
+        product: productName,
+        description: productDescription,
+        price: parseInt(productPrice),
+        category: productCategory,
+        image: productImage,
       }
 
       try {
         const token = await AsyncStorage.getItem('token');
         const config = { headers: { Authorization: token }}
-        let id = cartContext.photographerEdit.id;
+        let id = cartContext.productEditing.id;
 
-        await axios.put(`https://avnw-api.herokuapp.com/photographers/${id}`, photographer, config)
+        console.log(id);
+
+        await axios.put(`https://avnw-api.herokuapp.com/store/${id}`, product, config)
           .then(res => {
-            cartContext.setPhotographers(res.data);
+            cartContext.setProducts(res.data);
             props.navigation.navigate('AdminPanel')
           })
           .catch(err => console.log(err))
@@ -103,37 +117,45 @@ export default function PhotographerForm(props) {
       <Header navigation={props.navigation} />
         <View style={styles.wrap}>
           <Text style={styles.title}>
-            { cartContext.adminPhotographerInteraction === 'new' ? 'New Photographer' : 'Edit Photographer' }
+            { cartContext.adminProductInteraction === 'new' ? 'New Product' : 'Edit Product' }
           </Text>
           <View style={styles.content}>
             <TextInput 
               style={[styles.input]}
-              placeholder={'Name'}
+              placeholder={'Product'}
               placeholderTextColor='#393939'
-              onChangeText={(e) => handlePhotographerName(e)}
-              value={photographerName}>
+              onChangeText={(e) => handleProductName(e)}
+              value={productName}>
             </TextInput>
             <TextInput 
               style={[styles.input]}
-              placeholder={'Instagram Handle'}
+              keyboardType={'numeric'}
+              placeholder={'Price'}
               placeholderTextColor='#393939'
-              onChangeText={(e) => handlePhotographerInsta(e)}
-              value={photographerInsta}>
+              onChangeText={(e) => handleProductPrice(e)}
+              value={productPrice}>
             </TextInput>
             <TextInput 
               style={[styles.input]}
-              placeholder={'Image URL'}
+              placeholder={'Category'}
               placeholderTextColor='#393939'
-              onChangeText={(e) => handlePhotographerImage(e)}
-              value={photographerImage}>
+              onChangeText={(e) => handleProductCategory(e)}
+              value={productCategory}>
+            </TextInput>
+            <TextInput 
+              style={[styles.input]}
+              placeholder={'Image'}
+              placeholderTextColor='#393939'
+              onChangeText={(e) => handleProductImage(e)}
+              value={productImage}>
             </TextInput>
             <TextInput 
               style={[styles.input, styles.bio_intput]}
               multiline={true}
-              placeholder={'Bio'}
+              placeholder={'Description'}
               placeholderTextColor='#393939'
-              onChangeText={(e) => handlePhotographerBio(e)}
-              value={photographerBio}>
+              onChangeText={(e) => handleProductDescription(e)}
+              value={productDescription}>
             </TextInput>
           </View>
           <View style={styles.btns_box}>
@@ -142,7 +164,7 @@ export default function PhotographerForm(props) {
             </TouchableOpacity>
             <TouchableOpacity style={[styles.btn, styles.btn_add]} onPress={ _ => handleFormType()}>
               <Text style={styles.btn_text}>
-              { cartContext.adminPhotographerInteraction === 'new' ? 'Add' : 'Edit' }
+              { cartContext.adminProductInteraction === 'new' ? 'Add' : 'Edit' }
               </Text>
             </TouchableOpacity>
           </View>

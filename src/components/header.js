@@ -110,13 +110,14 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingBottom: 15,
     justifyContent: 'space-between',
-    zIndex: 1,
+    zIndex: 10,
+    elevation: 10,
     backgroundColor: '#009cd8',
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 0 },
     shadowRadius: 10,
     shadowOpacity: 0.6,
-    shadowRadius: 3
+    shadowRadius: 3,
   },
 
     logo: {
@@ -249,7 +250,8 @@ const styles = StyleSheet.create({
         },
 
     profile_menu_box: {
-      zIndex: 1,
+      zIndex: 15,
+      elevation: 15,
       position: 'absolute',
       width: 140,
       // height: 150,
@@ -263,7 +265,6 @@ const styles = StyleSheet.create({
       },
       shadowOpacity: 0.7,
       shadowRadius: 10,
-      elevation: 6,
       right: 15,
       top: 65,
     },
@@ -299,6 +300,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       // borderWidth: 1,
       opacity: 0.5,
+      elevation: 10,
     },
 
       profile_menu_reset: {

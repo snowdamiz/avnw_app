@@ -6,41 +6,39 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Context from '../../context/context.js';
 import Header from '../../components/header.js';
 
-export default function PhotographerForm(props) {
-  const [photographerName, setPhotographerName] = useState();
-  const [photographerInsta, setPhotographerInsta] = useState();
-  const [photographerImage, setPhotographerImage] = useState();
-  const [photographerBio, setPhotographerBio] = useState();
+export default function ServiceForm(props) {
+  const [productName, setProductName] = useState();
+  const [productPrice, setProductPrice] = useState();
+  const [productDescription, setProductDescription] = useState();
   const [err, setErr] = useState(0);
   
   const cartContext = useContext(Context);
 
   useEffect( _ => {
-    setPhotographerName(cartContext.photographerEdit.name);
-    setPhotographerInsta(cartContext.photographerEdit.insta_username);
-    setPhotographerImage(cartContext.photographerEdit.profile_image);
-    setPhotographerBio(cartContext.photographerEdit.bio);
-  }, [cartContext.photographerEdit])
+    if (cartContext.serviceEditing.price) {
+      setProductPrice(cartContext.serviceEditing.price.toString());
+    } else {
+      setProductPrice(cartContext.serviceEditing.price);
+    }
+    setProductName(cartContext.serviceEditing.product);
+    setProductDescription(cartContext.serviceEditing.description);
+  }, [cartContext.serviceEditing])
   
-  const handlePhotographerName = e => setPhotographerName(e);
-  const handlePhotographerInsta = e => setPhotographerInsta(e);
-  const handlePhotographerBio = e => setPhotographerBio(e);
-  const handlePhotographerImage = e => setPhotographerImage(e);
-
+  const handleProductName = e => setProductName(e);
+  const handleProductPrice = e => setProductPrice(e);
+  const handleProductDescription = e => setProductDescription(e);
+  
   // Handle Canel Button; Reset State and Navigate
   const handleCancel = _ => {
     props.navigation.navigate('AdminPanel');
-    setPhotographerName('');
-    setPhotographerInsta('');
-    setPhotographerImage('');
-    setPhotographerBio('');
+    setProductName('');
+    setProductPrice('');
+    setProductDescription('');
   }
-
-  console.log(cartContext.photographerEdit.name)
-
+  
   // Exicute ADD or EDIT function based on "formType"
   const handleFormType = async _ => {
-    let formType = cartContext.adminPhotographerInteraction;
+    let formType = cartContext.adminServiceInteraction;
     console.log(formType);
     if(formType === 'new') handleAdd()
     else if (formType === 'edit') handleEdit();
@@ -48,12 +46,13 @@ export default function PhotographerForm(props) {
 
   // Handles adding new content
   const handleAdd = async _ => {
-    if (photographerName && photographerInsta && photographerImage && photographerBio) {
-      const photographer = {
-        name: photographerName,
-        insta_username: photographerInsta,
-        profile_image: photographerImage,
-        bio: photographerBio,
+    if (productName && productPrice && productDescription) {
+      const service = {
+        product: productName,
+        description: productDescription,
+        price: parseInt(productPrice),
+        type: 'service',
+        quantity: 1,
         createdAt: new Date(),
       }
 
@@ -61,9 +60,9 @@ export default function PhotographerForm(props) {
         const token = await AsyncStorage.getItem('token');
         const config = { headers: { Authorization: token }}
 
-        await axios.post('https://avnw-api.herokuapp.com/photographers/', photographer, config)
+        await axios.post('https://avnw-api.herokuapp.com/services/', service, config)
           .then(res => {
-            cartContext.setPhotographers(res.data);
+            cartContext.setServices(res.data);
             props.navigation.navigate('AdminPanel')
           })
           .catch(err => console.log(err))
@@ -73,22 +72,21 @@ export default function PhotographerForm(props) {
 
   // Handles editing content
   const handleEdit = async _ => {
-    if (photographerName && photographerInsta && photographerImage && photographerBio) {
-      const photographer = {
-        name: photographerName,
-        insta_username: photographerInsta,
-        profile_image: photographerImage,
-        bio: photographerBio,
+    if (productName && productPrice && productDescription) {
+      const service = {
+        product: productName,
+        price: parseInt(roductPrice),
+        description: productDescription,
       }
 
       try {
         const token = await AsyncStorage.getItem('token');
         const config = { headers: { Authorization: token }}
-        let id = cartContext.photographerEdit.id;
+        let id = cartContext.serviceEditing.id;
 
-        await axios.put(`https://avnw-api.herokuapp.com/photographers/${id}`, photographer, config)
+        await axios.put(`https://avnw-api.herokuapp.com/services/${id}`, service, config)
           .then(res => {
-            cartContext.setPhotographers(res.data);
+            cartContext.setServices(res.data);
             props.navigation.navigate('AdminPanel')
           })
           .catch(err => console.log(err))
@@ -103,37 +101,31 @@ export default function PhotographerForm(props) {
       <Header navigation={props.navigation} />
         <View style={styles.wrap}>
           <Text style={styles.title}>
-            { cartContext.adminPhotographerInteraction === 'new' ? 'New Photographer' : 'Edit Photographer' }
+            { cartContext.adminServiceInteraction === 'new' ? 'New Service' : 'Edit Service' }
           </Text>
           <View style={styles.content}>
             <TextInput 
               style={[styles.input]}
               placeholder={'Name'}
               placeholderTextColor='#393939'
-              onChangeText={(e) => handlePhotographerName(e)}
-              value={photographerName}>
+              onChangeText={(e) => handleProductName(e)}
+              value={productName}>
             </TextInput>
             <TextInput 
               style={[styles.input]}
-              placeholder={'Instagram Handle'}
+              placeholder={'Price'}
               placeholderTextColor='#393939'
-              onChangeText={(e) => handlePhotographerInsta(e)}
-              value={photographerInsta}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input]}
-              placeholder={'Image URL'}
-              placeholderTextColor='#393939'
-              onChangeText={(e) => handlePhotographerImage(e)}
-              value={photographerImage}>
+              keyboardType={'numeric'}
+              onChangeText={(e) => handleProductPrice(e)}
+              value={productPrice}>
             </TextInput>
             <TextInput 
               style={[styles.input, styles.bio_intput]}
               multiline={true}
-              placeholder={'Bio'}
+              placeholder={'Description'}
               placeholderTextColor='#393939'
-              onChangeText={(e) => handlePhotographerBio(e)}
-              value={photographerBio}>
+              onChangeText={(e) => handleProductDescription(e)}
+              value={productDescription}>
             </TextInput>
           </View>
           <View style={styles.btns_box}>
@@ -142,7 +134,7 @@ export default function PhotographerForm(props) {
             </TouchableOpacity>
             <TouchableOpacity style={[styles.btn, styles.btn_add]} onPress={ _ => handleFormType()}>
               <Text style={styles.btn_text}>
-              { cartContext.adminPhotographerInteraction === 'new' ? 'Add' : 'Edit' }
+              { cartContext.adminServiceInteraction === 'new' ? 'Add' : 'Edit' }
               </Text>
             </TouchableOpacity>
           </View>

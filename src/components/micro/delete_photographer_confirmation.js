@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, Dimensions,} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Context from '../../context/context.js';
 
-export default function AdminPanel() {
+export default function DeletePhotographerConfirmation() {
   const cartContext = useContext(Context);
 
   // Handle Delete Confirmation

@@ -15,8 +15,10 @@ import Login from './src/views/login.js';
 import MerchOrderOverview from './src/views/merch_order_overview.js';
 import BasicInfoStep from './src/views/basic_info_step.js';
 import Gallery from './src/views/gallery.js';
-import AdminPanel from './src/views/admin_panel.js';
+import AdminPanel from './src/views/admin/admin_panel.js';
 import PhotographerForm from './src/views/admin/photographer_form.js';
+import ServiceForm from './src/views/admin/service_form.js';
+import ProductForm from './src/views/admin/product_form.js';
 
 export default function App() {
   return (
@@ -61,6 +63,12 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="PhotographerForm">
             { props => <PhotographerForm {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="ServiceForm">
+            { props => <ServiceForm {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="ProductForm">
+            { props => <ProductForm {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

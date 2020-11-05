@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
-import DeleteConfirmation from '../micro/delete_confirmation.js';
+import DeletePhotographerConfirmation from '../micro/delete_photographer_confirmation.js';
 import EditIMG from '../../assets/edit.png';
 import AddIMG from '../../assets/add.png';
 import AddOnIMG from '../../assets/add_on.png';
@@ -59,7 +59,7 @@ export default function PhotographersContent(props) {
       </TouchableOpacity>
       { toggle ? (
         <View style={styles.container_box}>
-          { cartContext.deletePhotographerConfirmation ? <DeleteConfirmation /> : null }
+          { cartContext.deletePhotographerConfirmation ? <DeletePhotographerConfirmation /> : null }
           { cartContext.photographers ? cartContext.photographers.map(el => {
             return (
               <View style={styles.photographer_card} key={el.id}>
@@ -96,11 +96,13 @@ export default function PhotographersContent(props) {
 
 const styles = StyleSheet.create({
   container: {
+    zIndex: 2,
+    // flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     width: Dimensions.get('screen').width - 30,
     marginTop: 15,
-    marginBottom: 30,
+    marginBottom: 15,
     marginRight: 15,
     marginLeft: 15,
     borderRadius: 6,
