@@ -8,7 +8,6 @@ import ProfileContent from '../components/profile_content.js';
 import {
   StyleSheet,
   SafeAreaView,
-  StatusBar,
   View,
   TouchableOpacity,
   Dimensions,

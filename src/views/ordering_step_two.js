@@ -52,10 +52,6 @@ export default function OrderingStepTwo(props) {
   const handleSetState = e => setState(e);
   const handleSetZip = e => setZip(e);
 
-  // Handle Validation
-  // const handleValidation = async _ => {
-
-  // }
 
   // Submit Information
   const handleSubmit = async _ => {
@@ -125,7 +121,7 @@ export default function OrderingStepTwo(props) {
       zip: zip,
     }
 
-    if (error.length === 0 && location) {
+    if (err.length === 0 && location) {
       try {
         const token = await AsyncStorage.getItem('token');
         const config = { headers: { Authorization: token }};

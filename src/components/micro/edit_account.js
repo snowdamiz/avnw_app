@@ -13,10 +13,11 @@ import {
 } from 'react-native';
 
 export default function EditAccount(props) {
+  const cartContext = useContext(Context);
+
+  const [error, setError] = useState([]);
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
-  const [err, setErr] = useState();
-  const cartContext = useContext(Context);
 
   useEffect( _ => {
     handleNullFields();
@@ -34,33 +35,59 @@ export default function EditAccount(props) {
     else setPhone('');
   }
 
-
   const handleSetName = e => setName(e);
   const handleSetPhone = e => setPhone(e);  
   const handleCancel = _ => cartContext.handleEditAccountToggle();
 
+  // Handle Submit Edit
   const handleConfirm = async _ => {
-    const curName = cartContext.user.name;
-    const curPhone = cartContext.user.phone;
-    if (name === curName && phone === curPhone) setErr(1)
-    else {
-      let user = {
-        name: name,
-        phone: phone,
+    let err = [...error];
+    // name
+    if (!name) {
+      if (!err.includes(1)) {
+        err.push(1);
+        setError(err);
       }
+    } else {
+      if (err.includes(1)) {
+        let i = err.indexOf(1);
+        err.splice(i, 1);
+        setError(err);
+      }
+    }
 
+    // phone
+    if (!phone) {
+      if (!err.includes(2)) {
+        err.push(2);
+        setError(err);
+      }
+    } else {
+      if (err.includes(2)) {
+        let i = err.indexOf(2);
+        err.splice(i, 1);
+        setError(err);
+      }
+    }
+
+    const user = {
+      name: name,
+      phone: phone,
+    }
+
+    if (err.length === 0 && user) {
       try {
         const token = await AsyncStorage.getItem('token');
         const config = { headers: { Authorization: token }};
         const id = cartContext.user.id;
-
+  
         await axios.put(`https://avnw-api.herokuapp.com/user/${id}`, user, config)
         .then(res => {
           cartContext.setUser(res.data[0]);
           cartContext.handleEditAccountToggle();
         })
         .catch(err => console.log(err))
-      } catch (err) { console.log(err) } 
+      } catch (err) { console.log(err) }
     }
   }
 
@@ -69,6 +96,16 @@ export default function EditAccount(props) {
       <Text style={styles.heading}>
         Edit Account Details
       </Text>
+        { error.includes(1) ? (
+          <View style={styles.error_box}>
+            <Text style={styles.error_text}>Please Enter a Valid Name</Text>
+          </View>
+        ): null }
+        { error.includes(2) ? (
+          <View style={styles.error_box}>
+            <Text style={styles.error_text}>Please Enter a Valid Phone Number</Text>
+          </View>
+        ): null }
       <TextInput
         style={styles.input}
         onChangeText={e => handleSetName(e)}
@@ -126,6 +163,19 @@ const styles = StyleSheet.create({
       fontSize: 16,
       opacity: 0.7,
     },
+
+      error_box: {
+        width: '100%',
+        padding: 5,
+        marginTop: 10,
+        borderRadius: 4,
+        backgroundColor: 'pink',
+      },
+
+        error_text: {
+          fontSize: 13,
+          color: '#000',
+        },
 
       input: {
         width: '100%',

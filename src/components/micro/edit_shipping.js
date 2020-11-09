@@ -13,13 +13,14 @@ import {
 } from 'react-native';
 
 export default function EditShipping(props) {
+  const cartContext = useContext(Context);
+  const [error, setError] = useState([]);
+
   const [address, setAddress] = useState();
   const [unit, setUnit] = useState();
   const [city, setCity] = useState();
   const [state, setState] = useState();
   const [zip, setZip] = useState();
-  const [err, setErr] = useState();
-  const cartContext = useContext(Context);
 
   useEffect( _ => {
     handleNullFields();
@@ -56,8 +57,80 @@ export default function EditShipping(props) {
   const handleSetZip = e => setZip(e);
   const handleCancel = _ => cartContext.handleEditShippingToggle();
 
+  // Handle Submit Edit
   const handleConfirm = async _ => {
-    let location = {
+    let err = [...error];
+    // address
+    if (!address) {
+      if (!err.includes(1)) {
+        err.push(1);
+        setError(err);
+      }
+    } else {
+      if (err.includes(1)) {
+        let i = err.indexOf(1);
+        err.splice(i, 1);
+        setError(err);
+      }
+    }
+
+    // unit
+    if (!unit) {
+      if (!err.includes(2)) {
+        err.push(2);
+        setError(err);
+      }
+    } else {
+      if (err.includes(2)) {
+        let i = err.indexOf(2);
+        err.splice(i, 1);
+        setError(err);
+      }
+    }
+
+    // city
+    if (!city) {
+      if (!err.includes(3)) {
+        err.push(3);
+        setError(err);
+      }
+    } else {
+      if (err.includes(3)) {
+        let i = err.indexOf(3);
+        err.splice(i, 1);
+        setError(err);
+      }
+    }
+
+    // state
+    if (!state) {
+      if (!err.includes(4)) {
+        err.push(4);
+        setError(err);
+      }
+    } else {
+      if (err.includes(4)) {
+        let i = err.indexOf(4);
+        err.splice(i, 1);
+        setError(err);
+      }
+    }
+
+    // zip
+    if (!zip) {
+      if (!err.includes(5)) {
+        err.push(5);
+        setError(err);
+      }
+    } else {
+      if (err.includes(5)) {
+        let i = err.indexOf(5);
+        err.splice(i, 1);
+        setError(err);
+      }
+    }
+
+    const location = {
       address: address,
       unit: unit,
       city: city,
@@ -65,19 +138,22 @@ export default function EditShipping(props) {
       zip: zip,
     }
 
-    try {
-      const token = await AsyncStorage.getItem('token');
-      const config = { headers: { Authorization: token }};
-      const id = cartContext.user.id;
+    console.log(error);
 
-      await axios.put(`https://avnw-api.herokuapp.com/user/${id}`, location, config)
-      .then(res => {
-        console.log(res.data[0])
-        cartContext.setUser(res.data[0]);
-        cartContext.handleEditShippingToggle();
-      })
-      .catch(err => console.log(err))
-    } catch (err) { console.log(err) } 
+    if (err.length === 0 && location) {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        const config = { headers: { Authorization: token }};
+        const id = cartContext.user.id;
+  
+        await axios.put(`https://avnw-api.herokuapp.com/user/${id}`, location, config)
+        .then(res => {
+          cartContext.setUser(res.data[0]);
+          cartContext.handleEditShippingToggle();
+        })
+        .catch(err => console.log(err))
+      } catch (err) { console.log(err) } 
+    } else console.log('err');
   }
 
   return (
@@ -85,6 +161,31 @@ export default function EditShipping(props) {
       <Text style={styles.heading}>
         Edit Shipping Location
       </Text>
+      { error.includes(1) ? (
+        <View style={styles.error_box}>
+          <Text style={styles.error_text}>Please Enter a Valid Address</Text>
+        </View>
+      ): null }
+      { error.includes(2) ? (
+        <View style={styles.error_box}>
+          <Text style={styles.error_text}>Please Enter a Valid Unit</Text>
+        </View>
+      ): null }
+      { error.includes(3) ? (
+        <View style={styles.error_box}>
+          <Text style={styles.error_text}>Please Enter a Valid City</Text>
+        </View>
+      ): null }
+      { error.includes(4) ? (
+        <View style={styles.error_box}>
+          <Text style={styles.error_text}>Please Enter a Valid State</Text>
+        </View>
+      ): null }
+      { error.includes(5) ? (
+        <View style={styles.error_box}>
+          <Text style={styles.error_text}>Please Enter a Valid Zip Number</Text>
+        </View>
+      ): null }
       <TextInput
         style={styles.input}
         onChangeText={e => handleSetAddress(e)}
@@ -160,6 +261,19 @@ const styles = StyleSheet.create({
       fontSize: 16,
       opacity: 0.7,
     },
+
+    error_box: {
+      width: '100%',
+      padding: 5,
+      marginTop: 10,
+      borderRadius: 4,
+      backgroundColor: 'pink',
+    },
+
+      error_text: {
+        fontSize: 13,
+        color: '#000',
+      },
 
       input: {
         width: '100%',
