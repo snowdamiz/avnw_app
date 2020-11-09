@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        marginTop: -20,
       },
 
         text_title: {
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
 
           details_btn: {
             width: Dimensions.get('screen').width / 2 - 60,
-            padding: 10,
+            padding: 12,
             marginTop: 20,
             borderRadius: 6,
             justifyContent: 'center',

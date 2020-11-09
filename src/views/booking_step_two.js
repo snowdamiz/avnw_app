@@ -48,7 +48,7 @@ export default function BookingStepTwo(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <LinearGradient colors={['#fff', '#fff', '#fff']} style={styles.gradient} >
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.text_box}>
@@ -69,19 +69,20 @@ export default function BookingStepTwo(props) {
                     <Text style={styles.service_info_desc}>{el.description}</Text>
                   </View>
                   <View style={styles.service_btns}>
-                    <View style={styles.service_btns_price_box}>
+                    {/* <View style={styles.service_btns_price_box}>
                       <Text style={styles.service_btns_price_title}>Starting At:</Text>
-                      <View style={styles.service_btns_price_circle}>
-                        <Text style={styles.service_btns_price_text}>${el.price}</Text>
-                      </View>
-                    </View>
+
+                    </View> */}
                     <TouchableOpacity
                       onPress={ _ => handleServiceToggle(el)}
                       style={[styles.service_btns_add, cartContext.cart.includes(el) ? styles.service_btns_add_on : null]}>
+                      <View style={styles.service_btns_price_circle}>
+                        <Text style={styles.service_btns_price_text}>${el.price}</Text>
+                      </View>
                       <Text style={[
                         styles.service_btns_add_text,
                         cartContext.cart.includes(el) ? styles.service_btns_add_text_on : null]}>
-                        { cartContext.cart.includes(el) ? 'In Cart' : 'Add to Cart'}
+                        { cartContext.cart.includes(el) ? 'In Cart' : 'Select'}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
 
       text_box: {
         marginTop: 40,
-        marginBottom: 15,
+        marginBottom: 30,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
         // marginTop: 30,
         marginBottom: 10,
         padding: 5,
-        width: Dimensions.get('screen').width - 26,
+        width: Dimensions.get('screen').width,
         borderRadius: 8,
         backgroundColor: '#fefefe',
         flexDirection: 'row',
@@ -149,25 +150,27 @@ const styles = StyleSheet.create({
       },
 
         service: { 
-          width: Dimensions.get('screen').width - 46,
-          padding: 15,
+          width: Dimensions.get('screen').width - 26,
+          padding: 12,
           borderRadius: 6,
-          backgroundColor: '#efefef',
-          borderWidth: 1,
-          borderColor: '#ebebeb',
-          marginBottom: 15,
-          flexDirection: 'column',
-          justifyContent: 'center',
+          backgroundColor: '#f1f1f1',
+          // borderWidth: 1,
+          borderColor: 'lightgray',
+          marginBottom: 12,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
           alignItems: 'center',
-          // shadowColor: '#000',
-          // shadowOffset: { width: 0, height: 0 },
-          // shadowOpacity: 1,
-          // shadowRadius: 8,
-          // elevation: 4,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.4,
+          shadowRadius: 10,
+          elevation: 4,
         },
 
           service_info: {
-            width: '100%',
+            // width: '80%',
+            width: Dimensions.get('screen').width - 190,
+            // borderWidth: 1,
           },
 
             service_info_title: {
@@ -175,6 +178,8 @@ const styles = StyleSheet.create({
               fontWeight: 'bold',
               color: '#000',
               opacity: 0.6,
+              // width: '100%',
+              // borderWidth: 1,
             },
 
             service_info_desc: {
@@ -184,81 +189,66 @@ const styles = StyleSheet.create({
             },
 
           service_btns: {
-            width: '100%',
-            justifyContent: 'space-between',
+            // width: '100%',
+            // justifyContent: 'flex-end',
             alignItems: 'center',
             flexDirection: 'row',
-            marginTop: 15,
+            // marginTop: 15,
           },
 
-            service_btns_price_box: {
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '60%',
-              height: 48,
-              backgroundColor: '#fff',
-              borderRadius: 6,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 0 },
-              shadowOpacity: 0.6,
-              shadowRadius: 6,
-              elevation: 3,
+          service_btns_add: {
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#fff',
+            borderWidth: 1,
+            borderColor: '#efefef',
+            height: 48,
+            borderRadius: 6,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 8,
+            paddingBottom: 8,
+            // width: Dimensions.get('screen').width / 2 * 0.55,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.4,
+            shadowRadius: 10,
+            elevation: 1,
+          },
+  
+          service_btns_add_on: {
+            backgroundColor: '#009cd8',
+          },
+  
+            service_btns_add_text: {
+              fontSize: 13,
+              fontWeight: 'bold',
+              color: '#000',
+              opacity: 0.6,
+            },
+  
+            service_btns_add_text_on: {
+              color: '#fff',
+              opacity: 1,
             },
 
-              service_btns_price_title: {
-                color: '#000',
-                fontSize: 14,
+            service_btns_price_circle: {
+              width: 32,
+              height: 32,
+              borderRadius: 20,
+              backgroundColor: '#018bc0',
+              justifyContent: 'center',
+              alignItems: 'center',
+              // marginLeft: 5,
+              marginRight: 10,
+            },
+
+              service_btns_price_text: {
+                color: '#fff',
+                fontSize: 11,
                 fontWeight: 'bold',
-                marginRight: 5,
-                opacity: 0.55,
               },
-
-              service_btns_price_circle: {
-                width: 32,
-                height: 32,
-                borderRadius: 20,
-                backgroundColor: '#018bc0',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginLeft: 5,
-              },
-
-                service_btns_price_text: {
-                  color: '#fff',
-                  fontSize: 11,
-                  fontWeight: 'bold',
-                },
-
-        service_btns_add: {
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#fff',
-          height: 48,
-          borderRadius: 6,
-          width: Dimensions.get('screen').width / 2 * 0.55,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 0.6,
-          shadowRadius: 6,
-          elevation: 3,
-        },
-
-        service_btns_add_on: {
-          backgroundColor: '#009cd8',
-        },
-
-          service_btns_add_text: {
-            fontSize: 12,
-            fontWeight: 'bold',
-            color: '#000',
-            opacity: 0.6,
-          },
-
-          service_btns_add_text_on: {
-            color: '#fff',
-            opacity: 1,
-          },
 
     continue_btn: {
       marginTop: 15,
@@ -292,7 +282,7 @@ const styles = StyleSheet.create({
       },
 
   err_box: {
-    width: Dimensions.get('screen').width - 40,
+    width: Dimensions.get('screen').width - 26,
     padding: 10,
     backgroundColor: 'pink',
     borderRadius: 6,

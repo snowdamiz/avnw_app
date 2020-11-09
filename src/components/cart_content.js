@@ -37,14 +37,21 @@ export default function CartContent(props) {
   }
 
   const handleOrderBtn = _ => {
+    let name = cartContext.user.name;
+    let address = cartContext.user.address;
+
     if (route.name === 'Cart' && cartContext.token) {
-      props.navigation.navigate('MerchOrderOverview')
+      if (name === null || name.length < 1) {
+        props.navigation.navigate('OrderingStepOne');
+      } else if (address === null || address.length < 1) {
+        props.navigation.navigate('OrderingStepTwo');
+      } else {
+        props.navigation.navigate('MerchOrderOverview')
+      }
     } else {
       props.navigation.navigate('Login');
     }
   }
-
-  console.log(cartContext.cart);
 
   return (
     <View style={styles.container}>

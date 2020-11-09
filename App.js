@@ -19,6 +19,8 @@ import AdminPanel from './src/views/admin/admin_panel.js';
 import PhotographerForm from './src/views/admin/photographer_form.js';
 import ServiceForm from './src/views/admin/service_form.js';
 import ProductForm from './src/views/admin/product_form.js';
+import OrderingStepOne from './src/views/ordering_step_one.js';
+import OrderingStepTwo from './src/views/ordering_step_two.js';
 
 export default function App() {
   return (
@@ -69,6 +71,12 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="ProductForm">
             { props => <ProductForm {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="OrderingStepOne">
+            { props => <OrderingStepOne {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="OrderingStepTwo">
+            { props => <OrderingStepTwo {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

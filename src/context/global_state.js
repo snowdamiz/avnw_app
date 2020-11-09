@@ -6,12 +6,7 @@ import Context from './context';
 export default class GlobalState extends React.Component{
   state = {
     user: [],
-    photographers: {
-      id: '',
-      name: '',
-      bio: ``,
-      profile_image: '',
-    },
+    photographers: [],
     shootLocationToggle: false,
     basicInfoToggle: false,
     shippingInfoToggle: false,
@@ -39,6 +34,8 @@ export default class GlobalState extends React.Component{
     adminPhotographerInteraction: '',
     adminServiceInteraction: '',
     adminProductInteraction: '',
+    editAccountToggle: false,
+    editShippingToggle: false,
   }
 
   componentDidMount() {
@@ -65,6 +62,7 @@ export default class GlobalState extends React.Component{
 
   setLoginToken = async (token, user) => {
     const jsonUser = JSON.stringify(user);
+    console.log(jsonUser);
     try {
        await AsyncStorage.setItem('token', token)
        await AsyncStorage.setItem('user', jsonUser)
@@ -90,6 +88,7 @@ export default class GlobalState extends React.Component{
   setPhotographers = el => this.setState({ photographers: el })
   setServices = el => this.setState({ services: el })
   setProducts = el => this.setState({ merch: el })
+  setUser = el => this.setState({ user: el })
 
   getPhotographers = async _ => {
     try {
@@ -223,6 +222,16 @@ export default class GlobalState extends React.Component{
     this.setState({ deleteProductConfirmation: !toggle })
   }
 
+  handleEditAccountToggle = _ => {
+    let toggle = this.state.editAccountToggle;
+    this.setState({ editAccountToggle: !toggle })
+  }
+
+  handleEditShippingToggle = _ => {
+    let toggle = this.state.editShippingToggle;
+    this.setState({ editShippingToggle: !toggle })
+  }
+
   handleAdminPhotographerInteraction = status => {
     this.setState({ adminPhotographerInteraction: status });
   }
@@ -270,6 +279,8 @@ export default class GlobalState extends React.Component{
           deletePhotographerConfirmation: this.state.deletePhotographerConfirmation,
           deleteServiceConfirmation: this.state.deleteServiceConfirmation,
           deleteProductConfirmation: this.state.deleteProductConfirmation,
+          editAccountToggle: this.state.editAccountToggle,
+          editShippingToggle: this.state.editShippingToggle,
           setLoginToken: this.setLoginToken,
           getLoginToken: this.getLoginToken,
           handleSignout: this.handleSignout,
@@ -290,17 +301,21 @@ export default class GlobalState extends React.Component{
           setServices: this.setServices,
           getServices: this.getServices,
           setProducts: this.setProducts,
+          setUser: this.setUser,
           setEditPhotographer: this.setEditPhotographer,
           setEditService: this.setEditService,
           setEditProduct: this.setEditProduct,
           handleDeletePhotographerConfirmation: this.handleDeletePhotographerConfirmation,
           handleDeleteServiceConfirmation: this.handleDeleteServiceConfirmation,
           handleDeleteProductConfirmation: this.handleDeleteProductConfirmation,
+          handleEditAccountToggle: this.handleEditAccountToggle,
+          handleEditShippingToggle: this.handleEditShippingToggle,
           handleAdminPhotographerInteraction: this.handleAdminPhotographerInteraction,
           handleAdminServiceInteraction: this.handleAdminServiceInteraction,
           handleAdminProductInteraction: this.handleAdminProductInteraction,
           photographerEditRESET: this.photographerEditRESET,
           serviceEditingRESET: this.serviceEditingRESET,
+          productEditingRESET: this.productEditingRESET,
         }}>
       {this.props.children}
       </Context.Provider>

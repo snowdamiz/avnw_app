@@ -18,7 +18,7 @@ import {
 export default function Index(props) {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8" />
       <LinearGradient colors={['#009cd8', '#018bc0', '#018bc0']} style={styles.gradient} >
         <View style={styles.content}>
           <Image source={Logo_large} style={styles.logo} />
@@ -31,7 +31,7 @@ export default function Index(props) {
             </TouchableOpacity>
           </View>
         </View>
-        <Image source={BG} style={styles.bg} />
+        {/* <Image source={BG} style={styles.bg} /> */}
       </LinearGradient>
     </SafeAreaView>
   );
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
       height: '100%',
       justifyContent: 'space-between',
       alignItems: 'center',
+      zIndex: 1,
     },
 
       logo: {

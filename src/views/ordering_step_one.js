@@ -1,49 +1,67 @@
 import React, { useState, useContext, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
-
 import Context from '../context/context.js';
+import { Dimensions, StyleSheet, SafeAreaView, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native';
 
-import {
-  Dimensions,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Text,
-} from 'react-native';
-
-export default function BookingStepThree(props) {
+export default function OrderingStepOne(props) {
   const cartContext = useContext(Context);
   const route = useRoute();
 
-  const [error, setError] = useState(false);
-  const [address, setAddress] = useState(cartContext.user.address);
-  const [unit, setUnit] = useState(cartContext.user.unit);
-  const [city, setCity] = useState(cartContext.user.city);
-  const [state, setState] = useState(cartContext.user.state);
-  const [zipCode, setZipCode] = useState(cartContext.user.zip);
+  const [error, setError] = useState(0);
+  const [name, setName] = useState();
+  const [phone, setPhone] = useState();
 
-  const handleSubmit = _ => {
+  useEffect( _ => {
+    handleNullFields();
+  }, [])
+
+  // Handle Null Fields
+  const handleNullFields = _ => {
+    const curName = cartContext.user.name;
+    const curPhone = cartContext.user.phone;
+
+    if (curName) setName(curName)
+    else setName('');
+
+    if (curPhone) setPhone(curPhone)
+    else setPhone('');
+  }
+
+  // Text input set onChange
+  const handleSetName = e => setName(e);
+  const handleSetPhone = e => setPhone(e);  
+
+  // Submit Information
+  const handleSubmit = async _ => {
     let nav = props.navigation;
-    const location = {
-      address: address,
-      unit: unit,
-      city: city,
-      state: state,
-      zip: zipCode,
+    const user = {
+      name: name,
+      phone: phone,
     }
 
-    if (location.city && location.state) {
-      setError(false);  
-      cartContext.handleShootLocation(location);
+    let nameRegex = /^[a-zA-Z\s]*$/;  
+    let phoneRegex = /^\d+$/;
 
-      if (cartContext.shootLocationToggle) nav.navigate('MerchOrderOverview');
-      else nav.navigate('Cart');
-      
-    } else setError(true);
+    if (user.name && nameRegex.test(user.name)) { // Check Name
+      if (phoneRegex.test(user.phone) && phone.length === 10) { // Check Phone
+        setError(0);  
+        try {
+          const token = await AsyncStorage.getItem('token');
+          const config = { headers: { Authorization: token }};
+          const id = cartContext.user.id;
+  
+          await axios.put(`https://avnw-api.herokuapp.com/user/${id}`, user, config)
+          .then(res => {
+            cartContext.setUser(res.data[0]);
+            nav.navigate('OrderingStepTwo')
+          })
+          .catch(err => console.log(err))
+        } catch (err) { console.log(err) }
+      } else setError(2);
+    } else setError(1);
   }
 
   return (
@@ -52,50 +70,30 @@ export default function BookingStepThree(props) {
       <LinearGradient colors={['#009cd8', '#018bc0', '#018bc0']} style={styles.gradient} >
         <View style={styles.content}>
           <View style={styles.text_box}>
-            <Text style={styles.text_title}>Step Three</Text>
-            <Text style={styles.text_content}>Choose your shoot location. Only City and State are requred.</Text>
+            <Text style={styles.text_title}>Step One</Text>
+            <Text style={styles.text_content}>What is your name?</Text>
           </View>
           <View style={styles.address_box}>
             { error ? (
               <View style={styles.error_box}>
-                <Text style={styles.error_text}>Only City and State are required</Text>
+                <Text style={styles.error_text}>
+                  { error === 1 ? 'Please Enter Your Name' : 'Enter a valid number'}S
+                </Text>
               </View>
             ): null}
             <TextInput 
-              style={[styles.input, styles.address_input]}
-              placeholder={'Address'}
+              style={[styles.input, error === 1 ? styles.input_err : null ]}
+              placeholder={'Name'}
               placeholderTextColor='#fff'
-              onChangeText={e => setAddress(e)}
-              value={address}>
+              onChangeText={e => handleSetName(e)}
+              value={name}>
             </TextInput>
             <TextInput 
-              style={[styles.input, styles.unit_input]}
-              placeholder={'Unit'}
+              style={[styles.input, error === 2 ? styles.input_err : null]}
+              placeholder={'Phone'}
               placeholderTextColor='#fff'
-              onChangeText={e => setUnit(e)}
-              value={unit}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, error ? styles.city_input_err : styles.city_input]}
-              placeholder={'City'}
-              placeholderTextColor='#fff'
-              onChangeText={e => setCity(e)}
-              value={city}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, error ? styles.state_input_err : styles.state_input]}
-              placeholder={'State'}
-              placeholderTextColor='#fff'
-              onChangeText={e => setState(e)}
-              value={state}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, styles.zip_input]}
-              placeholder={'Zip'}
-              placeholderTextColor='#fff'
-              onChangeText={e => setZipCode(e)}
-              value={zipCode ? zipCode.toString() : zipCode}
-              keyboardType={'numeric'}>
+              onChangeText={e => handleSetPhone(e)}
+              value={phone}>
             </TextInput>
           </View>
           <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleSubmit() }>
@@ -123,17 +121,14 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       height: '100%',
-      // borderWidth: 1,
     },
     
     text_box: {
         width: Dimensions.get('screen').width - 60,
-        // marginTop: 40,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         flexDirection: 'column',
         marginTop: -100,
-        // borderWidth: 1,
       },
 
         text_title: {
@@ -143,10 +138,8 @@ const styles = StyleSheet.create({
         },
 
         text_content: {
-          marginTop: 5,
           color: '#efefef',
           fontSize: 14,
-          // opacity: 0.8,
           lineHeight: 19,
           width: '80%',
         },
@@ -157,14 +150,13 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems: 'flex-start',
-      marginTop: 40,
-      // borderWidth: 1,
+      marginTop: 20,
     },
 
         error_box: {
           width: '100%',
           padding: 5,
-          marginBottom: 10,
+          // marginBottom: 5,
           borderRadius: 4,
           backgroundColor: 'pink',
         },
@@ -175,6 +167,8 @@ const styles = StyleSheet.create({
           },
 
         input: {
+          alignSelf: 'center',
+          width: Dimensions.get('screen').width - 60,
           paddingTop: 8,
           paddingBottom: 8,
           paddingLeft: 15,
@@ -190,22 +184,9 @@ const styles = StyleSheet.create({
           color: '#fefefe',
         },
 
-        address_input: { width: Dimensions.get('screen').width - 170 },
-        unit_input: { width: 100 },
-        city_input: { width: Dimensions.get('screen').width - 240 },
-        state_input: { width: 60 },
-        zip_input: { width: 100 },
-
-        city_input_err: {
+        input_err: {
           borderWidth: 1,
           borderColor: 'pink',
-          width: Dimensions.get('screen').width - 240
-        },
-
-        state_input_err: {
-          borderWidth: 1,
-          borderColor: 'pink',
-          width: 60
         },
 
     continue_btn: {

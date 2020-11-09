@@ -21,7 +21,10 @@ export default function ShippingContent(props) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={[styles.header, toggle ? styles.header_on : null]} onPress={ _ => setToggle(!toggle)}>
+      <TouchableOpacity 
+      style={[styles.header, toggle ? styles.header_on : null]}
+      disabled={cartContext.menuToggle}
+      onPress={ _ => setToggle(!toggle)}>
         <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Basic Information</Text>
         <View style={styles.header_btns}>
           { toggle ? (

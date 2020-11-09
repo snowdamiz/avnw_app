@@ -1,49 +1,143 @@
 import React, { useState, useContext, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
-
 import Context from '../context/context.js';
+import { Dimensions, StyleSheet, SafeAreaView, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native';
 
-import {
-  Dimensions,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Text,
-} from 'react-native';
-
-export default function BookingStepThree(props) {
+export default function OrderingStepTwo(props) {
   const cartContext = useContext(Context);
   const route = useRoute();
 
-  const [error, setError] = useState(false);
-  const [address, setAddress] = useState(cartContext.user.address);
-  const [unit, setUnit] = useState(cartContext.user.unit);
-  const [city, setCity] = useState(cartContext.user.city);
-  const [state, setState] = useState(cartContext.user.state);
-  const [zipCode, setZipCode] = useState(cartContext.user.zip);
+  const [error, setError] = useState([]);
+  const [address, setAddress] = useState();
+  const [unit, setUnit] = useState();
+  const [city, setCity] = useState();
+  const [state, setState] = useState();
+  const [zip, setZip] = useState();
 
-  const handleSubmit = _ => {
+  useEffect( _ => {
+    handleNullFields();
+  }, [])
+
+  // Handle Null Fields
+  const handleNullFields = _ => {
+    const curAddress = cartContext.user.address;
+    const curUnit = cartContext.user.unit;
+    const curCity = cartContext.user.city;
+    const curState = cartContext.user.state;
+    const curZip = cartContext.user.zip;
+
+    if (curAddress) setAddress(curAddress)
+    else setAddress('');
+
+    if (curUnit) setUnit(curUnit)
+    else setUnit('');
+
+    if (curCity) setCity(curCity)
+    else setCity('');
+
+    if (curState) setState(curState)
+    else setState('');
+
+    if (curZip) setZip(curZip.toString())
+    else setZip('');
+  }
+
+  // Text input set onChange
+  const handleSetAddress = e => setAddress(e);
+  const handleSetUnit = e => setUnit(e);
+  const handleSetCity = e => setCity(e);
+  const handleSetState = e => setState(e);
+  const handleSetZip = e => setZip(e);
+
+  // Handle Validation
+  const handleValidation = _ => {
+    let err = [...error];
+    // address
+    if (!address) {
+      if (!err.includes(1)) {
+        err.push(1);
+        setError(err)
+      }
+    } else {
+      if (err.includes(1)) {
+        let i = err.indexOf(1);
+        err.splice(i, 1)
+        setError(err);
+      }
+    }
+
+    // city
+    if (!city) {
+      if (!err.includes(3)) {
+        err.push(3);
+        setError(err);
+      }
+    } else {
+      if (err.includes(3)) {
+        let i = err.indexOf(3);
+        err.splice(i, 1)
+        setError(err);
+      }
+    }
+
+    // state
+    if (!state) {
+      if (!err.includes(4)) {
+        err.push(4);
+        setError(err);
+      }
+    } else {
+      if (err.includes(4)) {
+        let i = err.indexOf(4);
+        err.splice(i, 1)
+        setError(err);
+      }
+    }
+
+    // zip
+    if (!zip) {
+      if (!err.includes(5)) {
+        err.push(5);
+        setError(err);
+      }
+    } else {
+      if (err.includes(5)) {
+        let i = err.indexOf(5);
+        err.splice(i, 1)
+        setError(err);
+      }
+    }
+  }
+
+  // Submit Information
+  const handleSubmit = async _ => {
+    handleValidation();
     let nav = props.navigation;
     const location = {
       address: address,
       unit: unit,
       city: city,
       state: state,
-      zip: zipCode,
+      zip: zip,
     }
 
-    if (location.city && location.state) {
-      setError(false);  
-      cartContext.handleShootLocation(location);
-
-      if (cartContext.shootLocationToggle) nav.navigate('MerchOrderOverview');
-      else nav.navigate('Cart');
-      
-    } else setError(true);
+    if (error.length < 1) {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        const config = { headers: { Authorization: token }};
+        const id = cartContext.user.id;
+  
+        await axios.put(`https://avnw-api.herokuapp.com/user/${id}`, location, config)
+        .then(res => {
+          cartContext.setUser(res.data[0]);
+          nav.navigate('MerchOrderOverview')
+        })
+        .catch(err => console.log(err))
+      } catch (err) { console.log(err) }
+    }
   }
 
   return (
@@ -52,49 +146,49 @@ export default function BookingStepThree(props) {
       <LinearGradient colors={['#009cd8', '#018bc0', '#018bc0']} style={styles.gradient} >
         <View style={styles.content}>
           <View style={styles.text_box}>
-            <Text style={styles.text_title}>Step Three</Text>
-            <Text style={styles.text_content}>Choose your shoot location. Only City and State are requred.</Text>
+            <Text style={styles.text_title}>Step Two</Text>
+            <Text style={styles.text_content}>What is your shipping address?</Text>
           </View>
           <View style={styles.address_box}>
-            { error ? (
+            { error.length > 0 ? (
               <View style={styles.error_box}>
-                <Text style={styles.error_text}>Only City and State are required</Text>
+                <Text style={styles.error_text}>Please Enter a Valid Address</Text>
               </View>
             ): null}
             <TextInput 
-              style={[styles.input, styles.address_input]}
+              style={[styles.input, styles.address_input, error.includes(1) ? styles.input_err : null]}
               placeholder={'Address'}
               placeholderTextColor='#fff'
-              onChangeText={e => setAddress(e)}
+              onChangeText={e => handleSetAddress(e)}
               value={address}>
             </TextInput>
             <TextInput 
-              style={[styles.input, styles.unit_input]}
+              style={[styles.input, styles.unit_input, error.includes(2) ? styles.input_err : null ]}
               placeholder={'Unit'}
               placeholderTextColor='#fff'
-              onChangeText={e => setUnit(e)}
+              onChangeText={e => handleSetUnit(e)}
               value={unit}>
             </TextInput>
             <TextInput 
-              style={[styles.input, error ? styles.city_input_err : styles.city_input]}
+              style={[styles.input, styles.city_input, error.includes(3) ? styles.input_err : null ]}
               placeholder={'City'}
               placeholderTextColor='#fff'
-              onChangeText={e => setCity(e)}
+              onChangeText={e => handleSetCity(e)}
               value={city}>
             </TextInput>
             <TextInput 
-              style={[styles.input, error ? styles.state_input_err : styles.state_input]}
+              style={[styles.input, styles.state_input, error.includes(4) ? styles.input_err : null ]}
               placeholder={'State'}
               placeholderTextColor='#fff'
-              onChangeText={e => setState(e)}
+              onChangeText={e => handleSetState(e)}
               value={state}>
             </TextInput>
             <TextInput 
-              style={[styles.input, styles.zip_input]}
+              style={[styles.input, styles.zip_input, error.includes(5) ? styles.input_err : null ]}
               placeholder={'Zip'}
               placeholderTextColor='#fff'
-              onChangeText={e => setZipCode(e)}
-              value={zipCode ? zipCode.toString() : zipCode}
+              onChangeText={e => handleSetZip(e)}
+              value={zip ? zip.toString() : zip}
               keyboardType={'numeric'}>
             </TextInput>
           </View>
@@ -190,23 +284,17 @@ const styles = StyleSheet.create({
           color: '#fefefe',
         },
 
+        input_err: {
+          borderWidth: 1,
+          borderColor: 'pink',
+        },
+
         address_input: { width: Dimensions.get('screen').width - 170 },
         unit_input: { width: 100 },
         city_input: { width: Dimensions.get('screen').width - 240 },
-        state_input: { width: 60 },
+        state_input: { width: 80 },
         zip_input: { width: 100 },
 
-        city_input_err: {
-          borderWidth: 1,
-          borderColor: 'pink',
-          width: Dimensions.get('screen').width - 240
-        },
-
-        state_input_err: {
-          borderWidth: 1,
-          borderColor: 'pink',
-          width: 60
-        },
 
     continue_btn: {
       padding: 14,

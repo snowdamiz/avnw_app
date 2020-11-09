@@ -36,8 +36,6 @@ export default function PhotographerForm(props) {
     setPhotographerBio('');
   }
 
-  console.log(cartContext.photographerEdit.name)
-
   // Exicute ADD or EDIT function based on "formType"
   const handleFormType = async _ => {
     let formType = cartContext.adminPhotographerInteraction;

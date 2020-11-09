@@ -29,7 +29,7 @@ export default function Gallery(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
         <ScrollView contentContainerStyle={styles.content}>
           <TouchableOpacity
             style={styles.close_btn}

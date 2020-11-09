@@ -20,9 +20,13 @@ export default function Header(props) {
     if (cartContext.menuToggle) {
       cartContext.handleMenuToggle()
       props.navigation.navigate('Cart')
-    } else {
-      props.navigation.navigate('Cart')
-    }
+    } else props.navigation.navigate('Cart')
+  }
+
+  // Handle Profile Navigation
+  const handleProfileNavigation = _ => {
+    cartContext.handleMenuToggle();
+    props.navigation.navigate('Profile');
   }
 
   // Handle Sign Out
@@ -79,7 +83,9 @@ export default function Header(props) {
         ): null }
       { cartContext.menuToggle ? (
         <View style={styles.profile_menu_box}>
-          <TouchableOpacity style={[ styles.btn, styles.btn_first]}>
+          <TouchableOpacity
+            onPress={ _ => handleProfileNavigation()}
+            style={[ styles.btn, styles.btn_first]}>
             <Text style={[styles.btn_text]}>Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[ styles.btn]}>
@@ -111,7 +117,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     justifyContent: 'space-between',
     zIndex: 10,
-    elevation: 10,
+    elevation: 16,
     backgroundColor: '#009cd8',
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 0 },
@@ -175,11 +181,19 @@ const styles = StyleSheet.create({
       menu_wrap: {
         width: 100,
         height: 42,
-        borderRadius: 21,
+        borderRadius: 6,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
         shadowColor: "#000",
+        elevation: 15,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.28,
+        shadowRadius: 3.2,
       },
 
         cart: {
