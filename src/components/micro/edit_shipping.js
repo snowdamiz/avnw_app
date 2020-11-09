@@ -14,41 +14,13 @@ import {
 
 export default function EditShipping(props) {
   const cartContext = useContext(Context);
+
   const [error, setError] = useState([]);
-
-  const [address, setAddress] = useState();
-  const [unit, setUnit] = useState();
-  const [city, setCity] = useState();
-  const [state, setState] = useState();
-  const [zip, setZip] = useState();
-
-  useEffect( _ => {
-    handleNullFields();
-  },[])
-  
-  // Handle Null Fields
-  const handleNullFields = _ => {
-    const curAddress = cartContext.user.address;
-    const curUnit = cartContext.user.unit;
-    const curCity = cartContext.user.city;
-    const curState = cartContext.user.state;
-    const curZip = cartContext.user.zip;
-
-    if (curAddress) setAddress(curAddress)
-    else setAddress('');
-
-    if (curUnit) setUnit(curUnit)
-    else setUnit('');
-
-    if (curCity) setCity(curCity)
-    else setCity('');
-
-    if (curState) setState(curState)
-    else setState('');
-
-    if (curZip) setZip(curZip.toString())
-    else setZip('');
-  }
+  const [address, setAddress] = useState(cartContext.user.address || '');
+  const [unit, setUnit] = useState(cartContext.user.unit || '');
+  const [city, setCity] = useState(cartContext.user.city || '');
+  const [state, setState] = useState(cartContext.user.state || '');
+  const [zip, setZip] = useState(cartContext.user.zip || '');
 
   const handleSetAddress = e => setAddress(e);
   const handleSetUnit = e => setUnit(e);

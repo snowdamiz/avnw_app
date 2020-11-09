@@ -69,10 +69,6 @@ export default function BookingStepTwo(props) {
                     <Text style={styles.service_info_desc}>{el.description}</Text>
                   </View>
                   <View style={styles.service_btns}>
-                    {/* <View style={styles.service_btns_price_box}>
-                      <Text style={styles.service_btns_price_title}>Starting At:</Text>
-
-                    </View> */}
                     <TouchableOpacity
                       onPress={ _ => handleServiceToggle(el)}
                       style={[styles.service_btns_add, cartContext.cart.includes(el) ? styles.service_btns_add_on : null]}>

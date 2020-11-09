@@ -11,26 +11,13 @@ export default function OrderingStepOne(props) {
   const route = useRoute();
 
   const [error, setError] = useState(0);
-  const [name, setName] = useState();
-  const [phone, setPhone] = useState();
+  const [name, setName] = useState(cartContext.user.name || '');
+  const [phone, setPhone] = useState(cartContext.user.phone || '');
   const [cartCategories, setCartCategories] = useState();
 
   useEffect( _ => {
-    handleNullFields();
     checkCartCategories();
   }, [])
-
-  // Handle Null Fields
-  const handleNullFields = _ => {
-    const curName = cartContext.user.name;
-    const curPhone = cartContext.user.phone;
-
-    if (curName) setName(curName)
-    else setName('');
-
-    if (curPhone) setPhone(curPhone)
-    else setPhone('');
-  }
 
   // Check cart cotegories
   const checkCartCategories = _ => {

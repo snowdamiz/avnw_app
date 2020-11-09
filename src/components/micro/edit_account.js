@@ -16,24 +16,8 @@ export default function EditAccount(props) {
   const cartContext = useContext(Context);
 
   const [error, setError] = useState([]);
-  const [name, setName] = useState();
-  const [phone, setPhone] = useState();
-
-  useEffect( _ => {
-    handleNullFields();
-  },[])
-
-  // Handle Null Fields
-  const handleNullFields = _ => {
-    const curName = cartContext.user.name;
-    const curPhone = cartContext.user.phone;
-
-    if (curName) setName(curName)
-    else setName('');
-
-    if (curPhone) setPhone(curPhone)
-    else setPhone('');
-  }
+  const [name, setName] = useState(cartContext.user.name || '');
+  const [phone, setPhone] = useState(cartContext.user.phone || '');
 
   const handleSetName = e => setName(e);
   const handleSetPhone = e => setPhone(e);  
