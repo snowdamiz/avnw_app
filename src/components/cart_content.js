@@ -39,14 +39,29 @@ export default function CartContent(props) {
   const handleOrderBtn = _ => {
     let name = cartContext.user.name;
     let address = cartContext.user.address;
+    let cart = cartContext.cart;
 
     if (route.name === 'Cart' && cartContext.token) {
-      if (name === null || name.length < 1) {
-        props.navigation.navigate('OrderingStepOne');
-      } else if (address === null || address.length < 1) {
-        props.navigation.navigate('OrderingStepTwo');
+      let type = []
+
+      for (let i = 0; i < cart.length; i++) {
+        type.push(cart[i].type)
+      }
+
+      if (type.includes('merch')) {
+        if (name === null || name.length < 1) {
+          props.navigation.navigate('OrderingStepOne');
+        } else if (address === null || address.length < 1) {
+          props.navigation.navigate('OrderingStepTwo');
+        } else {
+          props.navigation.navigate('MerchOrderOverview');
+        }
       } else {
-        props.navigation.navigate('MerchOrderOverview')
+        if (name === null || name.length < 1) {
+          props.navigation.navigate('OrderingStepOne');
+        } else {          
+          props.navigation.navigate('MerchOrderOverview');
+        }
       }
     } else {
       props.navigation.navigate('Login');

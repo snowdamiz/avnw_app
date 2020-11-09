@@ -34,7 +34,7 @@ export default function ProfileContent(props) {
         <View style={styles.content}>
           <View style={styles.row}>
             <Text style={styles.label}>Name: </Text>
-            <Text styles={styles.text}>{cartContext.user.name}</Text>
+            <Text style={styles.text}>{cartContext.user.name}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Phone: </Text>
@@ -62,7 +62,7 @@ export default function ProfileContent(props) {
         <View style={styles.content}>
           <View style={styles.row}>
             <Text style={styles.label}>Address: </Text>
-            <Text styles={styles.text}>{cartContext.user.address}</Text>
+            <Text style={styles.text}>{cartContext.user.address}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Unit: </Text>
@@ -113,26 +113,17 @@ const styles = StyleSheet.create({
       },
 
         heading_box: {
-          borderRadius: 24,
-          paddingTop: 12,
-          paddingBottom: 12,
-          paddingLeft: 18,
-          paddingRight: 18,
           width: '100%',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          backgroundColor: '#fff',
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 1,
-          shadowRadius: 10,
-          elevation: 4,
+          alignItems: 'center',
+          marginLeft: 2,
         },
 
           heading: {
-            fontSize: 15,
-            fontWeight: 'bold',
-            opacity: 0.6,
+            fontSize: 18,
+            // fontWeight: 'bold',
+            opacity: 0.55,
           },
 
           edit_btn: {
@@ -149,8 +140,12 @@ const styles = StyleSheet.create({
           },
 
     content: {
-      marginLeft: 10,
+      // marginLeft: 5,
       marginTop: 10,
+      // borderWidth: 1,
+      borderRadius: 6,
+      padding: 5,
+      backgroundColor: '#efefef',
     },
 
       row: {
@@ -164,12 +159,17 @@ const styles = StyleSheet.create({
           fontWeight: 'bold',
           fontSize: 15,
           color: '#005575',
-          opacity: 0.9,
+          opacity: 0.8,
+          width: 100,
+          backgroundColor: '#fff',
+          padding: 5,
+          borderRadius: 4,
         },
 
         text: {
           paddingLeft: 4,
           fontSize: 15,
-          opacity: 0.75,
+          opacity: 0.70,
+          marginLeft: 10,
         },
 });

@@ -13,9 +13,11 @@ export default function OrderingStepOne(props) {
   const [error, setError] = useState(0);
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
+  const [cartCategories, setCartCategories] = useState();
 
   useEffect( _ => {
     handleNullFields();
+    checkCartCategories();
   }, [])
 
   // Handle Null Fields
@@ -28,6 +30,18 @@ export default function OrderingStepOne(props) {
 
     if (curPhone) setPhone(curPhone)
     else setPhone('');
+  }
+
+  // Check cart cotegories
+  const checkCartCategories = _ => {
+    let cart = cartContext.cart;
+    let type = [];
+  
+    for (let i = 0; i < cart.length; i++) {
+      type.push(cart[i].type)
+    }
+
+    setCartCategories(type);
   }
 
   // Text input set onChange
@@ -56,7 +70,13 @@ export default function OrderingStepOne(props) {
           await axios.put(`https://avnw-api.herokuapp.com/user/${id}`, user, config)
           .then(res => {
             cartContext.setUser(res.data[0]);
-            nav.navigate('OrderingStepTwo')
+            if (cartCategories.includes('merch')) {
+              if (cartContext.previousRoute) {
+                nav.navigate(cartContext.previousRoute);
+              } else {
+                nav.navigate('MerchOrderOverview');
+              }
+            } else nav.navigate('MerchOrderOverview');
           })
           .catch(err => console.log(err))
         } catch (err) { console.log(err) }
@@ -67,17 +87,17 @@ export default function OrderingStepOne(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#009cd8" />
-      <LinearGradient colors={['#009cd8', '#018bc0', '#018bc0']} style={styles.gradient} >
+      <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
         <View style={styles.content}>
           <View style={styles.text_box}>
-            <Text style={styles.text_title}>Step One</Text>
-            <Text style={styles.text_content}>What is your name?</Text>
+            <Text style={styles.text_title}>Contact Information</Text>
+            <Text style={styles.text_content}>What is your name and number?</Text>
           </View>
           <View style={styles.address_box}>
             { error ? (
               <View style={styles.error_box}>
                 <Text style={styles.error_text}>
-                  { error === 1 ? 'Please Enter Your Name' : 'Enter a valid number'}S
+                  { error === 1 ? 'Please Enter Your Name' : 'Enter a valid number'}
                 </Text>
               </View>
             ): null}
@@ -134,7 +154,7 @@ const styles = StyleSheet.create({
         text_title: {
           color: '#fefefe',
           fontWeight: 'bold',
-          fontSize: 28,
+          fontSize: 26,
         },
 
         text_content: {
@@ -173,7 +193,7 @@ const styles = StyleSheet.create({
           paddingBottom: 8,
           paddingLeft: 15,
           paddingRight: 15,
-          backgroundColor: '#0079a8',
+          backgroundColor: '#0078A4',
           borderRadius: 4,
           marginTop: 10,
           // shadowColor: "#000",

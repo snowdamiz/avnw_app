@@ -19,7 +19,7 @@ export default function Index(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#009cd8" />
-      <LinearGradient colors={['#009cd8', '#018bc0', '#018bc0']} style={styles.gradient} >
+      <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
         <View style={styles.content}>
           <Image source={Logo_large} style={styles.logo} />
           <View style={styles.buttons_container}>
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
           padding: 14,
           marginTop: 14,
           borderWidth: 2,
-          borderColor: '#005575',
-          backgroundColor: '#005575',
+          borderColor: '#005D80',
+          backgroundColor: '#005D80',
           borderRadius: 8,
         },
 

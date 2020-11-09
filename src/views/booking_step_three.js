@@ -20,11 +20,11 @@ export default function BookingStepThree(props) {
   const route = useRoute();
 
   const [error, setError] = useState(false);
-  const [address, setAddress] = useState(cartContext.user.address);
-  const [unit, setUnit] = useState(cartContext.user.unit);
-  const [city, setCity] = useState(cartContext.user.city);
-  const [state, setState] = useState(cartContext.user.state);
-  const [zipCode, setZipCode] = useState(cartContext.user.zip);
+  const [address, setAddress] = useState(cartContext.shootLocation.address);
+  const [unit, setUnit] = useState(cartContext.shootLocation.unit);
+  const [city, setCity] = useState(cartContext.shootLocation.city);
+  const [state, setState] = useState(cartContext.shootLocation.state);
+  const [zipCode, setZipCode] = useState(cartContext.shootLocation.zip);
 
   const handleSubmit = _ => {
     let nav = props.navigation;
@@ -49,7 +49,7 @@ export default function BookingStepThree(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#009cd8" />
-      <LinearGradient colors={['#009cd8', '#018bc0', '#018bc0']} style={styles.gradient} >
+      <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
         <View style={styles.content}>
           <View style={styles.text_box}>
             <Text style={styles.text_title}>Step Three</Text>
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         text_title: {
           color: '#fefefe',
           fontWeight: 'bold',
-          fontSize: 28,
+          fontSize: 26,
         },
 
         text_content: {
@@ -157,14 +157,14 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems: 'flex-start',
-      marginTop: 40,
+      marginTop: 10,
       // borderWidth: 1,
     },
 
         error_box: {
           width: '100%',
           padding: 5,
-          marginBottom: 10,
+          marginTop: 10,
           borderRadius: 4,
           backgroundColor: 'pink',
         },
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
           paddingBottom: 8,
           paddingLeft: 15,
           paddingRight: 15,
-          backgroundColor: '#0079a8',
+          backgroundColor: '#0078A4',
           borderRadius: 4,
           marginTop: 10,
           // shadowColor: "#000",
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
         address_input: { width: Dimensions.get('screen').width - 170 },
         unit_input: { width: 100 },
         city_input: { width: Dimensions.get('screen').width - 240 },
-        state_input: { width: 60 },
+        state_input: { width: 70 },
         zip_input: { width: 100 },
 
         city_input_err: {

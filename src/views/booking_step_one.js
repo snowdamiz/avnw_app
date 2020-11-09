@@ -29,7 +29,7 @@ export default function BookingStepOne(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <LinearGradient colors={['#009cd8', '#018bc0', '#018bc0']} style={styles.gradient} >
+      <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
         <View style={styles.content}>
           <View style={styles.text_box}>
             <Text style={styles.text_title}>Step One</Text>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         text_title: {
           color: '#fefefe',
           fontWeight: 'bold',
-          fontSize: 28,
+          fontSize: 26,
         },
 
         text_content: {

@@ -94,7 +94,7 @@ export default function Login(props) {
   }
 
   return (
-    <LinearGradient colors={['#009cd8', '#018bc0', '#018bc0']} style={styles.gradient} >
+    <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
       <ScrollView contentContainerStyle={styles.container}>
         <View style={[styles.login_box, err ? styles.login_box_err : null]}>
           <Image source={LogoIMG} style={styles.logoIMG} />

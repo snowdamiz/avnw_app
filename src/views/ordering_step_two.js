@@ -53,7 +53,12 @@ export default function OrderingStepTwo(props) {
   const handleSetZip = e => setZip(e);
 
   // Handle Validation
-  const handleValidation = _ => {
+  // const handleValidation = async _ => {
+
+  // }
+
+  // Submit Information
+  const handleSubmit = async _ => {
     let err = [...error];
     // address
     if (!address) {
@@ -110,11 +115,7 @@ export default function OrderingStepTwo(props) {
         setError(err);
       }
     }
-  }
 
-  // Submit Information
-  const handleSubmit = async _ => {
-    handleValidation();
     let nav = props.navigation;
     const location = {
       address: address,
@@ -124,7 +125,7 @@ export default function OrderingStepTwo(props) {
       zip: zip,
     }
 
-    if (error.length < 1) {
+    if (error.length === 0 && location) {
       try {
         const token = await AsyncStorage.getItem('token');
         const config = { headers: { Authorization: token }};
@@ -143,10 +144,10 @@ export default function OrderingStepTwo(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#009cd8" />
-      <LinearGradient colors={['#009cd8', '#018bc0', '#018bc0']} style={styles.gradient} >
+      <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
         <View style={styles.content}>
           <View style={styles.text_box}>
-            <Text style={styles.text_title}>Step Two</Text>
+            <Text style={styles.text_title}>Shipping Address</Text>
             <Text style={styles.text_content}>What is your shipping address?</Text>
           </View>
           <View style={styles.address_box}>
@@ -233,11 +234,11 @@ const styles = StyleSheet.create({
         text_title: {
           color: '#fefefe',
           fontWeight: 'bold',
-          fontSize: 28,
+          fontSize: 26,
         },
 
         text_content: {
-          marginTop: 5,
+          // marginTop: 5,
           color: '#efefef',
           fontSize: 14,
           // opacity: 0.8,
@@ -251,14 +252,14 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems: 'flex-start',
-      marginTop: 40,
+      marginTop: 10,
       // borderWidth: 1,
     },
 
         error_box: {
           width: '100%',
           padding: 5,
-          marginBottom: 10,
+          marginTop: 10,
           borderRadius: 4,
           backgroundColor: 'pink',
         },
@@ -273,7 +274,7 @@ const styles = StyleSheet.create({
           paddingBottom: 8,
           paddingLeft: 15,
           paddingRight: 15,
-          backgroundColor: '#0079a8',
+          backgroundColor: '#0078A4',
           borderRadius: 4,
           marginTop: 10,
           // shadowColor: "#000",

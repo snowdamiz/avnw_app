@@ -19,6 +19,11 @@ export default function ShippingContent(props) {
   const cartContext = useContext(Context);
   const route = useRoute();
 
+  const handleEdit = _ => {
+    cartContext.setPreviousRoute(route.name);
+    props.navigation.navigate('OrderingStepOne');
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity 
@@ -28,8 +33,10 @@ export default function ShippingContent(props) {
         <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Basic Information</Text>
         <View style={styles.header_btns}>
           { toggle ? (
-            <TouchableOpacity style={styles.edit_img_box}>
-              <Image source={ toggle ? EditOnIMG : EditIMG } style={[styles.header_edit_IMG, toggle ? styles.header_edit_IMG_on : null]} />
+            <TouchableOpacity onPress={ _ => handleEdit()} style={styles.edit_img_box}>
+              <Image
+                source={ toggle ? EditOnIMG : EditIMG }
+                style={[styles.header_edit_IMG, toggle ? styles.header_edit_IMG_on : null]} />
             </TouchableOpacity>
           ) : null }
           <TouchableOpacity onPress={ _ => setToggle(!toggle) }>
