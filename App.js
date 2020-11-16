@@ -22,6 +22,8 @@ import ProductForm from './src/views/admin/product_form.js';
 import OrderingStepOne from './src/views/ordering_step_one.js';
 import OrderingStepTwo from './src/views/ordering_step_two.js';
 import Orders from './src/views/orders.js';
+import SelectedMerchOrder from './src/views/selected_merch_order.js';
+import SelectedServiceOrder from './src/views/selected_service_order.js';
 
 export default function App() {
   return (
@@ -81,6 +83,12 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="Orders">
             { props => <Orders {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="SelectedMerchOrder">
+            { props => <SelectedMerchOrder {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="SelectedServiceOrder">
+            { props => <SelectedServiceOrder {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

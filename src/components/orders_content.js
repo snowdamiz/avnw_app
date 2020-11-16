@@ -33,7 +33,10 @@ export default function OrdersContent(props) {
 
     try {
       await axios.get(`https://avnw-api.herokuapp.com/user/${id}/merch-orders`, config)
-      .then(res => cartContext.setUserMerchOrders(res.data))
+      .then(res => {
+        cartContext.setUserMerchOrders(res.data)
+        console.log(res.data);
+      })
       .catch(err => console.log(err))
     } catch (err) { console.log(err)}
   }
@@ -51,11 +54,24 @@ export default function OrdersContent(props) {
     } catch (err) { console.log(err)}
   }
 
+  // HANDLE MERCH ORDER SELECTION
+  const handleMerchOrderSelect = el => {
+    cartContext.setSelectedMerchOrder(el);
+    props.navigation.navigate('SelectedMerchOrder');
+  }
+
+  // HANDLE SERVICE ORDER SELECTION
+  const handleServiceOrderSelect = el => {
+    cartContext.setSelectedServiceOrder(el);
+    props.navigation.navigate('SelectedServiceOrder');
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TouchableOpacity
         style={[styles.wrap, toggleMerch ? styles.wrap_on : null ]}
-        onPress={ _ => setToggleMerch(!toggleMerch)}>
+        onPress={ _ => setToggleMerch(!toggleMerch)}
+        disabled={cartContext.menuToggle}>
         <View style={styles.header}>
           <Text style={[styles.header_text, toggleMerch ? styles.header_text_on : null]}>
             Product Orders
@@ -66,7 +82,16 @@ export default function OrdersContent(props) {
         </View>
         { toggleMerch ? (
           cartContext.merchOrders.length > 0 ? (
-            <View></View>
+            cartContext.merchOrders.map(el => {
+              return (
+                <TouchableOpacity
+                  style={styles.order} key={el.id}
+                  onPress={ _ => handleMerchOrderSelect(el)}>
+                  <Text style={styles.order_product}>{el.merch.product}</Text>
+                  <Text style={styles.order_status}>{el.status.toUpperCase()}</Text>
+                </TouchableOpacity>
+              )
+            })
           ) : (
             <View style={styles.err}>
               <Text style={styles.err_text}>You have no orders</Text>
@@ -76,7 +101,8 @@ export default function OrdersContent(props) {
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.wrap, toggleServices ? styles.wrap_on : null ]}
-        onPress={ _ => setToggleServices(!toggleServices)}>
+        onPress={ _ => setToggleServices(!toggleServices)}
+        disabled={cartContext.menuToggle}>
         <View style={styles.header}>
           <Text style={[styles.header_text, toggleServices ? styles.header_text_on : null]}>
             Service Orders
@@ -87,7 +113,16 @@ export default function OrdersContent(props) {
         </View>
         { toggleServices ? (
           cartContext.serviceOrders.length > 0 ? (
-            <View></View>
+            cartContext.serviceOrders.map(el => {
+              return (
+                <TouchableOpacity
+                  style={styles.order} key={el.id}
+                  onPress={ _ => handleServiceOrderSelect(el)}>
+                  <Text style={styles.order_product}>{el.merch.product}</Text>
+                  <Text style={styles.order_status}>{el.status.toUpperCase()}</Text>
+              </TouchableOpacity>
+              )
+            })
           ) : (
             <View style={styles.err}>
               <Text style={styles.err_text}>You have no orders</Text>
@@ -184,5 +219,27 @@ const styles = StyleSheet.create({
           err_text: {
             padding: 10,
             opacity: 0.8,
-          }
+          },
+
+        order: {
+          width: '100%',
+          backgroundColor: '#fff',
+          // borderWidth: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: 10,
+          borderBottomLeftRadius: 6,
+          borderBottomRightRadius: 6,
+        },
+
+          order_product: {
+            fontWeight: 'bold',
+            opacity: 0.6,
+          },
+
+          order_status: {
+            fontSize: 13,
+            fontWeight: 'bold',
+          },
 });
