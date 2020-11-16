@@ -19,31 +19,55 @@ export default function BookingStepThree(props) {
   const cartContext = useContext(Context);
   const route = useRoute();
 
-  const [error, setError] = useState(false);
-  const [address, setAddress] = useState(cartContext.shootLocation.address);
-  const [unit, setUnit] = useState(cartContext.shootLocation.unit);
+  const [error, setError] = useState([]);
   const [city, setCity] = useState(cartContext.shootLocation.city);
   const [state, setState] = useState(cartContext.shootLocation.state);
-  const [zipCode, setZipCode] = useState(cartContext.shootLocation.zip);
 
+  const handleSetCity = e => setCity(e);
+  const handleSetState = e => setState(e);
+
+  // Handle Location Submit
   const handleSubmit = _ => {
-    let nav = props.navigation;
-    const location = {
-      address: address,
-      unit: unit,
-      city: city,
-      state: state,
-      zip: zipCode,
+    let err = [...error];
+    // City
+    if (!city) {
+      if (!err.includes(1)) {
+        err.push(1);
+        setError(err);
+      }
+    } else {
+      if (err.includes(1)) {
+        let i = err.indexOf(1);
+        err.splice(i, 1);
+        setError(err);
+      }
     }
 
-    if (location.city && location.state) {
-      setError(false);  
-      cartContext.handleShootLocation(location);
+    // state
+    if (!state) {
+      if (!err.includes(2)) {
+        err.push(2);
+        setError(err);
+      }
+    } else {
+      if (err.includes(2)) {
+        let i = err.indexOf(2);
+        err.splice(i, 1);
+        setError(err);
+      }
+    }
 
+    let nav = props.navigation;
+    const location = {
+      city: city,
+      state: state,
+    }
+
+    if (err.length === 0 && location) {
+      cartContext.handleShootLocation(location);
       if (cartContext.shootLocationToggle) nav.navigate('MerchOrderOverview');
       else nav.navigate('Cart');
-      
-    } else setError(true);
+    }
   }
 
   return (
@@ -53,49 +77,32 @@ export default function BookingStepThree(props) {
         <View style={styles.content}>
           <View style={styles.text_box}>
             <Text style={styles.text_title}>Step Three</Text>
-            <Text style={styles.text_content}>Choose your shoot location. Only City and State are requred.</Text>
+            <Text style={styles.text_content}>Choose your shoot location</Text>
           </View>
           <View style={styles.address_box}>
-            { error ? (
+            { error.includes(1) ? (
               <View style={styles.error_box}>
-                <Text style={styles.error_text}>Only City and State are required</Text>
+                <Text style={styles.error_text}>Please Enter a Valid City</Text>
               </View>
-            ): null}
+            ): null }
+            { error.includes(2) ? (
+              <View style={styles.error_box}>
+                <Text style={styles.error_text}>Please Enter a Valid State</Text>
+              </View>
+            ): null }
             <TextInput 
-              style={[styles.input, styles.address_input]}
-              placeholder={'Address'}
-              placeholderTextColor='#fff'
-              onChangeText={e => setAddress(e)}
-              value={address}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, styles.unit_input]}
-              placeholder={'Unit'}
-              placeholderTextColor='#fff'
-              onChangeText={e => setUnit(e)}
-              value={unit}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, error ? styles.city_input_err : styles.city_input]}
+              style={[styles.input, error.includes(1) ? styles.input_err : null ]}
               placeholder={'City'}
               placeholderTextColor='#fff'
-              onChangeText={e => setCity(e)}
+              onChangeText={e => handleSetCity(e)}
               value={city}>
             </TextInput>
             <TextInput 
-              style={[styles.input, error ? styles.state_input_err : styles.state_input]}
+              style={[styles.input, error.includes(2) ? styles.input_err : null ]}
               placeholder={'State'}
               placeholderTextColor='#fff'
-              onChangeText={e => setState(e)}
+              onChangeText={e => handleSetState(e)}
               value={state}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, styles.zip_input]}
-              placeholder={'Zip'}
-              placeholderTextColor='#fff'
-              onChangeText={e => setZipCode(e)}
-              value={zipCode ? zipCode.toString() : zipCode}
-              keyboardType={'numeric'}>
             </TextInput>
           </View>
           <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleSubmit() }>
@@ -123,17 +130,14 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       height: '100%',
-      // borderWidth: 1,
     },
     
     text_box: {
         width: Dimensions.get('screen').width - 60,
-        // marginTop: 40,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         flexDirection: 'column',
         marginTop: -100,
-        // borderWidth: 1,
       },
 
         text_title: {
@@ -143,10 +147,8 @@ const styles = StyleSheet.create({
         },
 
         text_content: {
-          marginTop: 5,
           color: '#efefef',
           fontSize: 14,
-          // opacity: 0.8,
           lineHeight: 19,
           width: '80%',
         },
@@ -158,7 +160,6 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'flex-start',
       marginTop: 10,
-      // borderWidth: 1,
     },
 
         error_box: {
@@ -182,30 +183,13 @@ const styles = StyleSheet.create({
           backgroundColor: '#0078A4',
           borderRadius: 4,
           marginTop: 10,
-          // shadowColor: "#000",
-          // shadowOffset: { width: 0, height: 2 },
-          // shadowOpacity: 1,
-          // shadowRadius: 2,
-          // elevation: 6,
+          width: Dimensions.get('screen').width - 60,
           color: '#fefefe',
         },
 
-        address_input: { width: Dimensions.get('screen').width - 170 },
-        unit_input: { width: 100 },
-        city_input: { width: Dimensions.get('screen').width - 240 },
-        state_input: { width: 70 },
-        zip_input: { width: 100 },
-
-        city_input_err: {
+        input_err: {
           borderWidth: 1,
           borderColor: 'pink',
-          width: Dimensions.get('screen').width - 240
-        },
-
-        state_input_err: {
-          borderWidth: 1,
-          borderColor: 'pink',
-          width: 60
         },
 
     continue_btn: {
@@ -218,7 +202,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       bottom: 20,
       position: 'absolute',
-      // borderWidth: 1,
       width: Dimensions.get('screen').width - 60,
     },
 
@@ -233,14 +216,11 @@ const styles = StyleSheet.create({
         borderTopColor: 'transparent',
         borderBottomColor: 'transparent',
         borderLeftColor: '#fefefe',
-        // marginLeft: 10,
-        // marginTop: 5,
       },
 
       continue_btn_text: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#018bc0',
-        // opacity: 0.7,
       },
 });

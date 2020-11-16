@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
 
           heading: {
             fontSize: 18,
-            // fontWeight: 'bold',
-            opacity: 0.55,
+            fontWeight: 'bold',
+            opacity: 0.60,
           },
 
           edit_btn: {
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
           fontWeight: 'bold',
           fontSize: 15,
           color: '#005575',
-          opacity: 0.8,
+          opacity: 0.75,
           width: 100,
           backgroundColor: '#fff',
           padding: 5,
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         text: {
           paddingLeft: 4,
           fontSize: 15,
-          opacity: 0.70,
+          opacity: 0.60,
           marginLeft: 10,
         },
 });

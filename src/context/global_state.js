@@ -36,6 +36,8 @@ export default class GlobalState extends React.Component{
     adminProductInteraction: '',
     editAccountToggle: false,
     editShippingToggle: false,
+    merchOrders: [],
+    serviceOrders: [],
   }
 
   componentDidMount() {
@@ -89,6 +91,8 @@ export default class GlobalState extends React.Component{
   setServices = el => this.setState({ services: el })
   setProducts = el => this.setState({ merch: el })
   setUser = el => this.setState({ user: el })
+  setUserMerchOrders = el => this.setState({ merchOrders: el })
+  setUserServiceOrders = el => this.setState({ serviceOrders: el })
 
   getPhotographers = async _ => {
     try {
@@ -281,6 +285,8 @@ export default class GlobalState extends React.Component{
           deleteProductConfirmation: this.state.deleteProductConfirmation,
           editAccountToggle: this.state.editAccountToggle,
           editShippingToggle: this.state.editShippingToggle,
+          merchOrders: this.state.merchOrders,
+          serviceOrders: this.state.serviceOrders,
           setLoginToken: this.setLoginToken,
           getLoginToken: this.getLoginToken,
           handleSignout: this.handleSignout,
@@ -302,6 +308,8 @@ export default class GlobalState extends React.Component{
           getServices: this.getServices,
           setProducts: this.setProducts,
           setUser: this.setUser,
+          setUserMerchOrders: this.setUserMerchOrders,
+          setUserServiceOrders: this.setUserServiceOrders,
           setEditPhotographer: this.setEditPhotographer,
           setEditService: this.setEditService,
           setEditProduct: this.setEditProduct,

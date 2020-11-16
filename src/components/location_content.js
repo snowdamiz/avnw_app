@@ -49,24 +49,12 @@ export default function LocationContent(props) {
       { cartContext.shootLocationToggle ? (
         <View style={styles.container_box}>
           <View style={styles.content}>
-            <Text style={styles.content_title}>Street Address:</Text>
-            <Text style={styles.content_text}>{shootLocation.address}</Text>
-          </View>
-          <View style={styles.content}>
-            <Text style={styles.content_title}>Unit Number:</Text>
-            <Text style={styles.content_text}>{shootLocation.unit}</Text>
-          </View>
-          <View style={styles.content}>
             <Text style={styles.content_title}>City:</Text>
             <Text style={styles.content_text}>{shootLocation.city}</Text>
           </View>
-          <View style={styles.content}>
+          <View style={styles.content_gbr}>
             <Text style={styles.content_title}>State:</Text>
             <Text style={styles.content_text}>{shootLocation.state}</Text>
-          </View>
-          <View style={styles.content_gbr}>
-            <Text style={styles.content_title}>Zip Code:</Text>
-            <Text style={styles.content_text}>{shootLocation.zip}</Text>
           </View>
         </View>
       ) : null }

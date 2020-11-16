@@ -29,6 +29,12 @@ export default function Header(props) {
     props.navigation.navigate('Profile');
   }
 
+  // Handle Orders Navigation
+  const handleOrdersNavigation = _ => {
+    cartContext.handleMenuToggle();
+    props.navigation.navigate('Orders');
+  }
+
   // Handle Sign Out
   const handleSignout = _ => {
     cartContext.handleSignout();
@@ -88,7 +94,9 @@ export default function Header(props) {
             style={[ styles.btn, styles.btn_first]}>
             <Text style={[styles.btn_text]}>Profile</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[ styles.btn]}>
+          <TouchableOpacity
+            style={[ styles.btn]}
+            onPress={ _ => handleOrdersNavigation()}>
             <Text style={[styles.btn_text]}>My Orders</Text>
           </TouchableOpacity>
           { cartContext.accountType === 'admin' ? (

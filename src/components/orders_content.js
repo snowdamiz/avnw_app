@@ -1,0 +1,188 @@
+import React, { useContext, useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { useRoute } from '@react-navigation/native';
+import Context from '../context/context.js';
+
+import {
+  Dimensions,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+
+export default function OrdersContent(props) {
+  const [toggleMerch, setToggleMerch] = useState(false);
+  const [toggleServices, setToggleServices] = useState(false);
+  const cartContext = useContext(Context);
+  const route = useRoute();
+
+  useEffect( _ => {
+    getUserMerchOrders();
+    getUserServiceOrders();
+  }, [])
+
+  // GET USER MERCH ORDERS
+  const getUserMerchOrders = async _ => {
+    let id = cartContext.user.id;
+    const token = await AsyncStorage.getItem('token');
+    const config = { headers: { Authorization: token }}
+
+    try {
+      await axios.get(`https://avnw-api.herokuapp.com/user/${id}/merch-orders`, config)
+      .then(res => cartContext.setUserMerchOrders(res.data))
+      .catch(err => console.log(err))
+    } catch (err) { console.log(err)}
+  }
+
+  // GET USER SERVICE ORDERS
+  const getUserServiceOrders = async _ => {
+    let id = cartContext.user.id;
+    const token = await AsyncStorage.getItem('token');
+    const config = { headers: { Authorization: token }}
+
+    try {
+      await axios.get(`https://avnw-api.herokuapp.com/user/${id}/service-orders`, config)
+      .then(res => cartContext.setUserServiceOrders(res.data))
+      .catch(err => console.log(err))
+    } catch (err) { console.log(err)}
+  }
+
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <TouchableOpacity
+        style={[styles.wrap, toggleMerch ? styles.wrap_on : null ]}
+        onPress={ _ => setToggleMerch(!toggleMerch)}>
+        <View style={styles.header}>
+          <Text style={[styles.header_text, toggleMerch ? styles.header_text_on : null]}>
+            Product Orders
+          </Text>
+          <TouchableOpacity onPress={ _ => setToggleMerch(!toggleMerch) }>
+            <View style={ toggleMerch ? styles.arrow_btn_up : styles.arrow_btn_down}></View>
+          </TouchableOpacity>
+        </View>
+        { toggleMerch ? (
+          cartContext.merchOrders.length > 0 ? (
+            <View></View>
+          ) : (
+            <View style={styles.err}>
+              <Text style={styles.err_text}>You have no orders</Text>
+            </View>
+          )
+        ) : null }
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.wrap, toggleServices ? styles.wrap_on : null ]}
+        onPress={ _ => setToggleServices(!toggleServices)}>
+        <View style={styles.header}>
+          <Text style={[styles.header_text, toggleServices ? styles.header_text_on : null]}>
+            Service Orders
+          </Text>
+          <TouchableOpacity onPress={ _ => setToggleServices(!toggleServices) }>
+            <View style={ toggleServices ? styles.arrow_btn_up : styles.arrow_btn_down}></View>
+          </TouchableOpacity>
+        </View>
+        { toggleServices ? (
+          cartContext.serviceOrders.length > 0 ? (
+            <View></View>
+          ) : (
+            <View style={styles.err}>
+              <Text style={styles.err_text}>You have no orders</Text>
+            </View>
+          )
+        ) : null }
+      </TouchableOpacity>
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: Dimensions.get('screen').width,
+    // borderWidth: 1,
+  },
+
+    wrap: {
+      width: Dimensions.get('screen').width - 40,
+      marginTop: 20,
+      backgroundColor: '#fff',
+      borderRadius: 6,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 1,
+      shadowRadius: 5,
+      elevation: 4,
+    },
+
+    wrap_on: {
+      backgroundColor: '#009cd8',
+    },
+
+      header: {
+        // width: '100%',
+        padding: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      },
+
+        header_text: {
+          fontSize: 15,
+          fontWeight: 'bold',
+          color: '#000',
+          opacity: 0.6,
+        },
+
+        header_text_on: {
+          color: '#fff',
+          opacity: 1,
+        },
+
+        arrow_btn_down: {
+          width: 0,
+          height: 0,
+          borderLeftWidth: 8,
+          borderRightWidth: 8,
+          borderTopWidth: 13,
+          borderStyle: 'solid',
+          backgroundColor: 'transparent',
+          borderLeftColor: 'transparent',
+          borderRightColor: 'transparent',
+          borderTopColor: '#000',
+          opacity: 0.35,
+        },
+
+        arrow_btn_up: {
+          width: 0,
+          height: 0,
+          borderLeftWidth: 8,
+          borderRightWidth: 8,
+          borderBottomWidth: 13,
+          borderStyle: 'solid',
+          backgroundColor: 'transparent',
+          borderLeftColor: 'transparent',
+          borderRightColor: 'transparent',
+          borderBottomColor: '#fefefe',
+          opacity: 1,
+        },
+
+        err: {
+          width: '100%',
+          // borderWidth: 1,
+          backgroundColor: '#fff',
+          borderBottomLeftRadius: 6,
+          borderBottomRightRadius: 6,
+        },
+
+          err_text: {
+            padding: 10,
+            opacity: 0.8,
+          }
+});

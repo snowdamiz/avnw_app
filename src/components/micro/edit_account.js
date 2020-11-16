@@ -80,16 +80,16 @@ export default function EditAccount(props) {
       <Text style={styles.heading}>
         Edit Account Details
       </Text>
-        { error.includes(1) ? (
-          <View style={styles.error_box}>
-            <Text style={styles.error_text}>Please Enter a Valid Name</Text>
-          </View>
-        ): null }
-        { error.includes(2) ? (
-          <View style={styles.error_box}>
-            <Text style={styles.error_text}>Please Enter a Valid Phone Number</Text>
-          </View>
-        ): null }
+      { error.includes(1) ? (
+        <View style={styles.error_box}>
+          <Text style={styles.error_text}>Please Enter a Valid Name</Text>
+        </View>
+      ): null }
+      { error.includes(2) ? (
+        <View style={styles.error_box}>
+          <Text style={styles.error_text}>Please Enter a Valid Phone Number</Text>
+        </View>
+      ): null }
       <TextInput
         style={styles.input}
         onChangeText={e => handleSetName(e)}

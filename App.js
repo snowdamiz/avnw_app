@@ -21,6 +21,7 @@ import ServiceForm from './src/views/admin/service_form.js';
 import ProductForm from './src/views/admin/product_form.js';
 import OrderingStepOne from './src/views/ordering_step_one.js';
 import OrderingStepTwo from './src/views/ordering_step_two.js';
+import Orders from './src/views/orders.js';
 
 export default function App() {
   return (
@@ -77,6 +78,9 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="OrderingStepTwo">
             { props => <OrderingStepTwo {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="Orders">
+            { props => <Orders {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
