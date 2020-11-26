@@ -21,12 +21,14 @@ export default function CartContent(props) {
   const [total, setTotal] = useState(0);
   const [toggle, setToggle] = useState(false);
   const [error, setError] = useState(false);
+  const [type, setType] = useState([])
   const cartContext = useContext(Context);
 
   const route = useRoute();
 
   useEffect(() => {
     handleTotal()
+    handleType()
     cartContext.setPreviousRoute('Cart');
   },[cartContext.cart])
 
@@ -39,6 +41,17 @@ export default function CartContent(props) {
     setTotal(total);
   }
 
+  // Handle type of cart
+  const handleType = _ => {
+    let cart = cartContext.cart;
+    let type = [];
+    for (let i = 0; i < cart.length; i++) {
+      type.push(cart[i].type)
+    }
+
+    setType(type);
+  }
+
   // Handle order submit button
   const handleOrderBtn = _ => {
     let name = cartContext.user.name;
@@ -48,11 +61,11 @@ export default function CartContent(props) {
 
     if (cartContext.token) {
       if (route.name === 'Cart') {
-        let type = []
+        // let type = []
   
-        for (let i = 0; i < cart.length; i++) {
-          type.push(cart[i].type)
-        }
+        // for (let i = 0; i < cart.length; i++) {
+        //   type.push(cart[i].type)
+        // }
   
         if (type.includes('merch')) {
           if (name === null || name.length < 1) {
@@ -150,7 +163,7 @@ export default function CartContent(props) {
                   </LinearGradient>
                 ) }
             </View>
-            { route.name === 'MerchOrderOverview' ? (
+            { route.name === 'MerchOrderOverview' && type.includes('service') ? (
               <View style={styles.ts_box}>
                 <TouchableOpacity
                   style={[styles.checkbox, error ? styles.checkbox_error : null, toggle ? styles.checkbox_checked : null]}
@@ -378,15 +391,23 @@ const styles = StyleSheet.create({
           },
 
     ts_box: {
+      padding: 10,
       width: '100%',
-      marginTop: 5,
+      // marginTop: 5,
       flexDirection: 'row',
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
       alignItems: 'center',
+      borderRadius: 6,
+      backgroundColor: '#fff',
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.28,
+      shadowRadius: 5,
+      elevation: 4,
     },
 
       checkbox: {
-        borderWidth: 1.5,
+        borderWidth: 1,
         padding: 6,
         width: 20,
         height: 20,

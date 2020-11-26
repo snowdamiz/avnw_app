@@ -64,15 +64,24 @@ export default function StripeCheckout(props) {
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
       <script src="https://js.stripe.com/v3/"></script>
       <style>
+        body {
+          heigth: 10
+        }
+
+        .container-fluid {
+          // border: 1px solid blue;
+          top: ${Dimensions.get('screen').height - 200 }
+        }
+
         form {
-          margin-top: 35%
-          padding: 10;
+          // margin-top: 35%
+          // padding: 10;
         }
 
         .card-holder{
           display: flex;
           flex-direction: column;
-          height: 180px;
+          height: 200px;
           justify-content: space-around;
           background-color: #fff;
           border-radius: 10px;
@@ -310,5 +319,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     height: '100%',
     borderWidth: 1,
+    flex: 0,
   }
 });
