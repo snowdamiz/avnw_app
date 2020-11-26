@@ -24,6 +24,9 @@ import OrderingStepTwo from './src/views/ordering_step_two.js';
 import Orders from './src/views/orders.js';
 import SelectedMerchOrder from './src/views/selected_merch_order.js';
 import SelectedServiceOrder from './src/views/selected_service_order.js';
+import SelectedMerchOrderADMIN from './src/views/admin/selected_merch_order.js';
+import SelectedServiceOrderADMIN from './src/views/admin/selected_service_order.js';
+import PaymentPortal from './src/components/payment_portal.js';
 
 export default function App() {
   return (
@@ -89,6 +92,15 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="SelectedServiceOrder">
             { props => <SelectedServiceOrder {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="SelectedMerchOrderADMIN">
+            { props => <SelectedMerchOrderADMIN {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="SelectedServiceOrderADMIN">
+            { props => <SelectedServiceOrderADMIN {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="PaymentPortal">
+            { props => <PaymentPortal {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

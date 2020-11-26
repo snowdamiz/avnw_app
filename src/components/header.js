@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Dimensions, StyleSheet, View, Image, Text, TouchableNativeFeedback } from 'react-native';
+import { Dimensions ,Platform, StyleSheet, View, Image, Text, TouchableNativeFeedback } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Context from '../context/context.js';
 import CartIMG from '../assets/cart.png';
@@ -55,14 +55,23 @@ export default function Header(props) {
 
   return (
     <View style={styles.container}>
-      <TouchableNativeFeedback onPress={ _ => props.navigation.navigate('Index')} >
-        <View name="logo" style={styles.logo}>
-          <Image source={LogoIMG} style={styles.logoIMG} />
-        </View>
-      </TouchableNativeFeedback>
+      <View style={styles.logo_box}>
+        { Platform.OS === 'ios' ? (
+          <TouchableOpacity onPress={ _ => props.navigation.goBack()}>
+            <View style={styles.back_btn}>
+              <Text style={styles.back_btn_text}>Back</Text>
+            </View>
+          </TouchableOpacity>
+        ) : null }
+        <TouchableOpacity onPress={ _ => props.navigation.navigate('Index')} >
+          <View name="logo" style={styles.logo}>
+            <Image source={LogoIMG} style={styles.logoIMG} />
+          </View>
+        </TouchableOpacity>
+      </View>
       <View name="navBox" style={styles.navBox}>        
         <View style={styles.menu_wrap} >
-          <TouchableNativeFeedback onPress={ _ => handleCartBtn()} >
+          <TouchableOpacity onPress={ _ => handleCartBtn()} >
             <View name="cart" style={styles.cart}>
               <Image source={CartIMG} style={styles.cartIMG} />
               {cartContext.cart.length > 0 ? (
@@ -71,12 +80,12 @@ export default function Header(props) {
                 </View>
               ) : null }
             </View>  
-          </TouchableNativeFeedback>
-          <TouchableNativeFeedback onPress={ _ => handleProfileBtn()} >
+          </TouchableOpacity>
+          <TouchableOpacity onPress={ _ => handleProfileBtn()} >
             <View name="profile" style={styles.profile}>
               <Image source={ProfileIMG} style={styles.profileIMG} />
             </View>  
-          </TouchableNativeFeedback>
+          </TouchableOpacity>
         </View>
       </View>
       { cartContext.menuToggle ? (
@@ -134,6 +143,12 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
 
+    logo_box: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+
     logo: {
       width: 40,
       height: 40,
@@ -142,16 +157,32 @@ const styles = StyleSheet.create({
       borderRadius: 6,
     },
 
-    gradient: {
-      padding: 0,
-      alignItems: 'center',
-      borderRadius: 6,
+      gradient: {
+        padding: 0,
+        alignItems: 'center',
+        borderRadius: 6,
+      },
+
+      logoIMG: {
+        width: 30,
+        height: 30,
+      },
+    
+    back_btn: {
+      marginRight: 10,
+      // borderWidth: 1,
+      paddingTop: 10,
+      paddingBottom: 10,
+      paddingLeft: 15,
+      paddingRight: 15,
+      borderRadius: 20,
+      backgroundColor: '#fff',
     },
 
-    logoIMG: {
-      width: 30,
-      height: 30,
-    },
+      back_btn_text: {
+        fontWeight: 'bold',
+        opacity: 0.65,
+      },
 
     navBox: {
       height: 42,

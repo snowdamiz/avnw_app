@@ -26,10 +26,24 @@ export default function BookingStepOne(props) {
     cartContext.setCurPhotographer(el);
   }
 
+  // const handleChoose = el => {
+  //   cartContext.setChosenPhotographer(el);
+  //   props.navigation.navigate('BookingStepTwo');
+  // }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
       <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
+        { Platform.OS === 'ios' ? (
+          <View style={styles.btn_view}>
+            <TouchableOpacity onPressIn={ _ => props.navigation.goBack()}>
+              <View style={styles.back_btn}>
+                <Text style={styles.back_btn_text}>Back</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : null }
         <View style={styles.content}>
           <View style={styles.text_box}>
             <Text style={styles.text_title}>Step One</Text>
@@ -38,7 +52,7 @@ export default function BookingStepOne(props) {
           <View style={[styles.photographer_box, showDetails ? styles.photographer_box_on : null ]}>
             { cartContext.photographers.map(el => {
               return (
-                <TouchableOpacity key={el.id} onPress={() => handleDetails(el) }>
+                <TouchableOpacity key={el.id} onPress={ _ => handleDetails(el) }>
                   <Image
                     source={{ uri: el.profile_image }}
                     style={styles.photographer_IMG}
@@ -62,7 +76,7 @@ export default function BookingStepOne(props) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[ styles.details_btn, styles.choose_btn]}
-                  onPress={ _ => props.navigation.navigate('BookingStepTwo')}>
+                  onPress={ _ => props.navigation.navigate('BookingStepTwo') }>
                   <Text style={styles.choose_btn_text}>Choose {cartContext.curPhotographer.name}</Text>
                 </TouchableOpacity>
               </View>
@@ -87,15 +101,43 @@ const styles = StyleSheet.create({
     content: {
       width: Dimensions.get('screen').width,
       height: '100%',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       alignItems: 'center',
+      // borderWidth: 1,
     },
+
+      btn_view: {
+        alignSelf: 'flex-start',
+      },
+
+      back_btn: {
+        // position: 'absolute',
+        // borderWidth: 1,
+        // alignSelf: 'flex-start',
+        marginTop: 15,
+        marginLeft: 15,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 20,
+        backgroundColor: '#0078A4',
+        // elevation: 5,
+        // zIndex: 10,
+        // elevation: ,
+      },
+
+        back_btn_text: {
+          fontWeight: 'bold',
+          // opacity: 0.65,
+          color: '#fff',
+        },
 
       text_box: {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
-        marginTop: -20,
+        marginTop: 100,
       },
 
         text_title: {

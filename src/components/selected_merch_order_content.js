@@ -18,8 +18,6 @@ export default function SelectedMerchOrderContent(props) {
   const cartContext = useContext(Context);
   const route = useRoute();
 
-console.log(cartContext.selectedMerchOrder);
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header_text}>Order</Text>

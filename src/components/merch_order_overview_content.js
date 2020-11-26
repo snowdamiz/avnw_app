@@ -35,6 +35,11 @@ export default function MerchOrderOverviewContent(props) {
   return (
     <View style={styles.container}>
       <ScrollView>
+        { cartContext.cart.type === "service" ? (
+          <View>
+            <Text>Notice: Prices for services are deposits</Text>
+          </View>
+        ) : null }
         { cartContext.cart.length > 0 ? <BasicInfoContent navigation={props.navigation} /> : null }
         { hasMerch ? <ShippingContent navigation={props.navigation} /> : null }
         { hasService ? <LocationContent navigation={props.navigation} /> : null }      

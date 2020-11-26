@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   TextInput,
   Text,
+  Platform,
 } from 'react-native';
 
 export default function BookingStepThree(props) {
@@ -22,9 +23,11 @@ export default function BookingStepThree(props) {
   const [error, setError] = useState([]);
   const [city, setCity] = useState(cartContext.shootLocation.city);
   const [state, setState] = useState(cartContext.shootLocation.state);
+  const [date, setDate] = useState('');
 
   const handleSetCity = e => setCity(e);
   const handleSetState = e => setState(e);
+  const handleSetDate = e => setDate(e);
 
   // Handle Location Submit
   const handleSubmit = _ => {
@@ -57,14 +60,26 @@ export default function BookingStepThree(props) {
       }
     }
 
-    let nav = props.navigation;
-    const location = {
-      city: city,
-      state: state,
+    // date
+    if (!date) {
+      if (!err.includes(3)) {
+        err.push(3);
+        setError(err);
+      }
+    } else {
+      if (err.includes(3)) {
+        let i = err.indexOf(3);
+        err.splice(i, 1);
+        setError(err);
+      }
     }
 
-    if (err.length === 0 && location) {
+    let nav = props.navigation;
+    const location = { city: city, state: state }
+
+    if (err.length === 0 && location && date) {
       cartContext.handleShootLocation(location);
+      cartContext.handleShootDate(date);
       if (cartContext.shootLocationToggle) nav.navigate('MerchOrderOverview');
       else nav.navigate('Cart');
     }
@@ -75,9 +90,18 @@ export default function BookingStepThree(props) {
       <StatusBar barStyle="light-content" backgroundColor="#009cd8" />
       <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
         <View style={styles.content}>
+          { Platform.OS === 'ios' ? (
+            <View style={styles.btn_view}>
+              <TouchableOpacity onPressIn={ _ => props.navigation.goBack()}>
+                <View style={styles.back_btn}>
+                  <Text style={styles.back_btn_text}>Back</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          ) : null }
           <View style={styles.text_box}>
             <Text style={styles.text_title}>Step Three</Text>
-            <Text style={styles.text_content}>Choose your shoot location</Text>
+            <Text style={styles.text_content}>Choose your shoot location and date</Text>
           </View>
           <View style={styles.address_box}>
             { error.includes(1) ? (
@@ -88,6 +112,11 @@ export default function BookingStepThree(props) {
             { error.includes(2) ? (
               <View style={styles.error_box}>
                 <Text style={styles.error_text}>Please Enter a Valid State</Text>
+              </View>
+            ): null }
+            { error.includes(3) ? (
+              <View style={styles.error_box}>
+                <Text style={styles.error_text}>Please Enter a Valid Date</Text>
               </View>
             ): null }
             <TextInput 
@@ -103,6 +132,13 @@ export default function BookingStepThree(props) {
               placeholderTextColor='#fff'
               onChangeText={e => handleSetState(e)}
               value={state}>
+            </TextInput>
+            <TextInput 
+              style={[styles.input, error.includes(3) ? styles.input_err : null ]}
+              placeholder={'Date: MM-DD-YY'}
+              placeholderTextColor='#fff'
+              onChangeText={e => handleSetDate(e)}
+              value={date}>
             </TextInput>
           </View>
           <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleSubmit() }>
@@ -127,17 +163,45 @@ const styles = StyleSheet.create({
     content: {
       width: Dimensions.get('screen').width,
       flexDirection: 'column',
-      justifyContent: 'center',
+      // justifyContent: 'center',
       alignItems: 'center',
       height: '100%',
     },
-    
-    text_box: {
+
+      btn_view: {
+        alignSelf: 'flex-start',
+      },
+
+      back_btn: {
+        // position: 'absolute',
+        // borderWidth: 1,
+        // alignSelf: 'flex-start',
+        marginTop: 15,
+        marginLeft: 15,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 20,
+        backgroundColor: '#0078A4',
+        // elevation: 5,
+        // zIndex: 10,
+        // elevation: ,
+      },
+
+        back_btn_text: {
+          fontWeight: 'bold',
+          // opacity: 0.65,
+          color: '#fff',
+        },
+
+      text_box: {
         width: Dimensions.get('screen').width - 60,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         flexDirection: 'column',
-        marginTop: -100,
+        // marginTop: Dimensions.get('screen').height / 2 - 220,
+        marginTop: 40,
       },
 
         text_title: {

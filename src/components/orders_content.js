@@ -15,8 +15,8 @@ import {
 } from 'react-native';
 
 export default function OrdersContent(props) {
-  const [toggleMerch, setToggleMerch] = useState(false);
-  const [toggleServices, setToggleServices] = useState(false);
+  const [toggleMerch, setToggleMerch] = useState(true);
+  const [toggleServices, setToggleServices] = useState(true);
   const cartContext = useContext(Context);
   const route = useRoute();
 
@@ -25,7 +25,7 @@ export default function OrdersContent(props) {
     getUserServiceOrders();
   }, [])
 
-  // GET USER MERCH ORDERS
+  // // GET USER MERCH ORDERS
   const getUserMerchOrders = async _ => {
     let id = cartContext.user.id;
     const token = await AsyncStorage.getItem('token');
@@ -118,7 +118,7 @@ export default function OrdersContent(props) {
                 <TouchableOpacity
                   style={styles.order} key={el.id}
                   onPress={ _ => handleServiceOrderSelect(el)}>
-                  <Text style={styles.order_product}>{el.merch.product}</Text>
+                  <Text style={styles.order_product}>{el.service.product}</Text>
                   <Text style={styles.order_status}>{el.status.toUpperCase()}</Text>
               </TouchableOpacity>
               )

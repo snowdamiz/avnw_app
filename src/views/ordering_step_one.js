@@ -100,6 +100,7 @@ export default function OrderingStepOne(props) {
               placeholder={'Phone'}
               placeholderTextColor='#fff'
               onChangeText={e => handleSetPhone(e)}
+              keyboardType={'number-pad'}
               value={phone}>
             </TextInput>
           </View>

@@ -20,7 +20,7 @@ export default function EditShipping(props) {
   const [unit, setUnit] = useState(cartContext.user.unit || '');
   const [city, setCity] = useState(cartContext.user.city || '');
   const [state, setState] = useState(cartContext.user.state || '');
-  const [zip, setZip] = useState(cartContext.user.zip || '');
+  const [zip, setZip] = useState(cartContext.user.zip.toString() || '');
 
   const handleSetAddress = e => setAddress(e);
   const handleSetUnit = e => setUnit(e);

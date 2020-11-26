@@ -3,13 +3,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import RemoveIMG from '../assets/error.png';
 import Context from '../context/context.js';
+import CheckIMG from '../assets/check.png';
 
 import {
   Dimensions,
   StyleSheet,
   View,
   Text,
-  TouchableNativeFeedback,
   TextInput,
   TouchableOpacity,
   ScrollView,
@@ -19,6 +19,8 @@ import { useRoute } from '@react-navigation/native';
 
 export default function CartContent(props) {
   const [total, setTotal] = useState(0);
+  const [toggle, setToggle] = useState(false);
+  const [error, setError] = useState(false);
   const cartContext = useContext(Context);
 
   const route = useRoute();
@@ -28,6 +30,7 @@ export default function CartContent(props) {
     cartContext.setPreviousRoute('Cart');
   },[cartContext.cart])
 
+  // Set total price
   const handleTotal = _ => {
     let cart = cartContext.cart;
     let total = 0;
@@ -36,35 +39,46 @@ export default function CartContent(props) {
     setTotal(total);
   }
 
+  // Handle order submit button
   const handleOrderBtn = _ => {
     let name = cartContext.user.name;
     let address = cartContext.user.address;
     let cart = cartContext.cart;
+    let nav = props.navigation;
 
-    if (route.name === 'Cart' && cartContext.token) {
-      let type = []
-
-      for (let i = 0; i < cart.length; i++) {
-        type.push(cart[i].type)
-      }
-
-      if (type.includes('merch')) {
-        if (name === null || name.length < 1) {
-          props.navigation.navigate('OrderingStepOne');
-        } else if (address === null || address.length < 1) {
-          props.navigation.navigate('OrderingStepTwo');
+    if (cartContext.token) {
+      if (route.name === 'Cart') {
+        let type = []
+  
+        for (let i = 0; i < cart.length; i++) {
+          type.push(cart[i].type)
+        }
+  
+        if (type.includes('merch')) {
+          if (name === null || name.length < 1) {
+            props.navigation.navigate('OrderingStepOne');
+          } else if (address === null || address.length < 1) {
+            props.navigation.navigate('OrderingStepTwo');
+          } else {
+            props.navigation.navigate('MerchOrderOverview');
+          }
         } else {
-          props.navigation.navigate('MerchOrderOverview');
+          if (name === null || name.length < 1) {
+            props.navigation.navigate('OrderingStepOne');
+          } else {          
+            props.navigation.navigate('MerchOrderOverview');
+          }
         }
       } else {
-        if (name === null || name.length < 1) {
-          props.navigation.navigate('OrderingStepOne');
-        } else {          
-          props.navigation.navigate('MerchOrderOverview');
-        }
+        if (toggle) {
+          cartContext.setTotal(total);
+          props.navigation.navigate('PaymentPortal');
+          if (!error) setError(true)
+          else return
+        } else setError(true)
       }
     } else {
-      props.navigation.navigate('Login');
+      nav.navigate('Login');
     }
   }
 
@@ -116,25 +130,43 @@ export default function CartContent(props) {
             </View>
           ) : null }
         { cartContext.cart.length > 0 ? (
-          <View style={styles.cart_footer}>
-            <View style={styles.cart_footer_price_box}>
-              <Text style={styles.cart_footer_price_text}>Total Price:</Text>
-              <View style={styles.cart_footer_price_circle}>
-                <Text style={styles.cart_footer_price_amount}>{total}</Text>
+          <>
+            <View style={styles.cart_footer}>
+              <View style={styles.cart_footer_price_box}>
+                <Text style={styles.cart_footer_price_text}>Total Price:</Text>
+                <View style={styles.cart_footer_price_circle}>
+                  <Text style={styles.cart_footer_price_amount}>{total}</Text>
+                </View>
               </View>
+                { cartContext.cartError ? null : (
+                  <LinearGradient colors={['#04A3E1', '#009cd8', '#009cd8']} style={styles.gradient} >
+                    <TouchableOpacity
+                      style={styles.cart_btn}
+                      onPress={ _ => handleOrderBtn()}>
+                      <Text style={styles.cart_btn_text}>
+                        { route.name === 'Cart' ? 'Order' : 'Pay With Stripe'}
+                      </Text>
+                    </TouchableOpacity>
+                  </LinearGradient>
+                ) }
             </View>
-              { cartContext.cartError ? null : (
-                <LinearGradient colors={['#04A3E1', '#009cd8', '#009cd8']} style={styles.gradient} >
-                  <TouchableOpacity
-                    style={styles.cart_btn}
-                    onPress={ _ => handleOrderBtn()}>
-                    <Text style={styles.cart_btn_text}>
-                      { route.name === 'Cart' ? 'Order' : 'Pay With Paypal'}
-                    </Text>
-                  </TouchableOpacity>
-                </LinearGradient>
-              ) }
-          </View>
+            { route.name === 'MerchOrderOverview' ? (
+              <View style={styles.ts_box}>
+                <TouchableOpacity
+                  style={[styles.checkbox, error ? styles.checkbox_error : null, toggle ? styles.checkbox_checked : null]}
+                  onPress={ _ => setToggle(!toggle)}>
+                    { toggle ? (
+                      <Image source={CheckIMG} style={styles.checkIMG} />
+                    ) : null }
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.ckeckbox_text_box}
+                  onPress={ _ => props.navigation.navigate('TS')}>
+                  <Text style={styles.checkbox_text}>I agree to the terms and services</Text>
+                </TouchableOpacity>
+              </View>
+            ) : null }
+          </>
         ) : null }
       </ScrollView>
     </View>
@@ -344,6 +376,47 @@ const styles = StyleSheet.create({
             color: '#fff',
             fontSize: 12,
           },
+
+    ts_box: {
+      width: '100%',
+      marginTop: 5,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+    },
+
+      checkbox: {
+        borderWidth: 1.5,
+        padding: 6,
+        width: 20,
+        height: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 10,
+        borderColor: '#000',
+      },
+
+      checkbox_checked: {
+        borderColor: '#009cd8',
+      },
+
+      checkbox_error: {
+        borderColor: 'red',
+      },
+
+        checkIMG: {
+          width: 12,
+          height: 12,
+          opacity: 0.8,
+        },
+
+      ckeckbox_text_box: {
+        // width: 150,
+      },
+      
+        checkbox_text: {
+          opacity: 0.85,
+        },
 
     cart_btn: {
       justifyContent: 'center',

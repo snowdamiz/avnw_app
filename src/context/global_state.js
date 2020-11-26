@@ -8,6 +8,7 @@ export default class GlobalState extends React.Component{
     user: [],
     photographers: [],
     shootLocationToggle: false,
+    shootDateToggle: false,
     basicInfoToggle: false,
     shippingInfoToggle: false,
     newPhotographerToggle: false,
@@ -40,6 +41,11 @@ export default class GlobalState extends React.Component{
     serviceOrders: [],
     selectedMerchOrder: [],
     selectedServiceOrder: [],
+    merchOrdersALL: [],
+    serviceOrdersALL: [],
+    date: '',
+    total: '',
+    chosenPhotographer: '',
   }
 
   componentDidMount() {
@@ -97,7 +103,12 @@ export default class GlobalState extends React.Component{
   setUserServiceOrders = el => this.setState({ serviceOrders: el })
   setSelectedMerchOrder = el => this.setState({ selectedMerchOrder: el })
   setSelectedServiceOrder = el => this.setState({ selectedServiceOrder: el })
+  setMerchOrdersALL = el => this.setState({ merchOrdersALL: el })
+  setServiceOrdersALL = el => this.setState({ serviceOrdersALL: el })
+  setTotal = el => this.setState({ total: el })
 
+  handleShootLocation = el => this.setState({ shootLocation: el });
+  handleShootDate = el => this.setState({ date: el });
 
   getPhotographers = async _ => {
     try {
@@ -129,10 +140,6 @@ export default class GlobalState extends React.Component{
 
   setCurGallery = el => {
     this.setState({ curGallery: el });
-  }
-
-  handleShootLocation = (el) => {
-    this.setState({ shootLocation: el });
   }
  
   handleCart = (prod) => {
@@ -253,6 +260,8 @@ export default class GlobalState extends React.Component{
     this.setState({ adminProductInteraction: status })
   }
 
+  setChosenPhotographer = el => this.setState({ chosenPhotographer: el })
+
   photographerEditRESET = _ => this.setState({ photographerEdit: [] });
   serviceEditingRESET = _ => this.setState({ serviceEditing: [] })
   productEditingRESET = _ => this.setState({ productEditing: [] })
@@ -268,6 +277,7 @@ export default class GlobalState extends React.Component{
           cart: this.state.cart,
           shootLocation: this.state.shootLocation,
           shootLocationToggle: this.state.shootLocationToggle,
+          shootDateToggle: this.state.shootDateToggle,
           basicInfoToggle: this.state.basicInfoToggle,
           shippingInfoToggle: this.state.shippingInfoToggle,
           merch: this.state.merch,
@@ -294,6 +304,11 @@ export default class GlobalState extends React.Component{
           serviceOrders: this.state.serviceOrders,
           selectedMerchOrder: this.state.selectedMerchOrder,
           selectedServiceOrder: this.state.selectedServiceOrder,
+          merchOrdersALL: this.state.merchOrdersALL,
+          serviceOrdersALL: this.state.serviceOrdersALL,
+          date: this.state.date,
+          total: this.state.total,
+          chosenPhotographer: this.state.chosenPhotographer,
           setLoginToken: this.setLoginToken,
           getLoginToken: this.getLoginToken,
           handleSignout: this.handleSignout,
@@ -319,6 +334,8 @@ export default class GlobalState extends React.Component{
           setUserServiceOrders: this.setUserServiceOrders,
           setSelectedMerchOrder: this.setSelectedMerchOrder,
           setSelectedServiceOrder: this.setSelectedServiceOrder,
+          setTotal: this.setTotal,
+          handleShootDate: this.handleShootDate,
           setEditPhotographer: this.setEditPhotographer,
           setEditService: this.setEditService,
           setEditProduct: this.setEditProduct,
@@ -333,6 +350,9 @@ export default class GlobalState extends React.Component{
           photographerEditRESET: this.photographerEditRESET,
           serviceEditingRESET: this.serviceEditingRESET,
           productEditingRESET: this.productEditingRESET,
+          setMerchOrdersALL: this.setMerchOrdersALL,
+          setServiceOrdersALL: this.setServiceOrdersALL,
+          setChosenPhotographer: this.setChosenPhotographer,
         }}>
       {this.props.children}
       </Context.Provider>

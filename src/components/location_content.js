@@ -31,7 +31,7 @@ export default function LocationContent(props) {
         style={[styles.header, cartContext.shootLocationToggle ? styles.header_on : null]}
         onPress={ _ => cartContext.handleShootLocationToggle()}>
         <Text style={[styles.header_text, cartContext.shootLocationToggle ? styles.header_text_on : null]}>
-          Photoshoot Location
+          Photoshoot Information
         </Text>
         <View style={styles.header_btns}>
           { cartContext.shootLocationToggle ? (
@@ -52,9 +52,13 @@ export default function LocationContent(props) {
             <Text style={styles.content_title}>City:</Text>
             <Text style={styles.content_text}>{shootLocation.city}</Text>
           </View>
-          <View style={styles.content_gbr}>
+          <View style={styles.content}>
             <Text style={styles.content_title}>State:</Text>
             <Text style={styles.content_text}>{shootLocation.state}</Text>
+          </View>
+          <View style={styles.content_gbr}>
+            <Text style={styles.content_title}>Date:</Text>
+            <Text style={styles.content_text}>{cartContext.date}</Text>
           </View>
         </View>
       ) : null }

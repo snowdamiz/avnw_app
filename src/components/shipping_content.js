@@ -59,7 +59,7 @@ export default function ShippingContent(props) {
           </View>
           <View style={styles.content_gbr}>
             <Text style={styles.content_title}>Zip Code:</Text>
-            <Text style={styles.content_text}>{cartContext.user.zip.toStrin()}</Text>
+            <Text style={styles.content_text}>{cartContext.user.zip.toString() || ''}</Text>
           </View>
         </View>
       ) : null }

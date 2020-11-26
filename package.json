@@ -18,6 +18,7 @@
     "expo-google-sign-in": "^8.3.0",
     "expo-linear-gradient": "~8.3.0",
     "expo-status-bar": "~1.0.2",
+    "expo-stripe-checkout": "^1.0.1",
     "expo-web-browser": "^8.5.0",
     "firebase": "^8.0.0",
     "mobx": "^6.0.1",
@@ -32,11 +33,13 @@
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
     "react-native-web": "~0.13.12",
+    "react-native-webview": "^10.10.2",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "rn-keyboard-sticky-view": "^1.0.4"
+    "rn-keyboard-sticky-view": "^1.0.4",
+    "stripe": "^8.124.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

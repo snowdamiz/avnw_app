@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
 
         gallery_img: {
           width: Dimensions.get('screen').width / 2 - 30,
-          height: 200,
+          height: Dimensions.get('screen').width / 2 * 1.5 - 120,
           marginBottom: 15,
           borderRadius: 10,
           borderColor: '#565656',

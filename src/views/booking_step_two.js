@@ -50,6 +50,15 @@ export default function BookingStepTwo(props) {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <LinearGradient colors={['#fff', '#fff', '#fff']} style={styles.gradient} >
+        { Platform.OS === 'ios' ? (
+          <View style={styles.btn_view}>
+            <TouchableOpacity onPressIn={ _ => props.navigation.goBack()}>
+              <View style={styles.back_btn}>
+                <Text style={styles.back_btn_text}>Back</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : null }
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.text_box}>
             <Text style={styles.text_title}>Step Two</Text>
@@ -110,6 +119,33 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
+
+      btn_view: {
+        alignSelf: 'flex-start',
+      },
+
+      back_btn: {
+        // position: 'absolute',
+        // borderWidth: 1,
+        // alignSelf: 'flex-start',
+        marginTop: 15,
+        marginLeft: 15,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 20,
+        backgroundColor: '#0078A4',
+        // elevation: 5,
+        // zIndex: 10,
+        // elevation: ,
+      },
+
+        back_btn_text: {
+          fontWeight: 'bold',
+          // opacity: 0.65,
+          color: '#fff',
+        },
 
       text_box: {
         marginTop: 40,
