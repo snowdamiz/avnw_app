@@ -156,15 +156,18 @@ const styles = StyleSheet.create({
     },
 
     wrap_on: {
-      backgroundColor: '#009cd8',
+      backgroundColor: '#fff',
     },
 
       header: {
         // width: '100%',
+        borderTopLeftRadius: 6,
+        borderTopRightRadius: 6,
         padding: 15,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        backgroundColor: '#009cd8'
       },
 
         header_text: {
