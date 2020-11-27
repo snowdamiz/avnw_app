@@ -68,7 +68,7 @@ export default function MerchOrderContent(props) {
                   style={styles.order} key={el.id}
                   onPress={ _ => handleMerchOrderSelect(el)}>
                   <Text style={styles.order_product}>{el.user.name}</Text>
-                  <Text style={styles.order_product}>{el.createdAt}</Text>
+                  <Text style={styles.order_product}>{el.createdAt.substring(0, 10)}</Text>
                   <Text style={styles.order_status}>{el.status.toUpperCase()}</Text>
                 </TouchableOpacity>
               )
@@ -219,9 +219,8 @@ const styles = StyleSheet.create({
         order_product: {
           // fontWeight: 'bold',
           opacity: 0.7,
-          maxWidth: 230,
-          marginRight: 20,
-          width: '30%',
+          width: 80,
+          marginRight: 10,
           // borderWidth: 1,
         },
 

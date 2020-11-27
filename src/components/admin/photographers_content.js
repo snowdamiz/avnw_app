@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
       width: Dimensions.get('screen').width - 50,
       borderWidth: 1,
       borderColor: 'lightgray',
+      backgroundColor: '#f2f2f2',
       borderRadius: 4,
       padding: 10,
       marginTop: 10,

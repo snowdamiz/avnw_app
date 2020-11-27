@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import Context from '../../context/context.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native'
 import { useRoute } from '@react-navigation/native';
 import { WebView } from 'react-native-webview'
 
@@ -11,6 +11,7 @@ const STRIPE_PK = 'pk_test_eEz0rYKkWOWGHnE40nEDEucP00HIFzhAy0';
 export default function StripeCheckout(props) {
   const [response, setResponse] = useState('');
   const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
   const cartContext = useContext(Context);
   const route = useRoute();
 
@@ -25,8 +26,8 @@ export default function StripeCheckout(props) {
   }
 
   const onCheckStatus = async (res) => {
-    console.log(res);
     setResponse(res);
+    setLoading(true);
 
     let jsonRes = JSON.parse(res);
 
@@ -47,6 +48,7 @@ export default function StripeCheckout(props) {
 
       if (makePayment) {
         props.navigation.navigate('Orders');
+        setLoading(false);
       } else {
         console.log('Could not make the payment');
       }
@@ -302,14 +304,16 @@ export default function StripeCheckout(props) {
   }
 
   return (
-    <WebView
-      javaScriptEnabled={true}
-      style={[styles.webview]}
-      originWhitelist={['*']}
-      source={{ html: htmlContent }}
-      injectedJavaScript={injectedJavaScript}
-      onMessage={onMessage}
-    />
+    loading ? <ActivityIndicator size="large" color="#0080B1" /> : (
+      <WebView
+        javaScriptEnabled={true}
+        style={[styles.webview]}
+        originWhitelist={['*']}
+        source={{ html: htmlContent }}
+        injectedJavaScript={injectedJavaScript}
+        onMessage={onMessage}
+      />
+    )
   )
 };
 
@@ -320,5 +324,9 @@ const styles = StyleSheet.create({
     height: '100%',
     borderWidth: 1,
     flex: 0,
+  },
+
+  indicator: {
+    marginTop: Dimensions.get('screen').height / 2 - 100,
   }
 });

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { StyleSheet, View, Text, TextInput, Dimensions, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Dimensions, SafeAreaView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Context from '../../context/context.js';
 import Header from '../../components/header.js';
@@ -123,9 +123,8 @@ export default function ProductForm(props) {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS == "ios" ? "padding" : "height"}>
+    <SafeAreaView
+      style={styles.container}>
       <Header navigation={props.navigation} />
         <View style={styles.wrap}>
           <Text style={styles.title}>
@@ -195,7 +194,7 @@ export default function ProductForm(props) {
             </TouchableOpacity>
           </View>
         </View>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -217,7 +216,7 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: '#fff',
-      marginTop: 30,
+      marginTop: 20,
       height: '100%',
     },
 
@@ -273,7 +272,7 @@ const styles = StyleSheet.create({
           fontSize: 14,
           fontWeight: 'bold',
           color: '#fff',
-          opacity: 0.9,
+          // opacity: 0.9,
           padding: 12,
         },
 });

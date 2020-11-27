@@ -11,6 +11,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  ActivityIndicator
 } from 'react-native';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
@@ -21,6 +22,7 @@ export default function StoreContent(props) {
     cartContext.setPreviousRoute('Store');
   }, [])
 
+  // Handle Selection
   const handleProductSelect = el => {
     cartContext.setChosenProduct(el);
     props.navigation.navigate('SelectedProduct');
@@ -29,26 +31,31 @@ export default function StoreContent(props) {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.store}>
-        {cartContext.merch.map((el) => {
-          return (
-            <TouchableOpacity onPress={ _ => handleProductSelect(el)} key={el.id}>
-              <View style={styles.prod_box}>
-                <View style={styles.prod_img_box}>
-                  <Image source={{ uri: el.image1 }} style={styles.prod_img} />
-                </View>
-                <View style={styles.prod_price}>
-                  <Text style={styles.prod_price_text}>{`$${el.price}`}</Text>
-                </View>
-                <View style={styles.prod_desc}>
-                  <View>
-                    <Text style={styles.prod_desc_title}>{el.product}</Text>
-                    <Text style={styles.prod_desc_text}>{`${el.description.substring(1, 40)} ...`}</Text>
+        {cartContext.merch.length > 0 ? (
+          cartContext.merch.map((el) => {
+            return (
+              <TouchableOpacity
+                onPress={ _ => handleProductSelect(el)}
+                key={el.id}
+                disabled={cartContext.menuToggle}>
+                <View style={styles.prod_box}>
+                  <View style={styles.prod_img_box}>
+                    <Image source={{ uri: el.image1 }} style={styles.prod_img} />
+                  </View>
+                  <View style={styles.prod_price}>
+                    <Text style={styles.prod_price_text}>{`$${el.price}`}</Text>
+                  </View>
+                  <View style={styles.prod_desc}>
+                    <View>
+                      <Text style={styles.prod_desc_title}>{el.product}</Text>
+                      <Text style={styles.prod_desc_text}>{`${el.description.substring(0, 40)} ...`}</Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          )
-        })}
+              </TouchableOpacity>
+            )
+          })
+        ) : <ActivityIndicator size="large" color="#0080B1" style={styles.indicator} /> }
       </ScrollView>
     </View>
   );
@@ -151,4 +158,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 8, 
       },
+
+      indicator: {
+        marginTop: Dimensions.get('screen').height / 2 - 100,
+      }
 });

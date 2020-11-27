@@ -18,6 +18,8 @@ export default function SelectedMerchOrderContent(props) {
   const cartContext = useContext(Context);
   const route = useRoute();
 
+  console.log(cartContext.selectedMerchOrder.merch);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header_text}>Order</Text>
@@ -35,6 +37,10 @@ export default function SelectedMerchOrderContent(props) {
           <Text style={styles.text}>{cartContext.selectedMerchOrder.merch.description}</Text>
         </View>
         <View style={styles.row}>
+          <Text style={styles.label}>Size</Text>
+          <Text style={styles.text}>{cartContext.selectedMerchOrder.size}</Text>
+        </View>
+        <View style={styles.row}>
           <Text style={styles.label}>Quantity</Text>
           <Text style={styles.text}>{cartContext.selectedMerchOrder.quantity}</Text>
         </View>
@@ -44,11 +50,13 @@ export default function SelectedMerchOrderContent(props) {
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Order Date</Text>
-          <Text style={styles.text}>{cartContext.selectedMerchOrder.createdAt}</Text>
+          <Text style={styles.text}>{cartContext.selectedMerchOrder.createdAt.substring(0, 10)}</Text>
         </View>
         <View style={[styles.row, styles.row_b]}>
           <Text style={styles.label}>Tracking</Text>
-          <Text style={styles.text}>{cartContext.selectedMerchOrder.tracking}</Text>
+          <Text style={styles.text}>
+            { !cartContext.selectedMerchOrder.tracking ? 'Added when product ships' : cartContext.selectedMerchOrder.tracking }
+          </Text>
         </View>
       </View>
     </ScrollView>

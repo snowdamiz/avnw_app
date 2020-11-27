@@ -90,7 +90,7 @@ export default function SelectedProduct(props) {
             { sizes.map(el => {
               return (
                 <TouchableOpacity
-                  key={el.id}
+                  key={el}
                   onPressIn={ _ => handleSetSize(el)}
                   style={styles.size_selction}>
                   <Text style={styles.size_selection_text}>{el}</Text>
@@ -155,6 +155,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
+        paddingTop: 15,
+        paddingBottom: 15,
       },
 
         img: {
@@ -286,8 +288,9 @@ const styles = StyleSheet.create({
             opacity: 0.7,
           },
 
-          description: {
+          desc: {
             opacity: 0.8,
+            marginTop: 5,
           },
 
         prod_price: {
@@ -299,7 +302,7 @@ const styles = StyleSheet.create({
           height: 80,
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: -60,
+          marginTop: -65,
           shadowColor: 'black',
           shadowOffset: { width: 0, height: 0 },
           shadowRadius: 10,

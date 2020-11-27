@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: '#fff',
-      marginTop: 30,
+      marginTop: 20,
       height: '100%',
     },
 
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
           fontSize: 14,
           fontWeight: 'bold',
           color: '#fff',
-          opacity: 0.9,
+          // opacity: 0.9,
           padding: 12,
         },
 });

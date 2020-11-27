@@ -42,7 +42,7 @@ export default function SelectedServiceOrderContentADMIN(props) {
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Order Date</Text>
-          <Text style={styles.text}>{cartContext.selectedServiceOrder.createdAt}</Text>
+          <Text style={styles.text}>{cartContext.selectedServiceOrder.createdAt.substring(0, 10)}</Text>
         </View>
         <View style={[styles.row, styles.row_b]}>
           <Text style={styles.label}>Stripe Transaction</Text>

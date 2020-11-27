@@ -13,6 +13,7 @@ import {
   Image,
   TouchableOpacity,
   Text,
+  ActivityIndicator,
 } from 'react-native';
 
 export default function BookingStepOne(props) {
@@ -21,15 +22,11 @@ export default function BookingStepOne(props) {
 
   const [showDetails, setShowDetails] = useState(false);
 
+  // Handle choosing and viewing details
   const handleDetails = el => {
     setShowDetails(true);
     cartContext.setCurPhotographer(el);
   }
-
-  // const handleChoose = el => {
-  //   cartContext.setChosenPhotographer(el);
-  //   props.navigation.navigate('BookingStepTwo');
-  // }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -45,25 +42,29 @@ export default function BookingStepOne(props) {
           </View>
         ) : null }
         <View style={styles.content}>
-          <View style={styles.text_box}>
-            <Text style={styles.text_title}>Step One</Text>
-            <Text style={styles.text_content}>Choose your photographer</Text>
-          </View>
-          <View style={[styles.photographer_box, showDetails ? styles.photographer_box_on : null ]}>
-            { cartContext.photographers.map(el => {
-              return (
-                <TouchableOpacity key={el.id} onPress={ _ => handleDetails(el) }>
-                  <Image
-                    source={{ uri: el.profile_image }}
-                    style={styles.photographer_IMG}
-                  />
-                  { showDetails ? (
-                    <View style={cartContext.curPhotographer.id == el.id ? styles.arrow : null}></View>
-                  ) : null }
-                </TouchableOpacity>
-              )
-            })}
-          </View>
+          { cartContext.photographers.length > 0 ? (
+            <>
+              <View style={styles.text_box}>
+                <Text style={styles.text_title}>Step One</Text>
+                <Text style={styles.text_content}>Choose your photographer</Text>
+              </View>
+              <View style={[styles.photographer_box, showDetails ? styles.photographer_box_on : null ]}>
+                { cartContext.photographers.map(el => {
+                  return (
+                    <TouchableOpacity key={el.id} onPress={ _ => handleDetails(el) }>
+                      <Image
+                        source={{ uri: el.profile_image }}
+                        style={styles.photographer_IMG}
+                      />
+                      { showDetails ? (
+                        <View style={cartContext.curPhotographer.id == el.id ? styles.arrow : null}></View>
+                      ) : null }
+                    </TouchableOpacity>
+                  )
+                })}
+              </View>
+            </>
+          ) : <ActivityIndicator color="#fff" size="large" style={styles.indicator} /> }
           { showDetails ? (
             <View style={styles.details_box}>
               <Text style={styles.details_name}>{cartContext.curPhotographer.name}</Text>
@@ -246,5 +247,9 @@ const styles = StyleSheet.create({
               color: '#fff',
               fontWeight: 'bold',
               fontSize: 12,
-            }
+            },
+
+      indicator: {
+        marginTop: Dimensions.get('screen').height / 2 - 40,
+      }
 });

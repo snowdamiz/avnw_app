@@ -115,7 +115,7 @@ export default function Header(props) {
           { cartContext.accountType === 'admin' ? (
             <TouchableOpacity
               style={[ styles.btn]}
-              onPressIn={ _ => handleAdmin()}>
+              onPress={ _ => handleAdmin()}>
               <Text style={[styles.btn_text]}>Admin Panel</Text>
             </TouchableOpacity>
           ) : null }

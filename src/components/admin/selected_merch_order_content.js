@@ -131,7 +131,7 @@ export default function SelectedMerchOrderContentADMIN(props) {
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Order Date</Text>
-          <Text style={styles.text}>{cartContext.selectedMerchOrder.createdAt}</Text>
+          <Text style={styles.text}>{cartContext.selectedMerchOrder.createdAt.substring(0, 10)}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Tracking</Text>
