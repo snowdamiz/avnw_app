@@ -40,6 +40,7 @@ export default function ServicesContent(props) {
     <View style={styles.container}>
       <TouchableOpacity
         style={[styles.header, toggle ? styles.header_on : null]}
+        disabled={cartContext.menuToggle}
         onPress={ _ => setToggle(!toggle)}>
         <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Services</Text>
         <View style={styles.header_btns}>

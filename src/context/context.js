@@ -39,6 +39,7 @@ export default React.createContext({
   date: '',
   total: '',
   chosenPhotographer: '',
+  chosenProduct: [],
   setLoginToken: (token, user) => {},
   getLoginToken: _ => {},
   handleSignout: _ => {},
@@ -83,4 +84,6 @@ export default React.createContext({
   setMerchOrdersALL: (el) => {},
   setServiceOrdersALL: (el) => {},
   setChosenPhotographer: (el) => {},
+  setChosenProduct: (el) => {},
+  setMenuToggleOff: _ => {},
 });

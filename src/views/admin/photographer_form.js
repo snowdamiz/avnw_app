@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { StyleSheet, View, Text, TextInput, Dimensions, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Dimensions, SafeAreaView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Context from '../../context/context.js';
 import Header from '../../components/header.js';
@@ -95,9 +95,8 @@ export default function PhotographerForm(props) {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS == "ios" ? "padding" : "height"}>
+    <SafeAreaView
+      style={styles.container}>
       <Header navigation={props.navigation} />
         <View style={styles.wrap}>
           <Text style={styles.title}>
@@ -145,7 +144,7 @@ export default function PhotographerForm(props) {
             </TouchableOpacity>
           </View>
         </View>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -156,25 +155,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    width: '100%',
+    height: '100%',
     zIndex: 2,
   },
 
     wrap: {
       width: '100%',
       borderRadius: 6,
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: '#fff',
       marginTop: 30,
-      // zIndex: 1,
-      // shadowColor: "#000",
-      // shadowOffset: {
-      //   width: 0,
-      //   height: 2,
-      // },
-      // shadowOpacity: 0.8,
-      // shadowRadius: 3.2,
-      // elevation: 8,
+      height: '100%',
     },
 
       title: {
@@ -186,29 +179,22 @@ const styles = StyleSheet.create({
       },
 
       content: {
-        // marginTop: 10,
         marginBottom: 15,
       },
 
         input: {
           width: Dimensions.get('screen').width - 60,
-          padding: 12,
+          padding: 8,
           paddingLeft: 10,
           borderRadius: 4,
-          backgroundColor: '#fff',
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.6,
-          shadowRadius: 3.2,
-          elevation: 4,
+          backgroundColor: '#f2f2f2',
+          borderWidth: 1,
+          borderColor: 'lightgray',
           marginTop: 12,
         },
 
         bio_intput: {
-          height: 150,
+          height: 120,
           textAlignVertical: 'top',
           lineHeight: 20,
         },

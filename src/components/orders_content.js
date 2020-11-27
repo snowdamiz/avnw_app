@@ -119,7 +119,6 @@ export default function OrdersContent(props) {
                   style={styles.order} key={el.id}
                   onPress={ _ => handleServiceOrderSelect(el)}>
                   <Text style={styles.order_product}>{el.service.product}</Text>
-                  <Text style={styles.order_status}>{el.status.toUpperCase()}</Text>
               </TouchableOpacity>
               )
             })

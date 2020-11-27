@@ -51,7 +51,13 @@ export default function Header(props) {
       cartContext.handleSignout()
       props.navigation.navigate('Index')
     }
-  } 
+  }
+
+  // Handle Logo Press
+  const handleLogoPress = _ => {
+    cartContext.setMenuToggleOff();
+    props.navigation.navigate('Index')
+  }
 
   return (
     <View style={styles.container}>
@@ -63,10 +69,8 @@ export default function Header(props) {
             </View>
           </TouchableOpacity>
         ) : null }
-        <TouchableOpacity onPress={ _ => props.navigation.navigate('Index')} >
-          <View name="logo" style={styles.logo}>
-            <Image source={LogoIMG} style={styles.logoIMG} />
-          </View>
+        <TouchableOpacity onPress={ _ => handleLogoPress()} >
+          <Image source={LogoIMG} style={styles.logoIMG} />
         </TouchableOpacity>
       </View>
       <View name="navBox" style={styles.navBox}>        
@@ -147,25 +151,18 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
+      // borderWidth: 1,
     },
 
-    logo: {
-      width: 40,
-      height: 40,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 6,
-    },
+      logoIMG: {
+        width: 40,
+        height: 34,
+      },
 
       gradient: {
         padding: 0,
         alignItems: 'center',
         borderRadius: 6,
-      },
-
-      logoIMG: {
-        width: 30,
-        height: 30,
       },
     
     back_btn: {

@@ -31,7 +31,6 @@ export default function Index(props) {
             </TouchableOpacity>
           </View>
         </View>
-        {/* <Image source={BG} style={styles.bg} /> */}
       </LinearGradient>
     </SafeAreaView>
   );
@@ -99,14 +98,6 @@ const styles = StyleSheet.create({
           color: '#fff',
           fontSize: 16,
         },
-
-    bg: {
-      width: Dimensions.get('screen').width,
-      height: 500,
-      position: 'absolute',
-      bottom: -80,
-      opacity: 0.2,
-    },
 
     gradient: {
       padding: 0,

@@ -8,10 +8,11 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
   ScrollView,
+  TouchableOpacity,
   Image,
 } from 'react-native';
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
 export default function StoreContent(props) {
   const cartContext = useContext(Context);
@@ -20,41 +21,32 @@ export default function StoreContent(props) {
     cartContext.setPreviousRoute('Store');
   }, [])
 
-  const handleCartToggle = (prod) => cartContext.handleCart(prod);
+  const handleProductSelect = el => {
+    cartContext.setChosenProduct(el);
+    props.navigation.navigate('SelectedProduct');
+  }
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.store}>
         {cartContext.merch.map((el) => {
           return (
-            <View style={[styles.prod_box, styles.shadow1]} key={el.id}>
-              <View style={styles.prod_img_box}>
-                <Image source={{ uri: el.image }} style={styles.prod_img} />
-              </View>
-              <View style={styles.prod_price}>
-                <Text style={styles.prod_price_text}>{`$${el.price}`}</Text>
-              </View>
-              <View style={styles.prod_desc}>
-                <View>
-                  <Text style={styles.prod_desc_title}>{el.product}</Text>
-                  <Text style={styles.prod_desc_text}>{el.description}</Text>
+            <TouchableOpacity onPress={ _ => handleProductSelect(el)} key={el.id}>
+              <View style={styles.prod_box}>
+                <View style={styles.prod_img_box}>
+                  <Image source={{ uri: el.image1 }} style={styles.prod_img} />
                 </View>
-                { cartContext.cart.includes(el) ? (
-                  <LinearGradient colors={['#04A3E1', '#009cd8', '#009cd8']} style={styles.gradient} >
-                    <TouchableOpacity style={styles.cart_btn_on} onPress={ _ => handleCartToggle(el) }>
-                      <Text style={styles.cart_btn_text_on}>In Cart</Text>
-                    </TouchableOpacity>
-                  </LinearGradient>
-                ) : (
-                  <TouchableOpacity
-                    style={styles.cart_btn}
-                    disabled={cartContext.menuToggle}
-                    onPress={ _ => handleCartToggle(el) }>
-                    <Text style={styles.cart_btn_text}>Add To Cart</Text>
-                  </TouchableOpacity>
-                )}
+                <View style={styles.prod_price}>
+                  <Text style={styles.prod_price_text}>{`$${el.price}`}</Text>
+                </View>
+                <View style={styles.prod_desc}>
+                  <View>
+                    <Text style={styles.prod_desc_title}>{el.product}</Text>
+                    <Text style={styles.prod_desc_text}>{`${el.description.substring(1, 40)} ...`}</Text>
+                  </View>
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           )
         })}
       </ScrollView>
@@ -62,19 +54,7 @@ export default function StoreContent(props) {
   );
 };
 
-const elevationShadowStyle = (elevation) => {
-  return {
-    elevation,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 0.5 * elevation },
-    shadowOpacity: 0.3,
-    shadowRadius: 0.8 * elevation
-  };
-}
-
-
 const styles = StyleSheet.create({
-  shadow1: elevationShadowStyle(5),
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -102,6 +82,8 @@ const styles = StyleSheet.create({
         marginTop: 8,
         marginBottom: 7,
         alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'lightgray',
       },
 
         prod_img_box: {
@@ -144,7 +126,7 @@ const styles = StyleSheet.create({
         prod_desc: {
           justifyContent: 'space-between',
           width: '100%',
-          height: 180,
+          height: 120,
           borderBottomRightRadius: 6,
           borderBottomLeftRadius: 6,
           padding: 12,
@@ -163,39 +145,6 @@ const styles = StyleSheet.create({
             color: 'gray',
             fontSize: 13,
             paddingTop: 4,
-          },
-
-        cart_btn: {
-          backgroundColor: '#fff',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: 42,
-          borderWidth: 1,
-          borderColor: '#DDDDDD',
-          borderRadius: 6,
-        },
-
-          cart_btn_text: {
-            color: 'gray',
-            fontWeight: 'bold',
-            fontSize: 12,
-          },
-
-        cart_btn_on: {
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: 42,
-          borderWidth: 1,
-          borderColor: '#DDDDDD',
-          borderRadius: 6,
-        },
-
-          cart_btn_text_on: {
-            color: '#fff',
-            fontWeight: 'bold',
-            fontSize: 12,
           },
           
       gradient: {

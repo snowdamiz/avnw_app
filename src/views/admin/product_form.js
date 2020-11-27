@@ -11,7 +11,9 @@ export default function ProductForm(props) {
   const [productDescription, setProductDescription] = useState();
   const [productPrice, setProductPrice] = useState();
   const [productCategory, setProductCategory] = useState();
-  const [productImage, setProductImage] = useState();
+  const [productImageOne, setProductImageOne] = useState();
+  const [productImageTwo, setProductImageTwo] = useState();
+  const [productImageThree, setProductImageThree] = useState();
   const [err, setErr] = useState(0);
   
   const cartContext = useContext(Context);
@@ -25,14 +27,18 @@ export default function ProductForm(props) {
     setProductName(cartContext.productEditing.product);
     setProductDescription(cartContext.productEditing.description);
     setProductCategory(cartContext.productEditing.category);
-    setProductImage(cartContext.productEditing.image);
+    setProductImageOne(cartContext.productEditing.image1);
+    setProductImageTwo(cartContext.productEditing.image2);
+    setProductImageThree(cartContext.productEditing.image3);
   }, [cartContext.productEditing])
   
   const handleProductName = e => setProductName(e);
   const handleProductDescription = e => setProductDescription(e);
   const handleProductPrice = e => setProductPrice(e);
   const handleProductCategory = e => setProductCategory(e);
-  const handleProductImage = e => setProductImage(e);
+  const handleProductImageOne = e => setProductImageOne(e);
+  const handleProductImageTwo = e => setProductImageTwo(e);
+  const handleProductImageThree = e => setProductImageThree(e);
 
   // Handle Canel Button; Reset State and Navigate
   const handleCancel = _ => {
@@ -41,7 +47,9 @@ export default function ProductForm(props) {
     setProductDescription('');
     setProductPrice('');
     setProductCategory('');
-    setProductImage('');
+    setProductImageOne('');
+    setProductImageTwo('');
+    setProductImageThree('');
   }
 
   // Exicute ADD or EDIT function based on "formType"
@@ -54,13 +62,15 @@ export default function ProductForm(props) {
 
   // Handles adding new content
   const handleAdd = async _ => {
-    if (productName && productDescription && productPrice && productCategory && productImage) {
+    if (productName && productDescription && productPrice && productCategory) {
       const product = {
         product: productName,
         description: productDescription,
         price: parseInt(productPrice),
         category: productCategory,
-        image: productImage,
+        image1: productImageOne,
+        image2: productImageTwo,
+        image3: productImageThree,
         type: 'merch',
         quantity: 1,
         createdAt: new Date(),
@@ -84,13 +94,15 @@ export default function ProductForm(props) {
   const handleEdit = async _ => {
     console.log('here');
     console.log(cartContext.productEditing.product);
-    if (productName && productDescription && productPrice && productCategory && productImage) {
+    if (productName && productDescription && productPrice && productCategory) {
       const product = {
         product: productName,
         description: productDescription,
         price: parseInt(productPrice),
         category: productCategory,
-        image: productImage,
+        image1: productImageOne,
+        image2: productImageTwo,
+        image3: productImageThree,
       }
 
       try {
@@ -144,10 +156,24 @@ export default function ProductForm(props) {
             </TextInput>
             <TextInput 
               style={[styles.input]}
-              placeholder={'Image'}
+              placeholder={'Image One'}
               placeholderTextColor='#393939'
-              onChangeText={(e) => handleProductImage(e)}
-              value={productImage}>
+              onChangeText={(e) => handleProductImageOne(e)}
+              value={productImageOne}>
+            </TextInput>
+            <TextInput 
+              style={[styles.input]}
+              placeholder={'Image Two'}
+              placeholderTextColor='#393939'
+              onChangeText={(e) => handleProductImageTwo(e)}
+              value={productImageTwo}>
+            </TextInput>
+            <TextInput 
+              style={[styles.input]}
+              placeholder={'Image Three'}
+              placeholderTextColor='#393939'
+              onChangeText={(e) => handleProductImageThree (e)}
+              value={productImageThree}>
             </TextInput>
             <TextInput 
               style={[styles.input, styles.bio_intput]}
@@ -180,25 +206,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    width: '100%',
+    height: '100%',
     zIndex: 2,
   },
 
     wrap: {
       width: '100%',
       borderRadius: 6,
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: '#fff',
       marginTop: 30,
-      // zIndex: 1,
-      // shadowColor: "#000",
-      // shadowOffset: {
-      //   width: 0,
-      //   height: 2,
-      // },
-      // shadowOpacity: 0.8,
-      // shadowRadius: 3.2,
-      // elevation: 8,
+      height: '100%',
     },
 
       title: {
@@ -210,29 +230,22 @@ const styles = StyleSheet.create({
       },
 
       content: {
-        // marginTop: 10,
         marginBottom: 15,
       },
 
         input: {
           width: Dimensions.get('screen').width - 60,
-          padding: 12,
+          padding: 8,
           paddingLeft: 10,
           borderRadius: 4,
-          backgroundColor: '#fff',
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.6,
-          shadowRadius: 3.2,
-          elevation: 4,
+          backgroundColor: '#f2f2f2',
+          borderWidth: 1,
+          borderColor: 'lightgray',
           marginTop: 12,
         },
 
         bio_intput: {
-          height: 150,
+          height: 60,
           textAlignVertical: 'top',
           lineHeight: 20,
         },

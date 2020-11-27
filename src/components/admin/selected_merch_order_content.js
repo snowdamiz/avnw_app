@@ -65,7 +65,7 @@ export default function SelectedMerchOrderContentADMIN(props) {
           </TextInput>
           <TextInput 
             style={[styles.input, styles.input_b]}
-            placeholder={'Status'}
+            placeholder={'Tracking'}
             placeholderTextColor='#393939'
             onChangeText={(e) => handleTracking(e)}
             value={tracking}>
@@ -96,10 +96,6 @@ export default function SelectedMerchOrderContentADMIN(props) {
         <View style={styles.row}>
           <Text style={styles.label}>Phone</Text>
           <Text style={styles.text}>{cartContext.selectedMerchOrder.user.phone}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Stripe Transaction</Text>
-          <Text style={styles.text}>{cartContext.selectedMerchOrder.payment_token}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Address</Text>
@@ -137,9 +133,13 @@ export default function SelectedMerchOrderContentADMIN(props) {
           <Text style={styles.label}>Order Date</Text>
           <Text style={styles.text}>{cartContext.selectedMerchOrder.createdAt}</Text>
         </View>
-        <View style={[styles.row, styles.row_b]}>
+        <View style={styles.row}>
           <Text style={styles.label}>Tracking</Text>
           <Text style={styles.text}>{cartContext.selectedMerchOrder.tracking}</Text>
+        </View>
+        <View style={[styles.row, styles.row_b]}>
+          <Text style={styles.label}>Transaction</Text>
+          <Text style={styles.text}>{cartContext.selectedMerchOrder.payment_token}</Text>
         </View>
       </View>
     </ScrollView>
@@ -266,6 +266,8 @@ const styles = StyleSheet.create({
 
       row_b: {
         paddingBottom: 12,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
       },
 
       label: {

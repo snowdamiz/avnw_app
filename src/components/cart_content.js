@@ -44,12 +44,12 @@ export default function CartContent(props) {
   // Handle type of cart
   const handleType = _ => {
     let cart = cartContext.cart;
-    let type = [];
+    let el = [];
     for (let i = 0; i < cart.length; i++) {
-      type.push(cart[i].type)
+      el.push(cart[i].type)
     }
 
-    setType(type);
+    setType(el);
   }
 
   // Handle order submit button
@@ -61,34 +61,29 @@ export default function CartContent(props) {
 
     if (cartContext.token) {
       if (route.name === 'Cart') {
-        // let type = []
-  
-        // for (let i = 0; i < cart.length; i++) {
-        //   type.push(cart[i].type)
-        // }
-  
         if (type.includes('merch')) {
           if (name === null || name.length < 1) {
-            props.navigation.navigate('OrderingStepOne');
+            nav.navigate('OrderingStepOne');
           } else if (address === null || address.length < 1) {
-            props.navigation.navigate('OrderingStepTwo');
-          } else {
-            props.navigation.navigate('MerchOrderOverview');
-          }
+            nav.navigate('OrderingStepTwo');
+          } else nav.navigate('MerchOrderOverview');
         } else {
           if (name === null || name.length < 1) {
-            props.navigation.navigate('OrderingStepOne');
-          } else {          
-            props.navigation.navigate('MerchOrderOverview');
-          }
+            nav.navigate('OrderingStepOne');
+          } else nav.navigate('MerchOrderOverview');
         }
       } else {
-        if (toggle) {
+        if (type.includes('service')) {
+          if (toggle) {
+            cartContext.setTotal(total);
+            nav.navigate('PaymentPortal');
+            if (!error) setError(true)
+            else return
+          } else setError(true)
+        } else {
           cartContext.setTotal(total);
-          props.navigation.navigate('PaymentPortal');
-          if (!error) setError(true)
-          else return
-        } else setError(true)
+          nav.navigate('PaymentPortal');
+        }
       }
     } else {
       nav.navigate('Login');
@@ -175,7 +170,7 @@ export default function CartContent(props) {
                 <TouchableOpacity
                   style={styles.ckeckbox_text_box}
                   onPress={ _ => props.navigation.navigate('TS')}>
-                  <Text style={styles.checkbox_text}>I agree to the terms and services</Text>
+                  <Text style={styles.checkbox_text}>I agree to the terms of service</Text>
                 </TouchableOpacity>
               </View>
             ) : null }

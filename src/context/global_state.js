@@ -46,6 +46,7 @@ export default class GlobalState extends React.Component{
     date: '',
     total: '',
     chosenPhotographer: '',
+    chosenProduct: [],
   }
 
   componentDidMount() {
@@ -257,14 +258,17 @@ export default class GlobalState extends React.Component{
   }
 
   handleAdminProductInteraction = status => { 
-    this.setState({ adminProductInteraction: status })
+    this.setState({ adminProductInteraction: status });
   }
 
-  setChosenPhotographer = el => this.setState({ chosenPhotographer: el })
+  setChosenPhotographer = el => this.setState({ chosenPhotographer: el });
+  setChosenProduct = el => this.setState({ chosenProduct: el });
 
   photographerEditRESET = _ => this.setState({ photographerEdit: [] });
-  serviceEditingRESET = _ => this.setState({ serviceEditing: [] })
-  productEditingRESET = _ => this.setState({ productEditing: [] })
+  serviceEditingRESET = _ => this.setState({ serviceEditing: [] });
+  productEditingRESET = _ => this.setState({ productEditing: [] });
+
+  setMenuToggleOff = _ => this.setState({ menuToggle: false });
 
   render(){
     return (
@@ -309,6 +313,7 @@ export default class GlobalState extends React.Component{
           date: this.state.date,
           total: this.state.total,
           chosenPhotographer: this.state.chosenPhotographer,
+          chosenProduct: this.state.chosenProduct,
           setLoginToken: this.setLoginToken,
           getLoginToken: this.getLoginToken,
           handleSignout: this.handleSignout,
@@ -353,6 +358,8 @@ export default class GlobalState extends React.Component{
           setMerchOrdersALL: this.setMerchOrdersALL,
           setServiceOrdersALL: this.setServiceOrdersALL,
           setChosenPhotographer: this.setChosenPhotographer,
+          setChosenProduct: this.setChosenProduct,
+          setMenuToggleOff: this.setMenuToggleOff,
         }}>
       {this.props.children}
       </Context.Provider>

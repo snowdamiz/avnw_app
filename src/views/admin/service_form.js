@@ -150,25 +150,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    width: '100%',
+    height: '100%',
     zIndex: 2,
   },
 
     wrap: {
       width: '100%',
       borderRadius: 6,
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: '#fff',
       marginTop: 30,
-      // zIndex: 1,
-      // shadowColor: "#000",
-      // shadowOffset: {
-      //   width: 0,
-      //   height: 2,
-      // },
-      // shadowOpacity: 0.8,
-      // shadowRadius: 3.2,
-      // elevation: 8,
+      height: '100%',
     },
 
       title: {
@@ -180,29 +174,22 @@ const styles = StyleSheet.create({
       },
 
       content: {
-        // marginTop: 10,
         marginBottom: 15,
       },
 
         input: {
           width: Dimensions.get('screen').width - 60,
-          padding: 12,
+          padding: 8,
           paddingLeft: 10,
           borderRadius: 4,
-          backgroundColor: '#fff',
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.6,
-          shadowRadius: 3.2,
-          elevation: 4,
+          backgroundColor: '#f2f2f2',
+          borderWidth: 1,
+          borderColor: 'lightgray',
           marginTop: 12,
         },
 
         bio_intput: {
-          height: 150,
+          height: 120,
           textAlignVertical: 'top',
           lineHeight: 20,
         },

@@ -38,13 +38,9 @@ export default function SelectedServiceOrderContent(props) {
           <Text style={styles.label}>Description</Text>
           <Text style={styles.text}>{cartContext.selectedServiceOrder.service.description}</Text>
         </View>
-        <View style={styles.row}>
+        <View style={[styles.row, styles.row_b]}>
           <Text style={styles.label}>Order Date</Text>
           <Text style={styles.text}>{cartContext.selectedServiceOrder.service.createdAt}</Text>
-        </View>
-        <View style={[styles.row, styles.row_b]}>
-          <Text style={styles.label}>Status</Text>
-          <Text style={styles.text}>{cartContext.selectedServiceOrder.status.toUpperCase()}</Text>
         </View>
       </View>
     </ScrollView>

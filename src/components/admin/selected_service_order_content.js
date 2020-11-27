@@ -29,10 +29,6 @@ export default function SelectedServiceOrderContentADMIN(props) {
           <Text style={styles.text}>{cartContext.selectedServiceOrder.user.phone}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Stripe Transaction</Text>
-          <Text style={styles.text}>{cartContext.selectedServiceOrder.payment_token}</Text>
-        </View>
-        <View style={styles.row}>
           <Text style={styles.label}>Location</Text>
           <Text style={styles.text}>{cartContext.selectedServiceOrder.location}</Text>
         </View>
@@ -49,8 +45,8 @@ export default function SelectedServiceOrderContentADMIN(props) {
           <Text style={styles.text}>{cartContext.selectedServiceOrder.createdAt}</Text>
         </View>
         <View style={[styles.row, styles.row_b]}>
-          <Text style={styles.label}>Comment</Text>
-          <Text style={styles.text}>{cartContext.selectedServiceOrder.comment}</Text>
+          <Text style={styles.label}>Stripe Transaction</Text>
+          <Text style={styles.text}>{cartContext.selectedServiceOrder.payment_token}</Text>
         </View>
       </View>
     </ScrollView>
@@ -103,6 +99,8 @@ const styles = StyleSheet.create({
 
       row_b: {
         paddingBottom: 12,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
       },
 
       label: {

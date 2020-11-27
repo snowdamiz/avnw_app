@@ -28,6 +28,7 @@ import SelectedMerchOrderADMIN from './src/views/admin/selected_merch_order.js';
 import SelectedServiceOrderADMIN from './src/views/admin/selected_service_order.js';
 import PaymentPortal from './src/components/payment_portal.js';
 import TS from './src/views/ts.js';
+import SelectedProduct from './src/views/selected_product.js';
 
 export default function App() {
   return (
@@ -105,6 +106,9 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="TS">
             { props => <TS {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="SelectedProduct">
+            { props => <SelectedProduct {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
