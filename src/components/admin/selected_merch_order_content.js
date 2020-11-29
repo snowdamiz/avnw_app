@@ -126,6 +126,10 @@ export default function SelectedMerchOrderContentADMIN(props) {
           <Text style={styles.text}>{cartContext.selectedMerchOrder.quantity}</Text>
         </View>
         <View style={styles.row}>
+          <Text style={styles.label}>Size</Text>
+          <Text style={styles.text}>{cartContext.selectedMerchOrder.size}</Text>
+        </View>
+        <View style={styles.row}>
           <Text style={styles.label}>Status</Text>
           <Text style={styles.text}>{cartContext.selectedMerchOrder.status.toUpperCase()}</Text>
         </View>

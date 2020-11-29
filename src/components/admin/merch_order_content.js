@@ -32,20 +32,6 @@ export default function MerchOrderContent(props) {
     cartContext.setSelectedMerchOrder(el);
     props.navigation.navigate('SelectedMerchOrderADMIN');
   }
-
-  // CONVERT DATE
-  const convertDate = el => {
-    let date = el;
-    let dd = date.getDate();
-    let mm = date.getMonth();
-    let yy = date.getYear();
-
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
-
-    date = dd + '/' + mm + '/' + yy;
-    return date;
-  }
   
   return (
     <View style={styles.container}>

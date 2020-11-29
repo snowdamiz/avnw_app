@@ -28,6 +28,8 @@ export default function StoreContent(props) {
     props.navigation.navigate('SelectedProduct');
   }
 
+  console.log(cartContext.cart);
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.store}>
@@ -48,7 +50,11 @@ export default function StoreContent(props) {
                   <View style={styles.prod_desc}>
                     <View>
                       <Text style={styles.prod_desc_title}>{el.product}</Text>
-                      <Text style={styles.prod_desc_text}>{`${el.description.substring(0, 40)} ...`}</Text>
+                      <Text style={styles.prod_desc_text}>
+                        {el.description.length > 40 ? (
+                          `${el.description.substring(0, 40)} ...`
+                        ) : el.description}
+                      </Text>
                     </View>
                   </View>
                 </View>

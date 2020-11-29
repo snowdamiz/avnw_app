@@ -22,6 +22,7 @@ export default function SelectedProduct(props) {
   const [toggle, setToggle] = useState(false);
   const [size, setSize] = useState('')
   const [error, setError] = useState(false);
+  const [category, setCategory] = useState('');
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 
   const cartContext = useContext(Context);
@@ -31,7 +32,9 @@ export default function SelectedProduct(props) {
     let product = cartContext.chosenProduct;
     let imgs = [product.image1, product.image2, product.image3]
     setImages(imgs)
+    setCategory(cartContext.chosenProduct.category);
   }, [])
+  console.log(category);
 
   // Handle Next Slide
   const handleNextSlide = _ => {
@@ -57,11 +60,17 @@ export default function SelectedProduct(props) {
 
   // Handle Cart Add
   const handleCartAdd = _ => {
-    if (size) {
-      let prod = cartContext.chosenProduct;
-      prod.size = size;
-      cartContext.handleCart(prod);
-    } else setError(true)
+    if (category === "Sweatshirts" || category === "Shirt") {
+      if (size) {
+        let prod = cartContext.chosenProduct;
+        prod.size = size;
+        cartContext.handleCart(prod);
+        props.navigation.navigate('Store');
+      } else setError(true)
+    } else {
+      cartContext.handleCart(cartContext.chosenProduct);
+      props.navigation.navigate('Store');
+    }
   }
 
   return (
@@ -108,21 +117,21 @@ export default function SelectedProduct(props) {
             <Text style={styles.prod_price_text}>{`$${cartContext.chosenProduct.price}`}</Text>
           </View>
         </View>
-        <View style={styles.bb}>
-          <TouchableOpacity
-            style={[styles.size_btn, error ? styles.size_btn_error : null]}
-            disabled={cartContext.menuToggle}
-            onPress={ _ => handleSizeSelectToggle() }>
-            <Text style={styles.size_btn_text}>{ size ? `Size: ${size}` : 'Select Size'}</Text>
-          </TouchableOpacity>
-        </View>
+        { category === "Sweatshirts" || category === "Shirt" ? (
+          <View style={styles.bb}>
+            <TouchableOpacity
+              style={[styles.size_btn, error ? styles.size_btn_error : null]}
+              disabled={cartContext.menuToggle}
+              onPress={ _ => handleSizeSelectToggle() }>
+              <Text style={styles.size_btn_text}>{ size ? `Size: ${size}` : 'Select Size'}</Text>
+            </TouchableOpacity>
+          </View>
+        ): null }
         <TouchableOpacity
           style={[styles.cart_btn, cartContext.cart.includes(cartContext.chosenProduct) ? styles.cart_btn_on : null]}
           disabled={cartContext.menuToggle}
           onPress={ _ => handleCartAdd() }>
-          <Text style={styles.cart_btn_text}>
-            { cartContext.cart.includes(cartContext.chosenProduct) ? 'In Cart' : 'Add to Cart' }
-          </Text>
+          <Text style={styles.cart_btn_text}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

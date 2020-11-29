@@ -1,7 +1,7 @@
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import BG from '../assets/bg3.png';
+import BG from '../assets/bg.png';
 import Logo_large from '../assets/logo_large.png';
 
 import {
@@ -31,6 +31,7 @@ export default function Index(props) {
             </TouchableOpacity>
           </View>
         </View>
+          <Image source={BG} style={styles.bg} />
       </LinearGradient>
     </SafeAreaView>
   );
@@ -98,6 +99,17 @@ const styles = StyleSheet.create({
           color: '#fff',
           fontSize: 16,
         },
+
+    bg: {
+      position: 'absolute',
+      width: Dimensions.get('screen').width,
+      height: 400,
+      // height: '100%',
+      // top: 100,
+      opacity: 0.6,
+      bottom: 0,
+
+    },
 
     gradient: {
       padding: 0,

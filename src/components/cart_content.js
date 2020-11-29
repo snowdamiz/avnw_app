@@ -159,19 +159,24 @@ export default function CartContent(props) {
                 ) }
             </View>
             { route.name === 'MerchOrderOverview' && type.includes('service') ? (
-              <View style={styles.ts_box}>
-                <TouchableOpacity
-                  style={[styles.checkbox, error ? styles.checkbox_error : null, toggle ? styles.checkbox_checked : null]}
-                  onPress={ _ => setToggle(!toggle)}>
-                    { toggle ? (
-                      <Image source={CheckIMG} style={styles.checkIMG} />
-                    ) : null }
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.ckeckbox_text_box}
-                  onPress={ _ => props.navigation.navigate('TS')}>
-                  <Text style={styles.checkbox_text}>I agree to the terms of service</Text>
-                </TouchableOpacity>
+              <View style={styles.ts_footer}>
+                <View style={styles.ts_warning}>
+                  <Text style={styles.ts_warning_text}>Cancelation Charges May Apply. Terms of Service Below.</Text>
+                </View>
+                <View style={styles.ts_box}>
+                  <TouchableOpacity
+                    style={[styles.checkbox, error ? styles.checkbox_error : null, toggle ? styles.checkbox_checked : null]}
+                    onPress={ _ => setToggle(!toggle)}>
+                      { toggle ? (
+                        <Image source={CheckIMG} style={styles.checkIMG} />
+                      ) : null }
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.ckeckbox_text_box}
+                    onPress={ _ => props.navigation.navigate('TS')}>
+                    <Text style={styles.checkbox_text}>I agree to the terms of service</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             ) : null }
           </>
@@ -385,70 +390,92 @@ const styles = StyleSheet.create({
             fontSize: 12,
           },
 
-    ts_box: {
-      padding: 10,
+    ts_footer: {
       width: '100%',
-      // marginTop: 5,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 6,
-      backgroundColor: '#fff',
-      shadowColor: "#000",
-      shadowOffset: { width: 0, height: 0 },
-      shadowOpacity: 0.28,
-      shadowRadius: 5,
-      elevation: 4,
     },
 
-      checkbox: {
-        borderWidth: 1,
-        padding: 6,
-        width: 20,
-        height: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginRight: 10,
-        borderColor: '#000',
-      },
-
-      checkbox_checked: {
-        borderColor: '#009cd8',
-      },
-
-      checkbox_error: {
-        borderColor: 'red',
-      },
-
-        checkIMG: {
-          width: 12,
-          height: 12,
-          opacity: 0.8,
-        },
-
-      ckeckbox_text_box: {
-        // width: 150,
+      ts_warning: {
+        // borderWidth: 1,
+        borderRadius: 4,
+        width: '100%',
+        backgroundColor: 'pink',
+        marginBottom: 10,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.28,
+        shadowRadius: 5,
+        elevation: 4,
       },
       
-        checkbox_text: {
-          opacity: 0.85,
+        ts_warning_text: {
+          padding: 4,
+          fontSize: 13,
         },
 
-    cart_btn: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: Dimensions.get('screen').width / 2 - 30,
-      height: 50,
-      marginLeft: 15,
-      marginRight: 15,
-      borderRadius: 6,
-    },
-
-      cart_btn_text: {
-        fontWeight: 'bold',
-        color: '#fff',
-        fontSize: 15,
+      ts_box: {
+        padding: 10,
+        width: '100%',
+        // marginTop: 5,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 6,
+        backgroundColor: '#fff',
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.28,
+        shadowRadius: 5,
+        elevation: 4,
       },
+
+        checkbox: {
+          borderWidth: 1,
+          padding: 6,
+          width: 20,
+          height: 20,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginRight: 10,
+          borderColor: '#000',
+        },
+
+        checkbox_checked: {
+          borderColor: '#009cd8',
+        },
+
+        checkbox_error: {
+          borderColor: 'red',
+        },
+
+          checkIMG: {
+            width: 12,
+            height: 12,
+            opacity: 0.8,
+          },
+
+        ckeckbox_text_box: {
+          // width: 150,
+        },
+        
+          checkbox_text: {
+            opacity: 0.85,
+          },
+
+      cart_btn: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: Dimensions.get('screen').width / 2 - 30,
+        height: 50,
+        marginLeft: 15,
+        marginRight: 15,
+        borderRadius: 6,
+      },
+
+        cart_btn_text: {
+          fontWeight: 'bold',
+          color: '#fff',
+          fontSize: 15,
+        },
 });
 
 

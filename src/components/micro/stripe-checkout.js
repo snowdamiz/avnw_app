@@ -80,6 +80,13 @@ export default function StripeCheckout(props) {
           // padding: 10;
         }
 
+        #card-element {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          align-items: center;
+        }
+
         .card-holder{
           display: flex;
           flex-direction: column;
@@ -299,8 +306,14 @@ export default function StripeCheckout(props) {
 
   const onMessage = (event) => {
     const { data } =  event.nativeEvent;
-    console.log(data)
-    onCheckStatus(data)
+    const jsonData = JSON.parse(data)
+
+    if (jsonData.error) {
+      return;
+    } else {
+      // console.log(data);
+      onCheckStatus(data)
+    }
   }
 
   return (

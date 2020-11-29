@@ -65,6 +65,12 @@ export default function TS(props) {
             and any uncleared check will have an additional charge of $35 to cover bank fees. 
           </Text>
 
+          <Text style={styles.text}>
+            All wedding photography bookings shall be able to make multiple payments however they see fit, 
+            up until 2 weeks prior to the event. Contact us directly to make a payment so we may log any 
+            payment(s) prior to your event date.
+          </Text>
+
           <Text style={styles.h2}>CANCELLATION POLICY</Text>
           <Text style={styles.text}>
             For all (Non Wedding)  photography sessions, client forefeits their cancellation fee of 
@@ -106,7 +112,7 @@ export default function TS(props) {
 
           <Text style={styles.text}>
             We try our hardest to accommodate all our clients, and their needs. Please contact us for further 
-            assistance if there are additional question needing to be answered.
+            assistance if there are additional questions needing to be answered.
           </Text>
         </View>
       </ScrollView>

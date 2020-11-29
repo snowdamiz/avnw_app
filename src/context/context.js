@@ -81,6 +81,7 @@ export default React.createContext({
   photographerEditRESET: _ => {},
   serviceEditingRESET: _ => {},
   productEditingRESET: _ => {},
+  chosenProductRESET: _ => {},
   setMerchOrdersALL: (el) => {},
   setServiceOrdersALL: (el) => {},
   setChosenPhotographer: (el) => {},
