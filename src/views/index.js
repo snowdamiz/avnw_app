@@ -11,9 +11,9 @@ import {
   StatusBar,
   View,
   Image,
-  TouchableOpacity,
   Text,
 } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function Index(props) {
   return (
@@ -22,6 +22,7 @@ export default function Index(props) {
       <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
         <View style={styles.content}>
           <Image source={Logo_large} style={styles.logo} />
+          <Image source={BG} style={styles.bg} />
           <View style={styles.buttons_container}>
             <TouchableOpacity style={styles.shoot_btn} onPress={ _ => props.navigation.navigate('BookingStepOne')}>
               <Text style={styles.shoot_btn_text}>Book a Photo Shoot</Text>
@@ -31,7 +32,6 @@ export default function Index(props) {
             </TouchableOpacity>
           </View>
         </View>
-          <Image source={BG} style={styles.bg} />
       </LinearGradient>
     </SafeAreaView>
   );
