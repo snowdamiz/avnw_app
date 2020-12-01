@@ -75,7 +75,7 @@ export default function ServiceForm(props) {
     if (productName && productPrice && productDescription) {
       const service = {
         product: productName,
-        price: parseInt(roductPrice),
+        price: parseInt(productPrice),
         description: productDescription,
       }
 

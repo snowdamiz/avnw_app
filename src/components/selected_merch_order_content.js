@@ -54,7 +54,7 @@ export default function SelectedMerchOrderContent(props) {
         </View>
         <View style={[styles.row, styles.row_b]}>
           <Text style={styles.label}>Tracking</Text>
-          <Text style={styles.text}>
+          <Text style={styles.text} selectable>
             { !cartContext.selectedMerchOrder.tracking ? 'Added when product ships' : cartContext.selectedMerchOrder.tracking }
           </Text>
         </View>

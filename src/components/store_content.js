@@ -33,7 +33,12 @@ export default function StoreContent(props) {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.store}>
-        {cartContext.merch.length > 0 ? (
+        { cartContext.merch.length > 0 ? (
+          <View style={styles.more_services_box}>
+            <Text style={styles.more_services_text}>For Custom Orders Contact Us Directly at alphavnw@gmail.com</Text>
+          </View>
+        ) : null }
+        { cartContext.merch.length > 0 ? (
           cartContext.merch.map((el) => {
             return (
               <TouchableOpacity
@@ -159,6 +164,19 @@ const styles = StyleSheet.create({
             fontSize: 13,
             paddingTop: 4,
           },
+
+      more_services_box: {
+        width: Dimensions.get('screen').width - 26,
+        borderRadius: 4,
+        backgroundColor: 'lightblue',
+        padding: 5,
+        marginTop: 5,
+      },
+  
+        more_services_text: {
+          fontSize: 13,
+          textAlign: 'center',
+        },
           
       gradient: {
         alignItems: 'center',

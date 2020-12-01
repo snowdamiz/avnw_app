@@ -139,11 +139,15 @@ export default function SelectedMerchOrderContentADMIN(props) {
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Tracking</Text>
-          <Text style={styles.text}>{cartContext.selectedMerchOrder.tracking}</Text>
+          <Text style={styles.text} selectable>{cartContext.selectedMerchOrder.tracking}</Text>
+        </View>
+        <View style={[styles.row, styles.row_long]}>
+          <Text style={styles.label}>Description</Text>
+          <Text style={styles.text}>{cartContext.selectedMerchOrder.merch.description}</Text>
         </View>
         <View style={[styles.row, styles.row_b]}>
           <Text style={styles.label}>Transaction</Text>
-          <Text style={styles.text}>{cartContext.selectedMerchOrder.payment_token}</Text>
+          <Text style={styles.text} selectable>{cartContext.selectedMerchOrder.payment_token}</Text>
         </View>
       </View>
     </ScrollView>
@@ -270,6 +274,11 @@ const styles = StyleSheet.create({
 
       row_b: {
         paddingBottom: 12,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+      },
+      row_long: {
+        // paddingBottom: 12,
         flexDirection: 'column',
         justifyContent: 'flex-start',
       },

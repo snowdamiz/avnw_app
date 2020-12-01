@@ -86,7 +86,8 @@ export default function OrdersContent(props) {
               return (
                 <TouchableOpacity
                   style={styles.order} key={el.id}
-                  onPress={ _ => handleMerchOrderSelect(el)}>
+                  onPress={ _ => handleMerchOrderSelect(el)}
+                  disabled={cartContext.menuToggle}>
                   <Text style={styles.order_product}>{el.merch.product}</Text>
                   <Text style={styles.order_status}>{el.status.toUpperCase()}</Text>
                 </TouchableOpacity>

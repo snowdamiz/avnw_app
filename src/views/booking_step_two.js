@@ -71,6 +71,9 @@ export default function BookingStepTwo(props) {
             </View>
           ) : null }
           <View style={styles.services_box}>
+            <View style={styles.more_services_box}>
+              <Text style={styles.more_services_text}>For Additional inquiries contact us at alphavnw@gmail.com</Text>
+            </View> 
             { cartContext.services.map((el) => {
               return (
                 <View key={el.id} style={styles.service}>
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
 
       services_box: {
         // marginTop: 30,
-        marginBottom: 10,
+        // marginBottom: 10,
         padding: 5,
         width: Dimensions.get('screen').width,
         borderRadius: 8,
@@ -282,6 +285,18 @@ const styles = StyleSheet.create({
                 fontSize: 11,
                 fontWeight: 'bold',
               },
+
+    more_services_box: {
+      width: Dimensions.get('screen').width - 26,
+      borderRadius: 4,
+      backgroundColor: 'lightblue',
+      padding: 5,
+      marginBottom: 10,
+    },
+
+      more_services_text: {
+        fontSize: 12,
+      },
 
     continue_btn: {
       marginTop: 15,
