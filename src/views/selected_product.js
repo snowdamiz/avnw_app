@@ -1,9 +1,23 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
-
 import Context from '../context/context.js';
 import Header from '../components/header.js';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+
+function StatusBarPlaceHolder() {
+  return (
+    <View style={{
+      width: "100%",
+      height: STATUS_BAR_HEIGHT,
+      backgroundColor: "#009cd8"
+    }}>
+      <StatusBar barStyle="light-content" />
+    </View>
+  );
+}
 
 import {
   Dimensions,
@@ -75,7 +89,7 @@ export default function SelectedProduct(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBarPlaceHolder />
       <Header navigation={props.navigation} />
       <View style={styles.content}>
         <View style={styles.img_box}>
@@ -192,9 +206,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 0 },
-        shadowRadius: 10,
-        shadowOpacity: 0.7,
-        shadowRadius: 3,
+        shadowOpacity: 0.28,
+        shadowRadius: 5,
         elevation: 7,
       },
 
@@ -241,11 +254,10 @@ const styles = StyleSheet.create({
         padding: 15,
         backgroundColor: '#fff',
         borderRadius: 6,
-        shadowColor: 'black',
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 0 },
-        shadowRadius: 10,
-        shadowOpacity: 0.8,
-        shadowRadius: 3,
+        shadowOpacity: 0.28,
+        shadowRadius: 5,
         elevation: 4,
         position: 'absolute',
         marginTop: 130,
@@ -312,11 +324,10 @@ const styles = StyleSheet.create({
           justifyContent: 'center',
           alignItems: 'center',
           marginTop: -65,
-          shadowColor: 'black',
+          shadowColor: '#000',
           shadowOffset: { width: 0, height: 0 },
-          shadowRadius: 10,
-          shadowOpacity: 0.8,
-          shadowRadius: 3,
+          shadowOpacity: 0.28,
+          shadowRadius: 5,
           elevation: 4,
         },
 

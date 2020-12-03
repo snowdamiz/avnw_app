@@ -4,8 +4,24 @@ import Header from '../components/header.js';
 import EditAccount from '../components/micro/edit_account.js';
 import EditShipping from '../components/micro/edit_shipping.js';
 import ProfileContent from '../components/profile_content.js';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+
+function StatusBarPlaceHolder() {
+  return (
+    <View style={{
+      width: "100%",
+      height: STATUS_BAR_HEIGHT,
+      backgroundColor: "#009cd8"
+    }}>
+      <StatusBar barStyle="light-content" />
+    </View>
+  );
+}
 
 import {
+  StatusBar,
   StyleSheet,
   SafeAreaView,
   View,
@@ -24,6 +40,7 @@ export default function Profile(props) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBarPlaceHolder />
       <Header navigation={props.navigation} />
       <ProfileContent navigation={props.navigation} />
       { cartContext.editAccountToggle ? <EditAccount /> : null }

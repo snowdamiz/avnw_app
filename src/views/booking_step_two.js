@@ -1,8 +1,22 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
-
 import Context from '../context/context.js';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+
+function StatusBarPlaceHolder() {
+  return (
+    <View style={{
+      width: "100%",
+      height: STATUS_BAR_HEIGHT,
+      backgroundColor: "#009cd8"
+    }}>
+      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+    </View>
+  );
+}
 
 import {
   Dimensions,
@@ -49,7 +63,7 @@ export default function BookingStepTwo(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <StatusBarPlaceHolder />
       <LinearGradient colors={['#fff', '#fff', '#fff']} style={styles.gradient} >
         { Platform.OS === 'ios' ? (
           <View style={styles.btn_view}>
@@ -198,8 +212,8 @@ const styles = StyleSheet.create({
           alignItems: 'center',
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 0.4,
-          shadowRadius: 10,
+          shadowOpacity: 0.28,
+          shadowRadius: 5,
           elevation: 4,
         },
 
@@ -248,8 +262,8 @@ const styles = StyleSheet.create({
             // width: Dimensions.get('screen').width / 2 * 0.55,
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.4,
-            shadowRadius: 10,
+            shadowOpacity: 0.28,
+            shadowRadius: 5,
             elevation: 1,
           },
   

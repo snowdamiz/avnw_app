@@ -5,6 +5,21 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
 import { Dimensions, StyleSheet, SafeAreaView, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+
+function StatusBarPlaceHolder() {
+  return (
+    <View style={{
+      width: "100%",
+      height: STATUS_BAR_HEIGHT,
+      backgroundColor: "#009cd8"
+    }}>
+      <StatusBar barStyle="light-content" />
+    </View>
+  );
+}
 
 export default function OrderingStepOne(props) {
   const cartContext = useContext(Context);
@@ -73,7 +88,7 @@ export default function OrderingStepOne(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#009cd8" />
+      <StatusBarPlaceHolder />
       <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
         <View style={styles.content}>
           <View style={styles.text_box}>

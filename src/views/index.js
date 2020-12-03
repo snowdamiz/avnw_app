@@ -14,11 +14,26 @@ import {
   Text,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+
+function StatusBarPlaceHolder() {
+  return (
+    <View style={{
+      width: "100%",
+      height: STATUS_BAR_HEIGHT,
+      backgroundColor: "#009cd8"
+    }}>
+      <StatusBar barStyle="light-content" />
+    </View>
+  );
+}
 
 export default function Index(props) {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#009cd8" />
+      <StatusBarPlaceHolder />
       <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
         <View style={styles.content}>
           <Image source={Logo_large} style={styles.logo} />

@@ -1,15 +1,31 @@
 import React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, StatusBar, View } from 'react-native';
 import Header from '../../components/header.js';
 import PhotographersContent from '../../components/admin/photographers_content.js';
 import ServicesContent from '../../components/admin/services_content.js';
 import ProductContent from '../../components/admin/products_content.js';
 import MerchOrderContent from '../../components/admin/merch_order_content.js';
 import ServiceOrderContent from '../../components/admin/service_order_content.js';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+
+function StatusBarPlaceHolder() {
+  return (
+    <View style={{
+      width: "100%",
+      height: STATUS_BAR_HEIGHT,
+      backgroundColor: "#009cd8"
+    }}>
+      <StatusBar backgroundColor="#009cd8" barStyle="light-content" />
+    </View>
+  );
+}
 
 export default function AdminPanel(props) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <StatusBarPlaceHolder />
       <Header navigation={props.navigation} />
       <PhotographersContent navigation={props.navigation} />
       <ServicesContent navigation={props.navigation} />

@@ -1,10 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { StyleSheet, View, Text, TextInput, Dimensions, SafeAreaView } from 'react-native';
+import { StatusBar, StyleSheet, View, Text, TextInput, Dimensions, SafeAreaView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Context from '../../context/context.js';
 import Header from '../../components/header.js';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+
+function StatusBarPlaceHolder() {
+  return (
+    <View style={{
+      width: "100%",
+      height: STATUS_BAR_HEIGHT,
+      backgroundColor: "#009cd8"
+    }}>
+      <StatusBar barStyle="light-content" />
+    </View>
+  );
+}
 
 export default function ProductForm(props) {
   const [productName, setProductName] = useState();
@@ -125,6 +140,7 @@ export default function ProductForm(props) {
   return (
     <SafeAreaView
       style={styles.container}>
+      <StatusBarPlaceHolder />
       <Header navigation={props.navigation} />
         <View style={styles.wrap}>
           <Text style={styles.title}>

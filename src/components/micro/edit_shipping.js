@@ -220,12 +220,9 @@ const styles = StyleSheet.create({
     marginTop: 100,
     zIndex: 1,
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.28,
+    shadowRadius: 5,
   },
 
     heading: {
@@ -275,12 +272,9 @@ const styles = StyleSheet.create({
           backgroundColor: '#fff',
           borderRadius: 4,
           shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 0,
-          },
-          shadowOpacity: 0.7,
-          shadowRadius: 10,
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.28,
+          shadowRadius: 5,
           elevation: 5,
         },
 
@@ -291,12 +285,9 @@ const styles = StyleSheet.create({
           borderRadius: 4,
           backgroundColor: '#018bc0',
           shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 0,
-          },
-          shadowOpacity: 0.7,
-          shadowRadius: 10,
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.28,
+          shadowRadius: 5,
           elevation: 5,
         },
 

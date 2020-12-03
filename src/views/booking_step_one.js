@@ -1,8 +1,22 @@
 import React, { useState, useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
-
 import Context from '../context/context.js';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+
+function StatusBarPlaceHolder() {
+  return (
+    <View style={{
+      width: "100%",
+      height: STATUS_BAR_HEIGHT,
+      backgroundColor: "#009cd8"
+    }}>
+      <StatusBar barStyle="light-content" />
+    </View>
+  );
+}
 
 import {
   Dimensions,
@@ -30,7 +44,7 @@ export default function BookingStepOne(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBarPlaceHolder />
       <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
         { Platform.OS === 'ios' ? (
           <View style={styles.btn_view}>

@@ -1,9 +1,23 @@
 import React, { useEffect, useContext } from 'react';
 import Context from '../context/context.js';
 import Instagram from '../insta/instagram.js';
-
 import InstagramIMG from '../assets/instagram.png';
 import CloseIMG from '../assets/close.png';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+
+function StatusBarPlaceHolder() {
+  return (
+    <View style={{
+      width: "100%",
+      height: STATUS_BAR_HEIGHT,
+      backgroundColor: "#009cd8"
+    }}>
+      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+    </View>
+  );
+}
 
 import {
   Dimensions,
@@ -29,7 +43,7 @@ export default function Gallery(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+        <StatusBarPlaceHolder />
         <ScrollView contentContainerStyle={styles.content}>
           <TouchableOpacity
             style={styles.close_btn}
@@ -114,9 +128,9 @@ const styles = StyleSheet.create({
       borderRadius: 12,
       backgroundColor: '#fefefe',
       shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 1,
-      shadowRadius: 1,
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.28,
+      shadowRadius: 5,
       elevation: 4,
     },
 

@@ -1,17 +1,33 @@
 import React from 'react';
 import Header from '../../components/header.js';
 import SelectedMerchOrderContentADMIN from '../../components/admin/selected_merch_order_content.js';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+
+function StatusBarPlaceHolder() {
+  return (
+    <View style={{
+      width: "100%",
+      height: STATUS_BAR_HEIGHT,
+      backgroundColor: "#009cd8"
+    }}>
+      <StatusBar barStyle="light-content" />
+    </View>
+  );
+}
 
 import {
   StyleSheet,
   SafeAreaView,
   StatusBar,
+  View
 } from 'react-native';
 
 export default function SelectedMerchOrderADMIN(props) {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#009cd8" />
+      <StatusBarPlaceHolder />
       <Header navigation={props.navigation} />
       <SelectedMerchOrderContentADMIN navigation={props.navigation} />
     </SafeAreaView>
