@@ -46,20 +46,6 @@ export default function EditShipping(props) {
       }
     }
 
-    // unit
-    if (!unit) {
-      if (!err.includes(2)) {
-        err.push(2);
-        setError(err);
-      }
-    } else {
-      if (err.includes(2)) {
-        let i = err.indexOf(2);
-        err.splice(i, 1);
-        setError(err);
-      }
-    }
-
     // city
     if (!city) {
       if (!err.includes(3)) {
@@ -136,11 +122,6 @@ export default function EditShipping(props) {
       { error.includes(1) ? (
         <View style={styles.error_box}>
           <Text style={styles.error_text}>Please Enter a Valid Address</Text>
-        </View>
-      ): null }
-      { error.includes(2) ? (
-        <View style={styles.error_box}>
-          <Text style={styles.error_text}>Please Enter a Valid Unit</Text>
         </View>
       ): null }
       { error.includes(3) ? (
