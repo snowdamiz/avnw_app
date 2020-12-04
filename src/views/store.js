@@ -28,10 +28,10 @@ export default function Store(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Header navigation={props.navigation} />
         <StoreContent navigation={props.navigation} />
-      </SafeAreaView>
+      </View>
     </>
   );
 };

@@ -90,7 +90,7 @@ export default function SelectedProduct(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Header navigation={props.navigation} />
         <View style={styles.content}>
           <View style={styles.img_box}>
@@ -149,7 +149,7 @@ export default function SelectedProduct(props) {
             <Text style={styles.cart_btn_text}>Add to Cart</Text>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

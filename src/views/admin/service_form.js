@@ -112,7 +112,7 @@ export default function ServiceForm(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView
+      <View
         style={styles.container}>
         <Header navigation={props.navigation} />
           <View style={styles.wrap}>
@@ -155,7 +155,7 @@ export default function ServiceForm(props) {
               </TouchableOpacity>
             </View>
           </View>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

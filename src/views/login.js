@@ -27,9 +27,9 @@ export default function Login(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <LoginContent navigation={props.navigation} />
-      </SafeAreaView>
+      </View>
     </>
   )
 };

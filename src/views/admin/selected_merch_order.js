@@ -28,10 +28,10 @@ export default function SelectedMerchOrderADMIN(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Header navigation={props.navigation} />
         <SelectedMerchOrderContentADMIN navigation={props.navigation} />
-      </SafeAreaView>
+      </View>
     </>
   )
 };

@@ -39,7 +39,7 @@ export default function TS(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         { Platform.OS === 'ios' ? (
           <View style={styles.btn_view}>
             <TouchableOpacity onPressIn={ _ => props.navigation.goBack()}>
@@ -131,7 +131,7 @@ export default function TS(props) {
             </Text>
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

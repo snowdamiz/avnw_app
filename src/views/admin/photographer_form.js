@@ -112,7 +112,7 @@ export default function PhotographerForm(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView
+      <View
         style={styles.container}>
         <Header navigation={props.navigation} />
           <View style={styles.wrap}>
@@ -161,7 +161,7 @@ export default function PhotographerForm(props) {
               </TouchableOpacity>
             </View>
           </View>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

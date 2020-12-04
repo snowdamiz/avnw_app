@@ -28,10 +28,10 @@ export default function Cart(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Header navigation={props.navigation} />
         <CartContent navigation={props.navigation}/>
-      </SafeAreaView>
+      </View>
     </>
   )
 };

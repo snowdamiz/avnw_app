@@ -34,7 +34,7 @@ export default function Index(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
           <View style={styles.content}>
             <Image source={Logo_large} style={styles.logo} />
@@ -49,7 +49,7 @@ export default function Index(props) {
             </View>
           </View>
         </LinearGradient>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

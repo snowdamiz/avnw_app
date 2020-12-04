@@ -28,10 +28,10 @@ export default function SelectedServiceOrderADMIN(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Header navigation={props.navigation} />
         <SelectedServiceOrderContentADMIN navigation={props.navigation} />
-      </SafeAreaView>
+      </View>
     </>
   )
 };

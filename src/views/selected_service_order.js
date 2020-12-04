@@ -27,11 +27,11 @@ import {
 export default function SelectedServiceOrder(props) {
   return (
     <>
-      <SafeAreaView style={styles.container}>
-        <StatusBarPlaceHolder />
+      <StatusBarPlaceHolder />
+      <View style={styles.container}>
         <Header navigation={props.navigation} />
         <SelectedServiceOrderContent navigation={props.navigation} />
-      </SafeAreaView>
+      </View>
     </>
   )
 };

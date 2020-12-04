@@ -140,7 +140,7 @@ export default function ProductForm(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView
+      <View
         style={styles.container}>
         <Header navigation={props.navigation} />
           <View style={styles.wrap}>
@@ -211,7 +211,7 @@ export default function ProductForm(props) {
               </TouchableOpacity>
             </View>
           </View>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

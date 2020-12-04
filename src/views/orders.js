@@ -28,10 +28,10 @@ export default function Orders(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Header navigation={props.navigation} />
         <OrdersContent navigation={props.navigation} />
-      </SafeAreaView>
+      </View>
     </>
   )
 };

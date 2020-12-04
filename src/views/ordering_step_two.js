@@ -127,7 +127,7 @@ export default function OrderingStepTwo(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
           <View style={styles.content}>
             <View style={styles.text_box}>
@@ -182,7 +182,7 @@ export default function OrderingStepTwo(props) {
             </TouchableOpacity>
           </View>
         </LinearGradient>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

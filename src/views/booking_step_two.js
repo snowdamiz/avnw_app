@@ -64,7 +64,7 @@ export default function BookingStepTwo(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <LinearGradient colors={['#fff', '#fff', '#fff']} style={styles.gradient} >
           { Platform.OS === 'ios' ? (
             <View style={styles.btn_view}>
@@ -120,7 +120,7 @@ export default function BookingStepTwo(props) {
             </TouchableOpacity>
           </ScrollView>
         </LinearGradient>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

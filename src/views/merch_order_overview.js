@@ -28,10 +28,10 @@ export default function MerchOrderOverview(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Header navigation={props.navigation} />
         <MerchOrderOverviewContent navigation={props.navigation} />
-      </SafeAreaView>
+      </View>
     </>
   );
 };

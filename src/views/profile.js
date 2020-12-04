@@ -41,7 +41,7 @@ export default function Profile(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Header navigation={props.navigation} />
         <ProfileContent navigation={props.navigation} />
         { cartContext.editAccountToggle ? <EditAccount /> : null }
@@ -51,7 +51,7 @@ export default function Profile(props) {
             <TouchableOpacity style={styles.profile_menu_reset} onPressIn={ _ => handleCover()} />
           </View>
           ): null }
-      </SafeAreaView>
+      </View>
     </>
   )
 };

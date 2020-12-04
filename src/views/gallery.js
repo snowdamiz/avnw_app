@@ -44,7 +44,7 @@ export default function Gallery(props) {
   return (
     <>
       <StatusBarPlaceHolder />
-      <SafeAreaView forceInset={{top: 'never'}} style={styles.container}>
+      <View forceInset={{top: 'never'}} style={styles.container}>
         <ScrollView contentContainerStyle={styles.content}>
           <TouchableOpacity
             style={styles.close_btn}
@@ -71,7 +71,7 @@ export default function Gallery(props) {
             })}
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </>
   );
 };
