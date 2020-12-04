@@ -7,7 +7,7 @@ import Context from '../context/context.js';
 import { Dimensions, StyleSheet, SafeAreaView, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -16,7 +16,7 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
   );
 }
@@ -87,44 +87,46 @@ export default function OrderingStepOne(props) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
-        <View style={styles.content}>
-          <View style={styles.text_box}>
-            <Text style={styles.text_title}>Contact Information</Text>
-            <Text style={styles.text_content}>What is your name and number?</Text>
+      <SafeAreaView style={styles.container}>
+        <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
+          <View style={styles.content}>
+            <View style={styles.text_box}>
+              <Text style={styles.text_title}>Contact Information</Text>
+              <Text style={styles.text_content}>What is your name and number?</Text>
+            </View>
+            <View style={styles.address_box}>
+              { error ? (
+                <View style={styles.error_box}>
+                  <Text style={styles.error_text}>
+                    { error === 1 ? 'Please Enter Your Name' : 'Enter a valid number'}
+                  </Text>
+                </View>
+              ): null}
+              <TextInput 
+                style={[styles.input, error === 1 ? styles.input_err : null ]}
+                placeholder={'Name'}
+                placeholderTextColor='#fff'
+                onChangeText={e => handleSetName(e)}
+                value={name}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input, error === 2 ? styles.input_err : null]}
+                placeholder={'Phone'}
+                placeholderTextColor='#fff'
+                onChangeText={e => handleSetPhone(e)}
+                keyboardType={'number-pad'}
+                value={phone}>
+              </TextInput>
+            </View>
+            <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleSubmit() }>
+              <Text style={styles.continue_btn_text}>Continue</Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.address_box}>
-            { error ? (
-              <View style={styles.error_box}>
-                <Text style={styles.error_text}>
-                  { error === 1 ? 'Please Enter Your Name' : 'Enter a valid number'}
-                </Text>
-              </View>
-            ): null}
-            <TextInput 
-              style={[styles.input, error === 1 ? styles.input_err : null ]}
-              placeholder={'Name'}
-              placeholderTextColor='#fff'
-              onChangeText={e => handleSetName(e)}
-              value={name}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, error === 2 ? styles.input_err : null]}
-              placeholder={'Phone'}
-              placeholderTextColor='#fff'
-              onChangeText={e => handleSetPhone(e)}
-              keyboardType={'number-pad'}
-              value={phone}>
-            </TextInput>
-          </View>
-          <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleSubmit() }>
-            <Text style={styles.continue_btn_text}>Continue</Text>
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
-    </SafeAreaView>
+        </LinearGradient>
+      </SafeAreaView>
+    </>
   );
 };
 

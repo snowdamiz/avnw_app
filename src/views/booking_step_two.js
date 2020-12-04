@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -13,7 +13,7 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor="#fff"/>
     </View>
   );
 }
@@ -62,64 +62,66 @@ export default function BookingStepTwo(props) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <LinearGradient colors={['#fff', '#fff', '#fff']} style={styles.gradient} >
-        { Platform.OS === 'ios' ? (
-          <View style={styles.btn_view}>
-            <TouchableOpacity onPressIn={ _ => props.navigation.goBack()}>
-              <View style={styles.back_btn}>
-                <Text style={styles.back_btn_text}>Back</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        ) : null }
-        <ScrollView contentContainerStyle={styles.content}>
-          <View style={styles.text_box}>
-            <Text style={styles.text_title}>Step Two</Text>
-            <Text style={styles.text_content}>Choose your photoshoot</Text>
-          </View>
-          { cartContext.serviceError ? (
-            <View style={styles.err_box}>
-              <Text style={styles.err_text}>Please select a service</Text>
+      <SafeAreaView style={styles.container}>
+        <LinearGradient colors={['#fff', '#fff', '#fff']} style={styles.gradient} >
+          { Platform.OS === 'ios' ? (
+            <View style={styles.btn_view}>
+              <TouchableOpacity onPressIn={ _ => props.navigation.goBack()}>
+                <View style={styles.back_btn}>
+                  <Text style={styles.back_btn_text}>Back</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           ) : null }
-          <View style={styles.services_box}>
-            <View style={styles.more_services_box}>
-              <Text style={styles.more_services_text}>For Additional inquiries contact us at alphavnw@gmail.com</Text>
-            </View> 
-            { cartContext.services.map((el) => {
-              return (
-                <View key={el.id} style={styles.service}>
-                  <View style={styles.service_info}>
-                    <Text style={styles.service_info_title}>{el.product}</Text>
-                    <Text style={styles.service_info_desc}>{el.description}</Text>
+          <ScrollView contentContainerStyle={styles.content}>
+            <View style={styles.text_box}>
+              <Text style={styles.text_title}>Step Two</Text>
+              <Text style={styles.text_content}>Choose your photoshoot</Text>
+            </View>
+            { cartContext.serviceError ? (
+              <View style={styles.err_box}>
+                <Text style={styles.err_text}>Please select a service</Text>
+              </View>
+            ) : null }
+            <View style={styles.services_box}>
+              <View style={styles.more_services_box}>
+                <Text style={styles.more_services_text}>For Additional inquiries contact us at alphavnw@gmail.com</Text>
+              </View> 
+              { cartContext.services.map((el) => {
+                return (
+                  <View key={el.id} style={styles.service}>
+                    <View style={styles.service_info}>
+                      <Text style={styles.service_info_title}>{el.product}</Text>
+                      <Text style={styles.service_info_desc}>{el.description}</Text>
+                    </View>
+                    <View style={styles.service_btns}>
+                      <TouchableOpacity
+                        onPress={ _ => handleServiceToggle(el)}
+                        style={[styles.service_btns_add, cartContext.cart.includes(el) ? styles.service_btns_add_on : null]}>
+                        <View style={styles.service_btns_price_circle}>
+                          <Text style={styles.service_btns_price_text}>${el.price}</Text>
+                        </View>
+                        <Text style={[
+                          styles.service_btns_add_text,
+                          cartContext.cart.includes(el) ? styles.service_btns_add_text_on : null]}>
+                          { cartContext.cart.includes(el) ? 'In Cart' : 'Select'}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                  <View style={styles.service_btns}>
-                    <TouchableOpacity
-                      onPress={ _ => handleServiceToggle(el)}
-                      style={[styles.service_btns_add, cartContext.cart.includes(el) ? styles.service_btns_add_on : null]}>
-                      <View style={styles.service_btns_price_circle}>
-                        <Text style={styles.service_btns_price_text}>${el.price}</Text>
-                      </View>
-                      <Text style={[
-                        styles.service_btns_add_text,
-                        cartContext.cart.includes(el) ? styles.service_btns_add_text_on : null]}>
-                        { cartContext.cart.includes(el) ? 'In Cart' : 'Select'}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              )
-            })}
-          </View>
-          <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleNavigation() }>
-            <Text style={styles.continue_btn_text}>Continue</Text>
-            <View style={styles.continue_btn_arrow}></View>
-          </TouchableOpacity>
-        </ScrollView>
-      </LinearGradient>
-    </SafeAreaView>
+                )
+              })}
+            </View>
+            <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleNavigation() }>
+              <Text style={styles.continue_btn_text}>Continue</Text>
+              <View style={styles.continue_btn_arrow}></View>
+            </TouchableOpacity>
+          </ScrollView>
+        </LinearGradient>
+      </SafeAreaView>
+    </>
   );
 };
 

@@ -30,7 +30,7 @@ export default function ShippingContent(props) {
       style={[styles.header, toggle ? styles.header_on : null]}
       disabled={cartContext.menuToggle}
       onPress={ _ => setToggle(!toggle)}>
-        <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Basic Information</Text>
+        <Text style={[styles.header_text, toggle ? styles.header_text_on : null]}>Contact Information</Text>
         <View style={styles.header_btns}>
           { toggle ? (
             <TouchableOpacity onPress={ _ => handleEdit()} style={styles.edit_img_box}>

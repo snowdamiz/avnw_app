@@ -5,7 +5,7 @@ import Context from '../context/context.js';
 import Header from '../components/header.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -14,7 +14,7 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
   );
 }
@@ -88,67 +88,69 @@ export default function SelectedProduct(props) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <Header navigation={props.navigation} />
-      <View style={styles.content}>
-        <View style={styles.img_box}>
-          <Image source={{ uri: images[imgIndex]}} style={styles.img}/>
-        </View>
-        <View style={styles.nav_box}>
-          <TouchableOpacity
-            onPress={ _ => handlePrevSlide()}
-            style={[styles.arrow_circle, styles.arrow_circle_left]}>
-            <View style={[styles.arrow, styles.arrow_left]} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={ _ => handleNextSlide()}
-            style={[styles.arrow_circle, styles.arrow_circle_right]}>
-            <View style={[styles.arrow, styles.arrow_right]} />
-          </TouchableOpacity>
-        </View>
-        { toggle ? (
-          <View style={styles.size_select}>
-            <Text style={styles.size_selection_heading}>Sizes</Text>
-            { sizes.map(el => {
-              return (
-                <TouchableOpacity
-                  key={el}
-                  onPressIn={ _ => handleSetSize(el)}
-                  style={styles.size_selction}>
-                  <Text style={styles.size_selection_text}>{el}</Text>
-                </TouchableOpacity>
-              )
-            })}
+      <SafeAreaView style={styles.container}>
+        <Header navigation={props.navigation} />
+        <View style={styles.content}>
+          <View style={styles.img_box}>
+            <Image source={{ uri: images[imgIndex]}} style={styles.img}/>
           </View>
-        ) : null }
-        <View style={styles.info_box}>
-          <View style={styles.heading}>
-            <Text style={styles.title}>{cartContext.chosenProduct.product}</Text>
-            <Text style={styles.desc}>{cartContext.chosenProduct.description}</Text>
-          </View>
-          <View style={styles.prod_price}>
-            <Text style={styles.prod_price_text}>{`$${cartContext.chosenProduct.price}`}</Text>
-          </View>
-        </View>
-        { category === "Sweatshirts" || category === "Shirt" ? (
-          <View style={styles.bb}>
+          <View style={styles.nav_box}>
             <TouchableOpacity
-              style={[styles.size_btn, error ? styles.size_btn_error : null]}
-              disabled={cartContext.menuToggle}
-              onPress={ _ => handleSizeSelectToggle() }>
-              <Text style={styles.size_btn_text}>{ size ? `Size: ${size}` : 'Select Size'}</Text>
+              onPress={ _ => handlePrevSlide()}
+              style={[styles.arrow_circle, styles.arrow_circle_left]}>
+              <View style={[styles.arrow, styles.arrow_left]} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={ _ => handleNextSlide()}
+              style={[styles.arrow_circle, styles.arrow_circle_right]}>
+              <View style={[styles.arrow, styles.arrow_right]} />
             </TouchableOpacity>
           </View>
-        ): null }
-        <TouchableOpacity
-          style={[styles.cart_btn, cartContext.cart.includes(cartContext.chosenProduct) ? styles.cart_btn_on : null]}
-          disabled={cartContext.menuToggle}
-          onPress={ _ => handleCartAdd() }>
-          <Text style={styles.cart_btn_text}>Add to Cart</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+          { toggle ? (
+            <View style={styles.size_select}>
+              <Text style={styles.size_selection_heading}>Sizes</Text>
+              { sizes.map(el => {
+                return (
+                  <TouchableOpacity
+                    key={el}
+                    onPressIn={ _ => handleSetSize(el)}
+                    style={styles.size_selction}>
+                    <Text style={styles.size_selection_text}>{el}</Text>
+                  </TouchableOpacity>
+                )
+              })}
+            </View>
+          ) : null }
+          <View style={styles.info_box}>
+            <View style={styles.heading}>
+              <Text style={styles.title}>{cartContext.chosenProduct.product}</Text>
+              <Text style={styles.desc}>{cartContext.chosenProduct.description}</Text>
+            </View>
+            <View style={styles.prod_price}>
+              <Text style={styles.prod_price_text}>{`$${cartContext.chosenProduct.price}`}</Text>
+            </View>
+          </View>
+          { category === "Sweatshirts" || category === "Shirt" ? (
+            <View style={styles.bb}>
+              <TouchableOpacity
+                style={[styles.size_btn, error ? styles.size_btn_error : null]}
+                disabled={cartContext.menuToggle}
+                onPress={ _ => handleSizeSelectToggle() }>
+                <Text style={styles.size_btn_text}>{ size ? `Size: ${size}` : 'Select Size'}</Text>
+              </TouchableOpacity>
+            </View>
+          ): null }
+          <TouchableOpacity
+            style={[styles.cart_btn, cartContext.cart.includes(cartContext.chosenProduct) ? styles.cart_btn_on : null]}
+            disabled={cartContext.menuToggle}
+            onPress={ _ => handleCartAdd() }>
+            <Text style={styles.cart_btn_text}>Add to Cart</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </>
   );
 };
 

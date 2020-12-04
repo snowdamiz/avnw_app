@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -13,7 +13,7 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
   );
 }
@@ -100,67 +100,69 @@ export default function BookingStepThree(props) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
-        <View style={styles.content}>
-          { Platform.OS === 'ios' ? (
-            <View style={styles.btn_view}>
-              <TouchableOpacity onPressIn={ _ => props.navigation.goBack()}>
-                <View style={styles.back_btn}>
-                  <Text style={styles.back_btn_text}>Back</Text>
-                </View>
-              </TouchableOpacity>
+      <SafeAreaView style={styles.container}>
+        <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
+          <View style={styles.content}>
+            { Platform.OS === 'ios' ? (
+              <View style={styles.btn_view}>
+                <TouchableOpacity onPressIn={ _ => props.navigation.goBack()}>
+                  <View style={styles.back_btn}>
+                    <Text style={styles.back_btn_text}>Back</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            ) : null }
+            <View style={styles.text_box}>
+              <Text style={styles.text_title}>Step Three</Text>
+              <Text style={styles.text_content}>Choose your shoot location and date</Text>
             </View>
-          ) : null }
-          <View style={styles.text_box}>
-            <Text style={styles.text_title}>Step Three</Text>
-            <Text style={styles.text_content}>Choose your shoot location and date</Text>
+            <View style={styles.address_box}>
+              { error.includes(1) ? (
+                <View style={styles.error_box}>
+                  <Text style={styles.error_text}>Please Enter a Valid City</Text>
+                </View>
+              ): null }
+              { error.includes(2) ? (
+                <View style={styles.error_box}>
+                  <Text style={styles.error_text}>Please Enter a Valid State</Text>
+                </View>
+              ): null }
+              { error.includes(3) ? (
+                <View style={styles.error_box}>
+                  <Text style={styles.error_text}>Please Enter a Valid Date</Text>
+                </View>
+              ): null }
+              <TextInput 
+                style={[styles.input, error.includes(1) ? styles.input_err : null ]}
+                placeholder={'City'}
+                placeholderTextColor='#fff'
+                onChangeText={e => handleSetCity(e)}
+                value={city}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input, error.includes(2) ? styles.input_err : null ]}
+                placeholder={'State'}
+                placeholderTextColor='#fff'
+                onChangeText={e => handleSetState(e)}
+                value={state}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input, error.includes(3) ? styles.input_err : null ]}
+                placeholder={'Date: MM-DD-YY'}
+                placeholderTextColor='#fff'
+                onChangeText={e => handleSetDate(e)}
+                value={date}>
+              </TextInput>
+            </View>
+            <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleSubmit() }>
+              <Text style={styles.continue_btn_text}>Continue</Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.address_box}>
-            { error.includes(1) ? (
-              <View style={styles.error_box}>
-                <Text style={styles.error_text}>Please Enter a Valid City</Text>
-              </View>
-            ): null }
-            { error.includes(2) ? (
-              <View style={styles.error_box}>
-                <Text style={styles.error_text}>Please Enter a Valid State</Text>
-              </View>
-            ): null }
-            { error.includes(3) ? (
-              <View style={styles.error_box}>
-                <Text style={styles.error_text}>Please Enter a Valid Date</Text>
-              </View>
-            ): null }
-            <TextInput 
-              style={[styles.input, error.includes(1) ? styles.input_err : null ]}
-              placeholder={'City'}
-              placeholderTextColor='#fff'
-              onChangeText={e => handleSetCity(e)}
-              value={city}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, error.includes(2) ? styles.input_err : null ]}
-              placeholder={'State'}
-              placeholderTextColor='#fff'
-              onChangeText={e => handleSetState(e)}
-              value={state}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, error.includes(3) ? styles.input_err : null ]}
-              placeholder={'Date: MM-DD-YY'}
-              placeholderTextColor='#fff'
-              onChangeText={e => handleSetDate(e)}
-              value={date}>
-            </TextInput>
-          </View>
-          <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleSubmit() }>
-            <Text style={styles.continue_btn_text}>Continue</Text>
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
-    </SafeAreaView>
+        </LinearGradient>
+      </SafeAreaView>
+    </>
   );
 };
 

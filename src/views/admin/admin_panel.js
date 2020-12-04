@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, StatusBar, View } from 'react-native';
+import { StyleSheet, ScrollView, View, SafeAreaView, StatusBar } from 'react-native';
 import Header from '../../components/header.js';
 import PhotographersContent from '../../components/admin/photographers_content.js';
 import ServicesContent from '../../components/admin/services_content.js';
@@ -8,7 +8,7 @@ import MerchOrderContent from '../../components/admin/merch_order_content.js';
 import ServiceOrderContent from '../../components/admin/service_order_content.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -17,22 +17,24 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar backgroundColor="#009cd8" barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8" />
     </View>
   );
 }
 
 export default function AdminPanel(props) {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <Header navigation={props.navigation} />
-      <PhotographersContent navigation={props.navigation} />
-      <ServicesContent navigation={props.navigation} />
-      <ProductContent navigation={props.navigation} />
-      <MerchOrderContent navigation={props.navigation} />
-      <ServiceOrderContent navigation={props.navigation} />
-    </ScrollView>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Header navigation={props.navigation} />
+        <PhotographersContent navigation={props.navigation} />
+        <ServicesContent navigation={props.navigation} />
+        <ProductContent navigation={props.navigation} />
+        <MerchOrderContent navigation={props.navigation} />
+        <ServiceOrderContent navigation={props.navigation} />
+      </ScrollView>
+    </>
   );
 };
 

@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     wrap: {
       width: Dimensions.get('screen').width - 40,
       marginTop: 20,
+      paddingBottom: 20,
       backgroundColor: '#fff',
       borderRadius: 6,
       shadowColor: "#000",

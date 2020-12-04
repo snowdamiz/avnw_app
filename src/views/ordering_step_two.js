@@ -7,7 +7,7 @@ import Context from '../context/context.js';
 import { Dimensions, StyleSheet, SafeAreaView, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -16,7 +16,7 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
   );
 }
@@ -125,63 +125,65 @@ export default function OrderingStepTwo(props) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
-        <View style={styles.content}>
-          <View style={styles.text_box}>
-            <Text style={styles.text_title}>Shipping Address</Text>
-            <Text style={styles.text_content}>What is your shipping address?</Text>
+      <SafeAreaView style={styles.container}>
+        <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
+          <View style={styles.content}>
+            <View style={styles.text_box}>
+              <Text style={styles.text_title}>Shipping Address</Text>
+              <Text style={styles.text_content}>What is your shipping address?</Text>
+            </View>
+            <View style={styles.address_box}>
+              { error.length > 0 ? (
+                <View style={styles.error_box}>
+                  <Text style={styles.error_text}>Please Enter a Valid Address</Text>
+                </View>
+              ): null}
+              <TextInput 
+                style={[styles.input, styles.address_input, error.includes(1) ? styles.input_err : null]}
+                placeholder={'Address'}
+                placeholderTextColor='#fff'
+                onChangeText={e => handleSetAddress(e)}
+                value={address}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input, styles.unit_input, error.includes(2) ? styles.input_err : null ]}
+                placeholder={'Unit'}
+                placeholderTextColor='#fff'
+                onChangeText={e => handleSetUnit(e)}
+                value={unit}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input, styles.city_input, error.includes(3) ? styles.input_err : null ]}
+                placeholder={'City'}
+                placeholderTextColor='#fff'
+                onChangeText={e => handleSetCity(e)}
+                value={city}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input, styles.state_input, error.includes(4) ? styles.input_err : null ]}
+                placeholder={'State'}
+                placeholderTextColor='#fff'
+                onChangeText={e => handleSetState(e)}
+                value={state}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input, styles.zip_input, error.includes(5) ? styles.input_err : null ]}
+                placeholder={'Zip'}
+                placeholderTextColor='#fff'
+                onChangeText={e => handleSetZip(e)}
+                value={zip ? zip.toString() : zip}
+                keyboardType={'numeric'}>
+              </TextInput>
+            </View>
+            <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleSubmit() }>
+              <Text style={styles.continue_btn_text}>Continue</Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.address_box}>
-            { error.length > 0 ? (
-              <View style={styles.error_box}>
-                <Text style={styles.error_text}>Please Enter a Valid Address</Text>
-              </View>
-            ): null}
-            <TextInput 
-              style={[styles.input, styles.address_input, error.includes(1) ? styles.input_err : null]}
-              placeholder={'Address'}
-              placeholderTextColor='#fff'
-              onChangeText={e => handleSetAddress(e)}
-              value={address}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, styles.unit_input, error.includes(2) ? styles.input_err : null ]}
-              placeholder={'Unit'}
-              placeholderTextColor='#fff'
-              onChangeText={e => handleSetUnit(e)}
-              value={unit}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, styles.city_input, error.includes(3) ? styles.input_err : null ]}
-              placeholder={'City'}
-              placeholderTextColor='#fff'
-              onChangeText={e => handleSetCity(e)}
-              value={city}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, styles.state_input, error.includes(4) ? styles.input_err : null ]}
-              placeholder={'State'}
-              placeholderTextColor='#fff'
-              onChangeText={e => handleSetState(e)}
-              value={state}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, styles.zip_input, error.includes(5) ? styles.input_err : null ]}
-              placeholder={'Zip'}
-              placeholderTextColor='#fff'
-              onChangeText={e => handleSetZip(e)}
-              value={zip ? zip.toString() : zip}
-              keyboardType={'numeric'}>
-            </TextInput>
-          </View>
-          <TouchableOpacity style={styles.continue_btn} onPress={ _ => handleSubmit() }>
-            <Text style={styles.continue_btn_text}>Continue</Text>
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
-    </SafeAreaView>
+        </LinearGradient>
+      </SafeAreaView>
+    </>
   );
 };
 

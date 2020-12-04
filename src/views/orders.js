@@ -3,7 +3,7 @@ import Header from '../components/header.js';
 import OrdersContent from '../components/orders_content.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -12,7 +12,7 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
   );
 }
@@ -21,15 +21,18 @@ import {
   StyleSheet,
   SafeAreaView,
   StatusBar,
+  View,
 } from 'react-native';
 
 export default function Orders(props) {
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <Header navigation={props.navigation} />
-      <OrdersContent navigation={props.navigation} />
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <Header navigation={props.navigation} />
+        <OrdersContent navigation={props.navigation} />
+      </SafeAreaView>
+    </>
   )
 };
 

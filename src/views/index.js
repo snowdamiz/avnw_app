@@ -16,7 +16,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -25,30 +25,32 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
   );
 }
 
 export default function Index(props) {
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
-        <View style={styles.content}>
-          <Image source={Logo_large} style={styles.logo} />
-          <Image source={BG} style={styles.bg} />
-          <View style={styles.buttons_container}>
-            <TouchableOpacity style={styles.shoot_btn} onPress={ _ => props.navigation.navigate('BookingStepOne')}>
-              <Text style={styles.shoot_btn_text}>Book a Photo Shoot</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.merch_btn} onPress={ _ => props.navigation.navigate('Store')}>
-              <Text style={styles.merch_btn_text}>Merch Store</Text>
-            </TouchableOpacity>
+      <SafeAreaView style={styles.container}>
+        <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
+          <View style={styles.content}>
+            <Image source={Logo_large} style={styles.logo} />
+            <Image source={BG} style={styles.bg} />
+            <View style={styles.buttons_container}>
+              <TouchableOpacity style={styles.shoot_btn} onPress={ _ => props.navigation.navigate('BookingStepOne')}>
+                <Text style={styles.shoot_btn_text}>Book a Photo Shoot</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.merch_btn} onPress={ _ => props.navigation.navigate('Store')}>
+                <Text style={styles.merch_btn_text}>Merch Store</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </LinearGradient>
-    </SafeAreaView>
+        </LinearGradient>
+      </SafeAreaView>
+    </>
   );
 };
 

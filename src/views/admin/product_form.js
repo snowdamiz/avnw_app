@@ -7,7 +7,7 @@ import Context from '../../context/context.js';
 import Header from '../../components/header.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -16,7 +16,7 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
   );
 }
@@ -138,79 +138,81 @@ export default function ProductForm(props) {
   }
 
   return (
-    <SafeAreaView
-      style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <Header navigation={props.navigation} />
-        <View style={styles.wrap}>
-          <Text style={styles.title}>
-            { cartContext.adminProductInteraction === 'new' ? 'New Product' : 'Edit Product' }
-          </Text>
-          <View style={styles.content}>
-            <TextInput 
-              style={[styles.input]}
-              placeholder={'Product'}
-              placeholderTextColor='#393939'
-              onChangeText={(e) => handleProductName(e)}
-              value={productName}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input]}
-              keyboardType={'numeric'}
-              placeholder={'Price'}
-              placeholderTextColor='#393939'
-              onChangeText={(e) => handleProductPrice(e)}
-              value={productPrice}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input]}
-              placeholder={'Category'}
-              placeholderTextColor='#393939'
-              onChangeText={(e) => handleProductCategory(e)}
-              value={productCategory}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input]}
-              placeholder={'Image One'}
-              placeholderTextColor='#393939'
-              onChangeText={(e) => handleProductImageOne(e)}
-              value={productImageOne}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input]}
-              placeholder={'Image Two'}
-              placeholderTextColor='#393939'
-              onChangeText={(e) => handleProductImageTwo(e)}
-              value={productImageTwo}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input]}
-              placeholder={'Image Three'}
-              placeholderTextColor='#393939'
-              onChangeText={(e) => handleProductImageThree (e)}
-              value={productImageThree}>
-            </TextInput>
-            <TextInput 
-              style={[styles.input, styles.bio_intput]}
-              multiline={true}
-              placeholder={'Description'}
-              placeholderTextColor='#393939'
-              onChangeText={(e) => handleProductDescription(e)}
-              value={productDescription}>
-            </TextInput>
+      <SafeAreaView
+        style={styles.container}>
+        <Header navigation={props.navigation} />
+          <View style={styles.wrap}>
+            <Text style={styles.title}>
+              { cartContext.adminProductInteraction === 'new' ? 'New Product' : 'Edit Product' }
+            </Text>
+            <View style={styles.content}>
+              <TextInput 
+                style={[styles.input]}
+                placeholder={'Product'}
+                placeholderTextColor='#393939'
+                onChangeText={(e) => handleProductName(e)}
+                value={productName}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input]}
+                keyboardType={'numeric'}
+                placeholder={'Price'}
+                placeholderTextColor='#393939'
+                onChangeText={(e) => handleProductPrice(e)}
+                value={productPrice}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input]}
+                placeholder={'Category'}
+                placeholderTextColor='#393939'
+                onChangeText={(e) => handleProductCategory(e)}
+                value={productCategory}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input]}
+                placeholder={'Image One'}
+                placeholderTextColor='#393939'
+                onChangeText={(e) => handleProductImageOne(e)}
+                value={productImageOne}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input]}
+                placeholder={'Image Two'}
+                placeholderTextColor='#393939'
+                onChangeText={(e) => handleProductImageTwo(e)}
+                value={productImageTwo}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input]}
+                placeholder={'Image Three'}
+                placeholderTextColor='#393939'
+                onChangeText={(e) => handleProductImageThree (e)}
+                value={productImageThree}>
+              </TextInput>
+              <TextInput 
+                style={[styles.input, styles.bio_intput]}
+                multiline={true}
+                placeholder={'Description'}
+                placeholderTextColor='#393939'
+                onChangeText={(e) => handleProductDescription(e)}
+                value={productDescription}>
+              </TextInput>
+            </View>
+            <View style={styles.btns_box}>
+              <TouchableOpacity style={styles.btn} onPress={ _ => handleCancel()}>
+                <Text style={styles.btn_text}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.btn, styles.btn_add]} onPress={ _ => handleFormType()}>
+                <Text style={styles.btn_text}>
+                { cartContext.adminProductInteraction === 'new' ? 'Add' : 'Edit' }
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.btns_box}>
-            <TouchableOpacity style={styles.btn} onPress={ _ => handleCancel()}>
-              <Text style={styles.btn_text}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.btn, styles.btn_add]} onPress={ _ => handleFormType()}>
-              <Text style={styles.btn_text}>
-              { cartContext.adminProductInteraction === 'new' ? 'Add' : 'Edit' }
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 };
 

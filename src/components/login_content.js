@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
     },
 
     login_box: {
+      marginTop: -50,
       width: '75%',
       minHeight: 400,
       paddingLeft: 10,

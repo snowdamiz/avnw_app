@@ -140,11 +140,6 @@ const styles = StyleSheet.create({
     zIndex: 10,
     elevation: 16,
     backgroundColor: '#009cd8',
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 10,
-    shadowOpacity: 0.6,
-    shadowRadius: 3,
   },
 
     logo_box: {

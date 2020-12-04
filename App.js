@@ -13,7 +13,6 @@ import Cart from './src/views/cart.js';
 import Profile from './src/views/profile.js';
 import Login from './src/views/login.js';
 import MerchOrderOverview from './src/views/merch_order_overview.js';
-import BasicInfoStep from './src/views/basic_info_step.js';
 import Gallery from './src/views/gallery.js';
 import AdminPanel from './src/views/admin/admin_panel.js';
 import PhotographerForm from './src/views/admin/photographer_form.js';
@@ -61,9 +60,6 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="MerchOrderOverview">
             { props => <MerchOrderOverview {...props} />}
-          </Stack.Screen>
-          <Stack.Screen name="BasicInfoStep">
-            { props => <BasicInfoStep {...props} />}
           </Stack.Screen>
           <Stack.Screen name="Gallery">
             { props => <Gallery {...props} />}

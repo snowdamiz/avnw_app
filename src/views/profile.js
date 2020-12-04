@@ -6,7 +6,7 @@ import EditShipping from '../components/micro/edit_shipping.js';
 import ProfileContent from '../components/profile_content.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -15,7 +15,7 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
   );
 }
@@ -39,18 +39,20 @@ export default function Profile(props) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <Header navigation={props.navigation} />
-      <ProfileContent navigation={props.navigation} />
-      { cartContext.editAccountToggle ? <EditAccount /> : null }
-      { cartContext.editShippingToggle ? <EditShipping /> : null }
-      { cartContext.editAccountToggle || cartContext.editShippingToggle ? (
-        <View style={styles.cover}>
-          <TouchableOpacity style={styles.profile_menu_reset} onPressIn={ _ => handleCover()} />
-        </View>
-        ): null }
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <Header navigation={props.navigation} />
+        <ProfileContent navigation={props.navigation} />
+        { cartContext.editAccountToggle ? <EditAccount /> : null }
+        { cartContext.editShippingToggle ? <EditShipping /> : null }
+        { cartContext.editAccountToggle || cartContext.editShippingToggle ? (
+          <View style={styles.cover}>
+            <TouchableOpacity style={styles.profile_menu_reset} onPressIn={ _ => handleCover()} />
+          </View>
+          ): null }
+      </SafeAreaView>
+    </>
   )
 };
 

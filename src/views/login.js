@@ -2,7 +2,7 @@ import React from 'react';
 import LoginContent from '../components/login_content.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -11,7 +11,7 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
   );
 }
@@ -25,10 +25,12 @@ import {
 
 export default function Login(props) {
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <LoginContent navigation={props.navigation} />
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <LoginContent navigation={props.navigation} />
+      </SafeAreaView>
+    </>
   )
 };
 

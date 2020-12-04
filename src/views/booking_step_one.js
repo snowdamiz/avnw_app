@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -13,7 +13,7 @@ function StatusBarPlaceHolder() {
       height: STATUS_BAR_HEIGHT,
       backgroundColor: "#009cd8"
     }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
   );
 }
@@ -43,63 +43,65 @@ export default function BookingStepOne(props) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBarPlaceHolder />
-      <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
-        { Platform.OS === 'ios' ? (
-          <View style={styles.btn_view}>
-            <TouchableOpacity onPressIn={ _ => props.navigation.goBack()}>
-              <View style={styles.back_btn}>
-                <Text style={styles.back_btn_text}>Back</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        ) : null }
-        <View style={styles.content}>
-          { cartContext.photographers.length > 0 ? (
-            <>
-              <View style={styles.text_box}>
-                <Text style={styles.text_title}>Step One</Text>
-                <Text style={styles.text_content}>Choose your photographer</Text>
-              </View>
-              <View style={[styles.photographer_box, showDetails ? styles.photographer_box_on : null ]}>
-                { cartContext.photographers.map(el => {
-                  return (
-                    <TouchableOpacity key={el.id} onPress={ _ => handleDetails(el) }>
-                      <Image
-                        source={{ uri: el.profile_image }}
-                        style={styles.photographer_IMG}
-                      />
-                      { showDetails ? (
-                        <View style={cartContext.curPhotographer.id == el.id ? styles.arrow : null}></View>
-                      ) : null }
-                    </TouchableOpacity>
-                  )
-                })}
-              </View>
-            </>
-          ) : <ActivityIndicator color="#fff" size="large" style={styles.indicator} /> }
-          { showDetails ? (
-            <View style={styles.details_box}>
-              <Text style={styles.details_name}>{cartContext.curPhotographer.name}</Text>
-              <Text style={styles.details_bio}>{cartContext.curPhotographer.bio}</Text>
-              <View style={styles.details_btn_box}>
-                <TouchableOpacity
-                  style={[ styles.details_btn, styles.gallery_btn]}
-                  onPress={ _ => props.navigation.navigate('Gallery')}>
-                  <Text style={styles.gallery_btn_text}>See my Gallery</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[ styles.details_btn, styles.choose_btn]}
-                  onPress={ _ => props.navigation.navigate('BookingStepTwo') }>
-                  <Text style={styles.choose_btn_text}>Choose {cartContext.curPhotographer.name}</Text>
-                </TouchableOpacity>
-              </View>
+      <View style={styles.container}>
+        <LinearGradient colors={['#009cd8', '#008CC1', '#0080B1']} style={styles.gradient} >
+          { Platform.OS === 'ios' ? (
+            <View style={styles.btn_view}>
+              <TouchableOpacity onPressIn={ _ => props.navigation.goBack()}>
+                <View style={styles.back_btn}>
+                  <Text style={styles.back_btn_text}>Back</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           ) : null }
-        </View>
-      </LinearGradient>
-    </SafeAreaView>
+          <View style={styles.content}>
+            { cartContext.photographers.length > 0 ? (
+              <>
+                <View style={styles.text_box}>
+                  <Text style={styles.text_title}>Step One</Text>
+                  <Text style={styles.text_content}>Choose your photographer</Text>
+                </View>
+                <View style={[styles.photographer_box, showDetails ? styles.photographer_box_on : null ]}>
+                  { cartContext.photographers.map(el => {
+                    return (
+                      <TouchableOpacity key={el.id} onPress={ _ => handleDetails(el) }>
+                        <Image
+                          source={{ uri: el.profile_image }}
+                          style={styles.photographer_IMG}
+                        />
+                        { showDetails ? (
+                          <View style={cartContext.curPhotographer.id == el.id ? styles.arrow : null}></View>
+                        ) : null }
+                      </TouchableOpacity>
+                    )
+                  })}
+                </View>
+              </>
+            ) : <ActivityIndicator color="#fff" size="large" style={styles.indicator} /> }
+            { showDetails ? (
+              <View style={styles.details_box}>
+                <Text style={styles.details_name}>{cartContext.curPhotographer.name}</Text>
+                <Text style={styles.details_bio}>{cartContext.curPhotographer.bio}</Text>
+                <View style={styles.details_btn_box}>
+                  <TouchableOpacity
+                    style={[ styles.details_btn, styles.gallery_btn]}
+                    onPress={ _ => props.navigation.navigate('Gallery')}>
+                    <Text style={styles.gallery_btn_text}>See my Gallery</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[ styles.details_btn, styles.choose_btn]}
+                    onPress={ _ => props.navigation.navigate('BookingStepTwo') }>
+                    <Text style={styles.choose_btn_text}>Choose {cartContext.curPhotographer.name}</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : null }
+          </View>
+        </LinearGradient>
+      </View>
+    </>
   );
 };
 
