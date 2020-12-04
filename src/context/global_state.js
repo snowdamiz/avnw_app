@@ -267,6 +267,7 @@ export default class GlobalState extends React.Component{
   photographerEditRESET = _ => this.setState({ photographerEdit: [] });
   serviceEditingRESET = _ => this.setState({ serviceEditing: [] });
   productEditingRESET = _ => this.setState({ productEditing: [] });
+  cartRESET = _ => this.setState({ cart: [] });
 
   setMenuToggleOff = _ => this.setState({ menuToggle: false });
 
@@ -355,6 +356,7 @@ export default class GlobalState extends React.Component{
           photographerEditRESET: this.photographerEditRESET,
           serviceEditingRESET: this.serviceEditingRESET,
           productEditingRESET: this.productEditingRESET,
+          cartRESET: this.cartRESET,
           setMerchOrdersALL: this.setMerchOrdersALL,
           setServiceOrdersALL: this.setServiceOrdersALL,
           setChosenPhotographer: this.setChosenPhotographer,

@@ -48,6 +48,7 @@ export default function StripeCheckout(props) {
 
       if (makePayment) {
         props.navigation.navigate('Orders');
+        cartContext.cartRESET();
         setLoading(false);
       } else {
         console.log('Could not make the payment');
