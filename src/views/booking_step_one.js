@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Dimensions, StyleSheet, StatusBar, View, Image, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -18,22 +18,8 @@ function StatusBarPlaceHolder() {
   );
 }
 
-import {
-  Dimensions,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  View,
-  Image,
-  TouchableOpacity,
-  Text,
-  ActivityIndicator,
-} from 'react-native';
-
 export default function BookingStepOne(props) {
   const cartContext = useContext(Context);
-  const route = useRoute();
-
   const [showDetails, setShowDetails] = useState(false);
 
   // Handle choosing and viewing details
@@ -120,7 +106,6 @@ const styles = StyleSheet.create({
       height: '100%',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      // borderWidth: 1,
     },
 
       btn_view: {
@@ -128,9 +113,6 @@ const styles = StyleSheet.create({
       },
 
       back_btn: {
-        // position: 'absolute',
-        // borderWidth: 1,
-        // alignSelf: 'flex-start',
         marginTop: 15,
         marginLeft: 15,
         paddingTop: 10,
@@ -139,14 +121,10 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         borderRadius: 20,
         backgroundColor: '#0078A4',
-        // elevation: 5,
-        // zIndex: 10,
-        // elevation: ,
       },
 
         back_btn_text: {
           fontWeight: 'bold',
-          // opacity: 0.65,
           color: '#fff',
         },
 

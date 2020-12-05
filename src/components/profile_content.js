@@ -1,16 +1,7 @@
 import React, { useContext } from 'react';
 import Context from '../context/context.js';
 import EditBTN from '../assets/edit.png';
-
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { Dimensions, StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 export default function ProfileContent(props) {
   const cartContext = useContext(Context);
@@ -140,9 +131,7 @@ const styles = StyleSheet.create({
           },
 
     content: {
-      // marginLeft: 5,
       marginTop: 10,
-      // borderWidth: 1,
       borderRadius: 6,
       padding: 5,
       backgroundColor: '#efefef',

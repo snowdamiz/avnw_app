@@ -212,7 +212,6 @@ const styles = StyleSheet.create({
 
       buttons: {
         width: '100%',
-        // borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -221,7 +220,6 @@ const styles = StyleSheet.create({
 
         btn: {
           width: Dimensions.get('screen').width / 2 - 50,
-          // borderWidth: 1,
           padding: 8,
           textAlign: 'center',
           borderRadius: 4,
@@ -278,7 +276,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
       },
       row_long: {
-        // paddingBottom: 12,
         flexDirection: 'column',
         justifyContent: 'flex-start',
       },

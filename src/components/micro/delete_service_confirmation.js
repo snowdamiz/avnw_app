@@ -27,9 +27,7 @@ export default function DeleteServiceConfirmation() {
   }
 
   // Handle Delete Cancelation
-  const handleCancelDelete = _ => {
-    cartContext.handleDeleteServiceConfirmation();
-  }
+  const handleCancelDelete = _ => cartContext.handleDeleteServiceConfirmation();
 
   return (
     <View>

@@ -3,16 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
-
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { Dimensions, StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 export default function OrdersContent(props) {
   const [toggleMerch, setToggleMerch] = useState(true);
@@ -141,7 +132,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: Dimensions.get('screen').width,
-    // borderWidth: 1,
   },
 
     wrap: {
@@ -162,7 +152,6 @@ const styles = StyleSheet.create({
     },
 
       header: {
-        // width: '100%',
         borderTopLeftRadius: 6,
         borderTopRightRadius: 6,
         padding: 15,
@@ -214,7 +203,6 @@ const styles = StyleSheet.create({
 
         err: {
           width: '100%',
-          // borderWidth: 1,
           backgroundColor: '#fff',
           borderBottomLeftRadius: 6,
           borderBottomRightRadius: 6,
@@ -228,7 +216,6 @@ const styles = StyleSheet.create({
         order: {
           width: '100%',
           backgroundColor: '#fff',
-          // borderWidth: 1,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',

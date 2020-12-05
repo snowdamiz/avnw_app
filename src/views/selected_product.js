@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
 import Header from '../components/header.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Dimensions, StyleSheet, StatusBar, View, Image, TouchableOpacity, Text } from 'react-native';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -19,17 +18,6 @@ function StatusBarPlaceHolder() {
   );
 }
 
-import {
-  Dimensions,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  View,
-  Image,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
-
 export default function SelectedProduct(props) {
   const [images, setImages] = useState([]);
   const [imgIndex, setImgIndex] = useState(0);
@@ -40,7 +28,6 @@ export default function SelectedProduct(props) {
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 
   const cartContext = useContext(Context);
-  const route = useRoute();
 
   useEffect( _ => {
     let product = cartContext.chosenProduct;
@@ -162,7 +149,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     width: '100%',
     height: '100%',
-    // backgroundColor: '#fff',
   },
 
     content: {
@@ -170,13 +156,11 @@ const styles = StyleSheet.create({
       height: '100%',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      // borderWidth: 1,
       backgroundColor: '#F0ECEC',
     },
 
       img_box: {
         width: '100%',
-        // borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
@@ -202,7 +186,6 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 30,
-        // borderWidth: 1,
         backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
@@ -277,7 +260,6 @@ const styles = StyleSheet.create({
 
         size_selction: {
           width: '100%',
-          // borderWidth: 1,
           backgroundColor: '#F0F0F0',
           marginTop: 5,
         },
@@ -290,18 +272,13 @@ const styles = StyleSheet.create({
 
       info_box: {
         width: '100%',
-        // height: '100%',
-        // padding: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // alignItems: 'center',
         padding: 25,
-        // borderWidth: 1, 
       },
 
         heading: {
           width: Dimensions.get('screen').width - 120,
-          // borderWidth: 1,
         },
 
           title: {
@@ -320,7 +297,6 @@ const styles = StyleSheet.create({
           color: '#fff',
           backgroundColor: '#009cd8',
           borderRadius: 40,
-          // borderColor: '#01A9A5',
           width: 80,
           height: 80,
           justifyContent: 'center',
@@ -345,12 +321,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        // alignSelf: 'flex-start',
-        // borderWidth: 1,
-        // padding: 10,
-        // backgroundColor: 'red',
-        // marginTop: -400,
-        // position: 'absolute',
       },
 
         size_btn: {
@@ -392,7 +362,6 @@ const styles = StyleSheet.create({
             color: '#fff',
             fontWeight: 'bold',
             fontSize: 14,
-            // opacity: 0.7,
           },
 
         cart_btn_on: {
@@ -405,18 +374,4 @@ const styles = StyleSheet.create({
             fontWeight: 'bold',
             fontSize: 12,
           },
-
-      // arrow: {
-      //   width: 0,
-      //   height: 0,
-      //   borderLeftWidth: 8,
-      //   borderRightWidth: 8,
-      //   borderTopWidth: 13,
-      //   borderStyle: 'solid',
-      //   backgroundColor: 'transparent',
-      //   borderLeftColor: 'transparent',
-      //   borderRightColor: 'transparent',
-      //   borderTopColor: '#000',
-      //   opacity: 0.5,
-      // }
 });

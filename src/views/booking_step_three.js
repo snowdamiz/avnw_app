@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Dimensions, StyleSheet, StatusBar, View, TouchableOpacity, TextInput, Text, Platform } from 'react-native'; 
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -18,21 +18,8 @@ function StatusBarPlaceHolder() {
   );
 }
 
-import {
-  Dimensions,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Text,
-  Platform,
-} from 'react-native';
-
 export default function BookingStepThree(props) {
   const cartContext = useContext(Context);
-  const route = useRoute();
 
   const [error, setError] = useState([]);
   const [city, setCity] = useState(cartContext.shootLocation.city);
@@ -179,7 +166,6 @@ const styles = StyleSheet.create({
     content: {
       width: Dimensions.get('screen').width,
       flexDirection: 'column',
-      // justifyContent: 'center',
       alignItems: 'center',
       height: '100%',
     },
@@ -189,9 +175,6 @@ const styles = StyleSheet.create({
       },
 
       back_btn: {
-        // position: 'absolute',
-        // borderWidth: 1,
-        // alignSelf: 'flex-start',
         marginTop: 15,
         marginLeft: 15,
         paddingTop: 10,
@@ -200,14 +183,10 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         borderRadius: 20,
         backgroundColor: '#0078A4',
-        // elevation: 5,
-        // zIndex: 10,
-        // elevation: ,
       },
 
         back_btn_text: {
           fontWeight: 'bold',
-          // opacity: 0.65,
           color: '#fff',
         },
 
@@ -216,7 +195,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         flexDirection: 'column',
-        // marginTop: Dimensions.get('screen').height / 2 - 220,
         marginTop: 40,
       },
 

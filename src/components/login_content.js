@@ -1,30 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-
 import LogoIMG from '../assets/logo_large_blue.png';
 import Context from '../context/context.js';
-
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  TextInput,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { Dimensions, StyleSheet, View, TextInput, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 export default function Login(props) {
   const cartContext = useContext(Context);
-  const route = useRoute();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [err, setErr] = useState();
-  const [token, setToken] = useState();
 
   const handleEmail = e => setEmail(e)
   const handlePassword = e => setPassword(e)
@@ -144,7 +129,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: Dimensions.get('screen').width,
-    // borderWidth: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -152,7 +136,6 @@ const styles = StyleSheet.create({
 
     login_header_text: {
       color: '#fff',
-      // fontWeight: 'bold',
       fontSize: 14,
       width: '45%',
       textAlign: 'center',
@@ -166,7 +149,6 @@ const styles = StyleSheet.create({
       minHeight: 400,
       paddingLeft: 10,
       paddingRight: 10,
-      // borderWidth: 1,
       flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -191,7 +173,6 @@ const styles = StyleSheet.create({
         marginTop: 15,
         width: 140,
         height: 140,
-        // borderWidth: 1,
         borderColor: '#000',
       },
 
@@ -209,7 +190,6 @@ const styles = StyleSheet.create({
 
       input: {
         width: '100%',
-        // borderWidth: 1,
         padding: 12,
         borderRadius: 6,
         opacity: 0.8,
@@ -218,13 +198,12 @@ const styles = StyleSheet.create({
 
         input_password: {
           marginTop: 10,
-          // marginBottom: 15,
+
         },
 
       btn: {
         width: '100%',
         padding: 12,
-        // borderWidth: 1,
         borderRadius: 6,
         marginTop: 10,
       },
@@ -236,10 +215,6 @@ const styles = StyleSheet.create({
       btn_signup: {
         backgroundColor: '#015C7F',
         marginBottom: 10,
-        // shadowOffset: { width: 0, height: 0 },
-        // shadowOpacity: 1,
-        // shadowRadius: 6,
-        // elevation: 4,
       },
 
         btn_text: {
@@ -256,7 +231,6 @@ const styles = StyleSheet.create({
         btn_text_signup: {
           fontWeight: 'bold',
           fontSize: 15,
-          // opacity: 0.60,
           color: '#fff',
         },
 });

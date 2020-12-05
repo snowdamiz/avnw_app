@@ -1,19 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Context from '../../context/context.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native'
+import { StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
 import { useRoute } from '@react-navigation/native';
 import { WebView } from 'react-native-webview'
 
-const STRIPE_PK = 'pk_test_eEz0rYKkWOWGHnE40nEDEucP00HIFzhAy0';
+const STRIPE_PK = 'pk_live_AUzulzbWhPDJgwGRez3gHcBB00oJ5lfR7v';
 
 export default function StripeCheckout(props) {
-  const [response, setResponse] = useState('');
-  const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const cartContext = useContext(Context);
-  const route = useRoute();
 
   useEffect( _ => {
     convertCartToDesc();
@@ -42,17 +38,13 @@ export default function StripeCheckout(props) {
         date: cartContext.date,
       }
 
-      console.log(data);
-
       const makePayment = await axios.post(`https://avnw-api.herokuapp.com/user/pay`, data);
 
       if (makePayment) {
         props.navigation.navigate('Orders');
         cartContext.cartRESET();
         setLoading(false);
-      } else {
-        console.log('Could not make the payment');
-      }
+      } else console.log('Could not make the payment');
     } catch (err) { console.log(err) }
   }
 
@@ -309,12 +301,8 @@ export default function StripeCheckout(props) {
     const { data } =  event.nativeEvent;
     const jsonData = JSON.parse(data)
 
-    if (jsonData.error) {
-      return;
-    } else {
-      // console.log(data);
-      onCheckStatus(data)
-    }
+    if (jsonData.error) return;
+    else onCheckStatus(data)
   }
 
   return (
@@ -336,7 +324,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width,
     backgroundColor: '#fff',
     height: '100%',
-    // borderWidth: 1,
     flex: 0,
   },
 

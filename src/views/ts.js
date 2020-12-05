@@ -1,41 +1,23 @@
-import React, { useState, useContext } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useRoute } from '@react-navigation/native';
-import Context from '../context/context.js';
+import React from 'react';
 import CloseIMG from '../assets/close.png';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Dimensions, StyleSheet, StatusBar, ScrollView, View, Image, TouchableOpacity, Text, Platform } from 'react-native';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
     <View style={{
       width: "100%",
       height: STATUS_BAR_HEIGHT,
-      backgroundColor: "#009cd8"
+      backgroundColor: "#fff"
     }}>
-      <StatusBar barStyle="dark-content" backgroundColor="#009cd8"/>
+      <StatusBar barStyle="dark-content" backgroundColor="#fff"/>
     </View>
   );
 }
 
-import {
-  Dimensions,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  ScrollView,
-  View,
-  Image,
-  TouchableOpacity,
-  Text,
-  Platform,
-} from 'react-native';
-
 export default function TS(props) {
-  const cartContext = useContext(Context);
-  const route = useRoute();
-
   return (
     <>
       <StatusBarPlaceHolder />
@@ -149,7 +131,6 @@ const styles = StyleSheet.create({
 
     content: {
       width: Dimensions.get('screen').width - 40,
-      // borderWidth: 1,
     },
 
     btn_view: {
@@ -158,9 +139,6 @@ const styles = StyleSheet.create({
     },
 
     back_btn: {
-      // position: 'absolute',
-      // borderWidth: 1,
-      // alignSelf: 'flex-start',
       marginTop: 15,
       marginLeft: 15,
       paddingTop: 10,
@@ -169,14 +147,10 @@ const styles = StyleSheet.create({
       paddingRight: 15,
       borderRadius: 20,
       backgroundColor: '#0078A4',
-      // elevation: 5,
-      // zIndex: 10,
-      // elevation: ,
     },
 
       back_btn_text: {
         fontWeight: 'bold',
-        // opacity: 0.65,
         color: '#fff',
       },
 

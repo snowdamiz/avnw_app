@@ -10,7 +10,6 @@ import Context from '../../context/context.js';
 
 export default function PhotographersContent(props) {
   const [toggle, setToggle] = useState(false);
-
   const cartContext = useContext(Context);
   
   useEffect( _ => {
@@ -98,7 +97,6 @@ export default function PhotographersContent(props) {
 const styles = StyleSheet.create({
   container: {
     zIndex: 2,
-    // flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     width: Dimensions.get('screen').width - 30,

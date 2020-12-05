@@ -1,10 +1,11 @@
 {
   "expo": {
-    "name": "avnw_app",
-    "slug": "avnw_app",
+    "name": "Alpha Visuals Northwest",
+    "slug": "expo.io/@120356aa/avnw_app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/icon.png",
+    "backgroundColor": "#ffffff",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -17,11 +18,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.alphavnw.alphavisualsnw",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.alphavnw.alphavisualsnw",
+      "versionCode": 1,
+      "permissions": []
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "description": ""
+      "favicon": "./src/assets/icon.png"
+    }
   }
 }

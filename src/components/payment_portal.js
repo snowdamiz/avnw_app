@@ -1,26 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Context from '../context/context.js';
 import StripeCheckout from './micro/stripe-checkout.js';
-
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  SafeAreaView,
-  Text,
-  TouchableNativeFeedback,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  StatusBar,
-  Plateform,
-} from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { StyleSheet, View, SafeAreaView, Text,TouchableOpacity, StatusBar } from 'react-native';
 
 export default function PaymentPortal(props) {
   const cartContext = useContext(Context);
-  const route = useRoute();
 
   const handleClose = _ => {
     console.log('Closed');
@@ -76,9 +60,6 @@ const styles = StyleSheet.create({
     },
 
     back_btn: {
-      // position: 'absolute',
-      // borderWidth: 1,
-      // alignSelf: 'flex-start',
       marginTop: 15,
       marginLeft: 15,
       paddingTop: 10,
@@ -87,14 +68,10 @@ const styles = StyleSheet.create({
       paddingRight: 15,
       borderRadius: 20,
       backgroundColor: '#0078A4',
-      // elevation: 5,
-      // zIndex: 10,
-      // elevation: ,
     },
 
       back_btn_text: {
         fontWeight: 'bold',
-        // opacity: 0.65,
         color: '#fff',
       },
 });

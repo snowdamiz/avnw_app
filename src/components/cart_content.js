@@ -1,20 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-
 import RemoveIMG from '../assets/error.png';
 import Context from '../context/context.js';
 import CheckIMG from '../assets/check.png';
-
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-} from 'react-native';
+import { Dimensions, StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
 export default function CartContent(props) {
@@ -56,7 +45,6 @@ export default function CartContent(props) {
   const handleOrderBtn = _ => {
     let name = cartContext.user.name;
     let address = cartContext.user.address;
-    let cart = cartContext.cart;
     let nav = props.navigation;
 
     if (cartContext.token) {
@@ -301,7 +289,6 @@ const styles = StyleSheet.create({
 
             cart_container_content_Q_input: {
               height: 24,
-              // width: 24,
               padding: 1,
               borderWidth: 1,
               marginRight: 22,
@@ -395,7 +382,6 @@ const styles = StyleSheet.create({
     },
 
       ts_warning: {
-        // borderWidth: 1,
         borderRadius: 4,
         width: '100%',
         backgroundColor: 'pink',
@@ -415,7 +401,6 @@ const styles = StyleSheet.create({
       ts_box: {
         padding: 10,
         width: '100%',
-        // marginTop: 5,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -452,10 +437,6 @@ const styles = StyleSheet.create({
             height: 12,
             opacity: 0.8,
           },
-
-        ckeckbox_text_box: {
-          // width: 150,
-        },
         
           checkbox_text: {
             opacity: 0.85,

@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      // borderWidth: 1,
     },
 
       logoIMG: {
@@ -162,7 +161,6 @@ const styles = StyleSheet.create({
     
     back_btn: {
       marginRight: 10,
-      // borderWidth: 1,
       paddingTop: 10,
       paddingBottom: 10,
       paddingLeft: 15,
@@ -182,21 +180,12 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
       alignSelf: 'flex-end',
-      // borderWidth: 1,
     },
 
       filter: {
         width: 42,
         height: 42,
         backgroundColor: '#fff',
-        // shadowColor: "#000",
-        // shadowOffset: {
-        //   width: 0,
-        //   height: 2,
-        // },
-        // shadowOpacity: 0.28,
-        // shadowRadius: 3.2,
-        // elevation: 8,
         marginRight: 15,
         borderRadius: 21,
         justifyContent: 'center',
@@ -219,12 +208,9 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
         elevation: 15,
         shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
+        shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.28,
-        shadowRadius: 3.2,
+        shadowRadius: 5,
       },
 
         cart: {
@@ -282,7 +268,6 @@ const styles = StyleSheet.create({
         navBtnBox: {
           width: 26,
           height: 20,
-          // borderWidth: 1,
           marginLeft: 20,
           justifyContent: 'space-between',
         },
@@ -299,24 +284,18 @@ const styles = StyleSheet.create({
       elevation: 15,
       position: 'absolute',
       width: 140,
-      // height: 150,
-      // borderWidth: 1,
       borderRadius: 8,
       backgroundColor: '#fff',
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 0,
-      },
-      shadowOpacity: 0.7,
-      shadowRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.28,
+      shadowRadius: 5,
       right: 15,
       top: 65,
     },
 
       btn: {
         width: '100%',
-        // borderWidth: 1,
       },
 
       btn_first: {
@@ -343,7 +322,6 @@ const styles = StyleSheet.create({
       width: Dimensions.get('screen').width,
       height: Dimensions.get('screen').height,
       backgroundColor: '#fff',
-      // borderWidth: 1,
       opacity: 0.5,
       elevation: 10,
     },

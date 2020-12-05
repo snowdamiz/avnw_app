@@ -2,12 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
-import { Dimensions, StyleSheet, SafeAreaView, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native';
+import { Dimensions, StyleSheet, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -23,8 +22,6 @@ function StatusBarPlaceHolder() {
 
 export default function OrderingStepOne(props) {
   const cartContext = useContext(Context);
-  const route = useRoute();
-
   const [error, setError] = useState(0);
   const [name, setName] = useState(cartContext.user.name || '');
   const [phone, setPhone] = useState(cartContext.user.phone || '');
@@ -53,10 +50,7 @@ export default function OrderingStepOne(props) {
   // Submit Information
   const handleSubmit = async _ => {
     let nav = props.navigation;
-    const user = {
-      name: name,
-      phone: phone,
-    }
+    const user = { name: name, phone: phone }
 
     let nameRegex = /^[a-zA-Z\s]*$/;  
     let phoneRegex = /^\d+$/;
@@ -73,11 +67,8 @@ export default function OrderingStepOne(props) {
           .then(res => {
             cartContext.setUser(res.data[0]);
             if (cartCategories.includes('merch')) {
-              if (cartContext.previousRoute) {
-                nav.navigate(cartContext.previousRoute);
-              } else {
-                nav.navigate('MerchOrderOverview');
-              }
+              if (cartContext.previousRoute) nav.navigate(cartContext.previousRoute);
+              else nav.navigate('MerchOrderOverview');
             } else nav.navigate('MerchOrderOverview');
           })
           .catch(err => console.log(err))
@@ -181,7 +172,6 @@ const styles = StyleSheet.create({
         error_box: {
           width: '100%',
           padding: 5,
-          // marginBottom: 5,
           borderRadius: 4,
           backgroundColor: 'pink',
         },
@@ -201,11 +191,6 @@ const styles = StyleSheet.create({
           backgroundColor: '#0078A4',
           borderRadius: 4,
           marginTop: 10,
-          // shadowColor: "#000",
-          // shadowOffset: { width: 0, height: 2 },
-          // shadowOpacity: 1,
-          // shadowRadius: 2,
-          // elevation: 6,
           color: '#fefefe',
         },
 
@@ -224,7 +209,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       bottom: 20,
       position: 'absolute',
-      // borderWidth: 1,
       width: Dimensions.get('screen').width - 60,
     },
 
@@ -239,14 +223,11 @@ const styles = StyleSheet.create({
         borderTopColor: 'transparent',
         borderBottomColor: 'transparent',
         borderLeftColor: '#fefefe',
-        // marginLeft: 10,
-        // marginTop: 5,
       },
 
       continue_btn_text: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#018bc0',
-        // opacity: 0.7,
       },
 });

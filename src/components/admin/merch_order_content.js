@@ -19,10 +19,7 @@ export default function MerchOrderContent(props) {
 
     try {
       await axios.get(`https://avnw-api.herokuapp.com/merch-orders`, config)
-      .then(res => {
-        cartContext.setMerchOrdersALL(res.data)
-        console.log(res.data);
-      })
+      .then(res => cartContext.setMerchOrdersALL(res.data))
       .catch(err => console.log(err))
     } catch (err) { console.log(err)}
   }
@@ -74,7 +71,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     width: Dimensions.get('screen').width - 30,
-    // marginTop: 15,
     marginBottom: 15,
     marginRight: 15,
     marginLeft: 15,
@@ -179,7 +175,6 @@ const styles = StyleSheet.create({
 
       err: {
         width: '100%',
-        // borderWidth: 1,
         backgroundColor: '#fff',
         borderBottomLeftRadius: 6,
         borderBottomRightRadius: 6,
@@ -193,7 +188,6 @@ const styles = StyleSheet.create({
       order: {
         width: '100%',
         backgroundColor: '#fff',
-        // borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
@@ -203,11 +197,9 @@ const styles = StyleSheet.create({
       },
 
         order_product: {
-          // fontWeight: 'bold',
           opacity: 0.7,
           width: 80,
           marginRight: 10,
-          // borderWidth: 1,
         },
 
         order_status: {
@@ -215,7 +207,6 @@ const styles = StyleSheet.create({
           fontWeight: 'bold',
           opacity: 0.7,
           width: '25%',
-          // borderWidth: 1,
         },
 });
 

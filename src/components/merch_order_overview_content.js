@@ -1,16 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
-
 import Context from '../context/context.js';
 import CartContent from '../components/cart_content.js';
 import BasicInfoContent from './basic_info_content.js';
 import ShippingContent from './shipping_content.js';
 import LocationContent from './location_content.js';
-
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 
 export default function MerchOrderOverviewContent(props) {
   const [hasMerch, setHasMerch] = useState(false);

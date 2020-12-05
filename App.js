@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import GlobalState from './src/context/global_state.js';
 import Index from './src/views/index.js';
 import Store from './src/views/store.js';

@@ -1,37 +1,24 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Dimensions, StyleSheet, StatusBar, View, ScrollView, TouchableOpacity, Text, Platform } from 'react-native';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
     <View style={{
       width: "100%",
       height: STATUS_BAR_HEIGHT,
-      backgroundColor: "#009cd8"
+      backgroundColor: "#fff"
     }}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff"/>
     </View>
   );
 }
 
-import {
-  Dimensions,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-  Platform,
-} from 'react-native';
-
 export default function BookingStepTwo(props) {
-  const route = useRoute();
   const cartContext = useContext(Context);
 
   useEffect( _ => {
@@ -53,11 +40,8 @@ export default function BookingStepTwo(props) {
 
     if (res.length > 0) {
       cartContext.handleServiceError(false);
-      if (cartContext.token) {
-        nav.navigate('BookingStepThree')
-      } else {
-        nav.navigate('Login')
-      }
+      if (cartContext.token) nav.navigate('BookingStepThree')
+      else nav.navigate('Login')
     } else cartContext.handleServiceError(true);
   }
 
@@ -145,9 +129,6 @@ const styles = StyleSheet.create({
       },
 
       back_btn: {
-        // position: 'absolute',
-        // borderWidth: 1,
-        // alignSelf: 'flex-start',
         marginTop: 15,
         marginLeft: 15,
         paddingTop: 10,
@@ -156,14 +137,10 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         borderRadius: 20,
         backgroundColor: '#0078A4',
-        // elevation: 5,
-        // zIndex: 10,
-        // elevation: ,
       },
 
         back_btn_text: {
           fontWeight: 'bold',
-          // opacity: 0.65,
           color: '#fff',
         },
 
@@ -189,8 +166,6 @@ const styles = StyleSheet.create({
         },
 
       services_box: {
-        // marginTop: 30,
-        // marginBottom: 10,
         padding: 5,
         width: Dimensions.get('screen').width,
         borderRadius: 8,
@@ -206,7 +181,6 @@ const styles = StyleSheet.create({
           padding: 12,
           borderRadius: 6,
           backgroundColor: '#f1f1f1',
-          // borderWidth: 1,
           borderColor: 'lightgray',
           marginBottom: 12,
           flexDirection: 'row',
@@ -220,9 +194,7 @@ const styles = StyleSheet.create({
         },
 
           service_info: {
-            // width: '80%',
             width: Dimensions.get('screen').width - 190,
-            // borderWidth: 1,
           },
 
             service_info_title: {
@@ -230,8 +202,6 @@ const styles = StyleSheet.create({
               fontWeight: 'bold',
               color: '#000',
               opacity: 0.6,
-              // width: '100%',
-              // borderWidth: 1,
             },
 
             service_info_desc: {
@@ -241,11 +211,8 @@ const styles = StyleSheet.create({
             },
 
           service_btns: {
-            // width: '100%',
-            // justifyContent: 'flex-end',
             alignItems: 'center',
             flexDirection: 'row',
-            // marginTop: 15,
           },
 
           service_btns_add: {
@@ -261,7 +228,6 @@ const styles = StyleSheet.create({
             paddingRight: 20,
             paddingTop: 8,
             paddingBottom: 8,
-            // width: Dimensions.get('screen').width / 2 * 0.55,
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 0 },
             shadowOpacity: 0.28,
@@ -292,7 +258,6 @@ const styles = StyleSheet.create({
               backgroundColor: '#018bc0',
               justifyContent: 'center',
               alignItems: 'center',
-              // marginLeft: 5,
               marginRight: 10,
             },
 

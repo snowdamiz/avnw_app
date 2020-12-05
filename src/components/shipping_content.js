@@ -1,18 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useRoute } from '@react-navigation/native';
-
 import EditIMG from '../assets/edit.png';
 import EditOnIMG from '../assets/edit_on.png';
 import Context from '../context/context.js';
-
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
 
 export default function ShippingContent(props) {
   const [toggle, setToggle] = useState(false);
@@ -128,7 +119,6 @@ const styles = StyleSheet.create({
         edit_img_box: {
           width: 30,
           height: 30,
-          // borderWidth: 1,
           justifyContent: 'center',
           alignItems: 'center',
           marginRight: 10,
@@ -138,7 +128,6 @@ const styles = StyleSheet.create({
             width: 16,
             height: 16,
             opacity: 0.5,
-            // marginRight: 15,
           },
 
           header_edit_IMG_on: {
@@ -176,7 +165,6 @@ const styles = StyleSheet.create({
     content: {
       width: '100%',
       paddingTop: 10,
-      // paddingBottom: 5,
       paddingLeft: 10,
       paddingRight: 10,
       flexDirection: 'row',
@@ -191,8 +179,6 @@ const styles = StyleSheet.create({
       content_g: {
         backgroundColor: '#E8E8E8',
         width: '100%',
-        // paddingTop: 5,
-        // paddingBottom: 5,
         paddingLeft: 10,
         paddingRight: 10,
         flexDirection: 'row',
@@ -201,7 +187,6 @@ const styles = StyleSheet.create({
       },
       
       content_gbr: {
-        // backgroundColor: '#E8E8E8',
         width: '100%',
         paddingTop: 10,
         paddingBottom: 10,

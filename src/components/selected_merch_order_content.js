@@ -1,22 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { useRoute } from '@react-navigation/native';
+import React, { useContext } from 'react';
 import Context from '../context/context.js';
-
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { Dimensions, StyleSheet, View, Text, ScrollView } from 'react-native';
 
 export default function SelectedMerchOrderContent(props) {
   const cartContext = useContext(Context);
-  const route = useRoute();
 
   console.log(cartContext.selectedMerchOrder.merch);
 
@@ -70,7 +57,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: Dimensions.get('screen').width,
-    // borderWidth: 1,
   },
 
     header_text: {
@@ -95,7 +81,6 @@ const styles = StyleSheet.create({
     },
 
       row: {
-        // flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         paddingTop: 12,
@@ -114,8 +99,6 @@ const styles = StyleSheet.create({
 
       text: {
         opacity: 0.75,
-        // width: 220,
-        // paddingLeft: 20,
         flexWrap: 'wrap',
       },
 });

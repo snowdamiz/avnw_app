@@ -5,8 +5,9 @@ import EditAccount from '../components/micro/edit_account.js';
 import EditShipping from '../components/micro/edit_shipping.js';
 import ProfileContent from '../components/profile_content.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { StatusBar, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -19,15 +20,6 @@ function StatusBarPlaceHolder() {
     </View>
   );
 }
-
-import {
-  StatusBar,
-  StyleSheet,
-  SafeAreaView,
-  View,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
 
 export default function Profile(props) {
   const cartContext = useContext(Context);
@@ -71,7 +63,6 @@ const styles = StyleSheet.create({
       width: Dimensions.get('screen').width,
       height: Dimensions.get('screen').height,
       backgroundColor: '#fff',
-      // borderWidth: 1,
       opacity: 0.6,
       elevation: 10,
     },

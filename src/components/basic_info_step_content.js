@@ -1,21 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-
+import React, { useContext } from 'react';
 import Context from '../context/context.js';
-
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
 
 export default function BasicInfoStepContent(props) {
   const cartContext = useContext(Context);
-
 
   return (
     <View style={styles.container}>
@@ -27,10 +15,7 @@ export default function BasicInfoStepContent(props) {
       <TextInput 
         style={styles.content_container_name}
         placeholder={`${cartContext.user.name}`}
-        placeholderTextColor='#000'
-        // keyboardType={'numeric'}
-        // onChangeText={q => cartContext.changeItemQuantity(q, el)}
-        >
+        placeholderTextColor='#000'>
       </TextInput>
       </View>
     </View>
@@ -44,7 +29,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    // borderWidth: 1,
   },
 
     content_header_box: {
@@ -52,7 +36,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       width: '100%',
-      // borderWidth: 1,
     },
 
       content_header_text: {
@@ -71,11 +54,9 @@ const styles = StyleSheet.create({
       height: 40,
       width: 250,
       borderWidth: 1,
-      // marginRight: 60,
       justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
-      // fontWeight: 'bold',
       paddingTop: 0,
       paddingBottom: 0,
       opacity: 0.5,

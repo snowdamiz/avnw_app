@@ -1,19 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-
 import Context from '../context/context.js';
-
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  ActivityIndicator
-} from 'react-native';
-import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import { Dimensions, StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 
 export default function StoreContent(props) {
   const cartContext = useContext(Context);
@@ -83,7 +70,7 @@ const styles = StyleSheet.create({
   },
 
     store: {
-      width: '100%',
+      width: Dimensions.get('screen').width,
       flexDirection: 'row',
       justifyContent: 'space-between',
       flexWrap: 'wrap',
@@ -123,9 +110,7 @@ const styles = StyleSheet.create({
           color: '#fff',
           backgroundColor: '#009cd8',
           fontSize: 14,
-          // borderWidth: 1,
           borderRadius: 22,
-          // borderColor: '#01A9A5',
           width: 44,
           height: 44,
           justifyContent: 'center',

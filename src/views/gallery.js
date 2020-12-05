@@ -4,32 +4,21 @@ import Instagram from '../insta/instagram.js';
 import InstagramIMG from '../assets/instagram.png';
 import CloseIMG from '../assets/close.png';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Dimensions, StyleSheet, StatusBar, View, Image, ScrollView, TouchableOpacity, Text } from 'react-native';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
     <View style={{
       width: "100%",
       height: STATUS_BAR_HEIGHT,
-      backgroundColor: "#009cd8"
+      backgroundColor: "#fff"
     }}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff"/>
     </View>
   );
 }
-
-import {
-  Dimensions,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
 
 export default function Gallery(props) {
   const cartContext = useContext(Context);

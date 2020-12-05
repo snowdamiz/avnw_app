@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, View, SafeAreaView, StatusBar } from 'react-native';
+import { StyleSheet, ScrollView, View, StatusBar } from 'react-native';
 import Header from '../../components/header.js';
 import PhotographersContent from '../../components/admin/photographers_content.js';
 import ServicesContent from '../../components/admin/services_content.js';
@@ -8,7 +8,7 @@ import MerchOrderContent from '../../components/admin/merch_order_content.js';
 import ServiceOrderContent from '../../components/admin/service_order_content.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -40,12 +40,10 @@ export default function AdminPanel(props) {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
     minHeight: '100%',
-    // zIndex: 2,
   },
 });

@@ -1,14 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { useRoute } from '@react-navigation/native';
+import React, { useContext } from 'react';
 import Context from '../../context/context.js';
-import EditIMG from '../../assets/edit.png';
-import { Dimensions, StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import { Dimensions, StyleSheet, View, Text, ScrollView } from 'react-native';
 
 export default function SelectedServiceOrderContentADMIN(props) {
   const cartContext = useContext(Context);
-  const route = useRoute();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

@@ -1,13 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRoute } from '@react-navigation/native';
 import Context from '../context/context.js';
-import { Dimensions, StyleSheet, SafeAreaView, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native';
+import { Dimensions, StyleSheet, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -23,8 +22,6 @@ function StatusBarPlaceHolder() {
 
 export default function OrderingStepTwo(props) {
   const cartContext = useContext(Context);
-  const route = useRoute();
-
   const [error, setError] = useState([]);
   const [address, setAddress] = useState(cartContext.user.address || '');
   const [unit, setUnit] = useState(cartContext.user.unit || '');
@@ -203,17 +200,14 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       height: '100%',
-      // borderWidth: 1,
     },
     
     text_box: {
         width: Dimensions.get('screen').width - 60,
-        // marginTop: 40,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         flexDirection: 'column',
         marginTop: -100,
-        // borderWidth: 1,
       },
 
         text_title: {
@@ -223,10 +217,8 @@ const styles = StyleSheet.create({
         },
 
         text_content: {
-          // marginTop: 5,
           color: '#efefef',
           fontSize: 14,
-          // opacity: 0.8,
           lineHeight: 19,
           width: '80%',
         },
@@ -238,7 +230,6 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'flex-start',
       marginTop: 10,
-      // borderWidth: 1,
     },
 
         error_box: {
@@ -262,11 +253,6 @@ const styles = StyleSheet.create({
           backgroundColor: '#0078A4',
           borderRadius: 4,
           marginTop: 10,
-          // shadowColor: "#000",
-          // shadowOffset: { width: 0, height: 2 },
-          // shadowOpacity: 1,
-          // shadowRadius: 2,
-          // elevation: 6,
           color: '#fefefe',
         },
 
@@ -292,7 +278,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       bottom: 20,
       position: 'absolute',
-      // borderWidth: 1,
       width: Dimensions.get('screen').width - 60,
     },
 
@@ -307,14 +292,11 @@ const styles = StyleSheet.create({
         borderTopColor: 'transparent',
         borderBottomColor: 'transparent',
         borderLeftColor: '#fefefe',
-        // marginLeft: 10,
-        // marginTop: 5,
       },
 
       continue_btn_text: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#018bc0',
-        // opacity: 0.7,
       },
 });

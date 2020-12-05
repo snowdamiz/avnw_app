@@ -10,7 +10,6 @@ import Context from '../../context/context.js';
 
 export default function ProductContent(props) {
   const [toggle, setToggle] = useState(false);
-
   const cartContext = useContext(Context);
   
   useEffect( _ => {
@@ -100,7 +99,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     width: Dimensions.get('screen').width - 30,
-    // marginTop: 15,
     marginBottom: 15,
     marginRight: 15,
     marginLeft: 15,
@@ -259,7 +257,6 @@ const styles = StyleSheet.create({
             width: 34,
             height: 34,
             borderRadius: 17,
-            // marginLeft: 4,
           },
 
             btn_IMG: {

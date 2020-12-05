@@ -2,23 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Context from '../../context/context.js';
-
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import { Dimensions, StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 export default function EditAccount(props) {
   const cartContext = useContext(Context);
-
   const [error, setError] = useState([]);
   const [name, setName] = useState(cartContext.user.name || '');
   const [phone, setPhone] = useState(cartContext.user.phone || '');
-
+  
   const handleSetName = e => setName(e);
   const handleSetPhone = e => setPhone(e);  
   const handleCancel = _ => cartContext.handleEditAccountToggle();
@@ -54,10 +45,7 @@ export default function EditAccount(props) {
       }
     }
 
-    const user = {
-      name: name,
-      phone: phone,
-    }
+    const user = { name: name, phone: phone }
 
     if (err.length === 0 && user) {
       try {
@@ -126,7 +114,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     width: Dimensions.get('screen').width - 60,
     padding: 15,
-    // borderWidth: 1,
     position: 'absolute',
     borderRadius: 8,
     backgroundColor: '#fff',
@@ -162,7 +149,6 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#D5E8F0',
         marginTop: 10,
-        // borderWidth: 1,
         borderRadius: 4,
         paddingLeft: 10,
         paddingTop: 8,
@@ -170,18 +156,15 @@ const styles = StyleSheet.create({
       },
 
       btns_box: {
-        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
         marginTop: 10,
-        // borderWidth: 1,
       },
       
         btn_cancel: {
           width: Dimensions.get('screen').width / 2 - 50,
-          // borderWidth: 1,
           borderColor: 'gray',
           backgroundColor: '#fff',
           borderRadius: 4,

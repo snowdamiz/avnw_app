@@ -19,10 +19,7 @@ export default function ServiceOrderContent(props) {
 
     try {
       await axios.get(`https://avnw-api.herokuapp.com/service-orders`, config)
-      .then(res => {
-        cartContext.setServiceOrdersALL(res.data)
-        console.log(res.data);
-      })
+      .then(res => cartContext.setServiceOrdersALL(res.data))
       .catch(err => console.log(err))
     } catch (err) { console.log(err)}
   }
@@ -31,20 +28,6 @@ export default function ServiceOrderContent(props) {
   const handleServiceOrderSelect = el => {
     cartContext.setSelectedServiceOrder(el);
     props.navigation.navigate('SelectedServiceOrderADMIN');
-  }
-
-  // CONVERT DATE
-  const convertDate = el => {
-    let date = el;
-    let dd = date.getDate();
-    let mm = date.getMonth();
-    let yy = date.getYear();
-
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
-
-    date = dd + '/' + mm + '/' + yy;
-    return date;
   }
   
   return (
@@ -63,7 +46,6 @@ export default function ServiceOrderContent(props) {
       { toggle ? (
           cartContext.serviceOrdersALL.length > 0 ? (
             cartContext.serviceOrdersALL.map(el => {
-              // convertDate(el.date);
               return (
                 <TouchableOpacity
                   style={styles.order} key={el.id}
@@ -89,7 +71,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     width: Dimensions.get('screen').width - 30,
-    // marginTop: 15,
     marginBottom: 15,
     marginRight: 15,
     marginLeft: 15,
@@ -194,7 +175,6 @@ const styles = StyleSheet.create({
 
       err: {
         width: '100%',
-        // borderWidth: 1,
         backgroundColor: '#fff',
         borderBottomLeftRadius: 6,
         borderBottomRightRadius: 6,
@@ -208,7 +188,6 @@ const styles = StyleSheet.create({
       order: {
         width: '100%',
         backgroundColor: '#fff',
-        // borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
@@ -218,12 +197,10 @@ const styles = StyleSheet.create({
       },
 
         order_product: {
-          // fontWeight: 'bold',
           opacity: 0.7,
           maxWidth: 230,
           marginRight: 20,
           width: '30%',
-          // borderWidth: 1,
         },
 
         order_status: {
@@ -231,7 +208,6 @@ const styles = StyleSheet.create({
           fontWeight: 'bold',
           opacity: 0.7,
           width: '25%',
-          // borderWidth: 1,
         },
 });
 

@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { StatusBar, StyleSheet, View, Text, TextInput, Dimensions, SafeAreaView } from 'react-native';
+import { StatusBar, StyleSheet, View, Text, TextInput, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Context from '../../context/context.js';
 import Header from '../../components/header.js';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 24 : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
 
 function StatusBarPlaceHolder() {
   return (
@@ -25,7 +25,6 @@ export default function ServiceForm(props) {
   const [productName, setProductName] = useState();
   const [productPrice, setProductPrice] = useState();
   const [productDescription, setProductDescription] = useState();
-  const [err, setErr] = useState(0);
   
   const cartContext = useContext(Context);
 
@@ -234,7 +233,6 @@ const styles = StyleSheet.create({
           fontSize: 14,
           fontWeight: 'bold',
           color: '#fff',
-          // opacity: 0.9,
           padding: 12,
         },
 });
