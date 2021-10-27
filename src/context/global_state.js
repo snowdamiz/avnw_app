@@ -1,7 +1,7 @@
-import React from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import Context from './context';
+import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import Context from './context'
 
 export default class GlobalState extends React.Component{
   state = {
@@ -54,67 +54,48 @@ export default class GlobalState extends React.Component{
     this.getPhotographers();
     this.getServices();
     this.getMerch();
-  };
+  }
 
   getLoginToken = async _ => {
-    const getToken = await AsyncStorage.getItem('token');
-    const getUser = await AsyncStorage.getItem('user');
+    const getToken = await AsyncStorage.getItem('token')
+    const getUser = await AsyncStorage.getItem('user')
 
     if (getToken !== null) {
       this.setState({ token: getToken })
       this.setState({ user: JSON.parse(getUser) })
       this.setState({ accountType: JSON.parse(getUser).account_type })
     } else {
-      this.setState({ token: '' });
+      this.setState({ token: '' })
       this.setState({ user: [] })
       this.setState({ accountType: '' })
     }
   }
 
   setLoginToken = async (token, user) => {
-    const jsonUser = JSON.stringify(user);
-    console.log(jsonUser);
+    const jsonUser = JSON.stringify(user)
+
     try {
        await AsyncStorage.setItem('token', token)
        await AsyncStorage.setItem('user', jsonUser)
        this.setState({ token: token })
        this.setState({ user: user })
        this.setState({ accountType: user.account_type })
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) { console.log(err) }
   }
 
   handleSignout = async _ => {
     try {
-      await AsyncStorage.removeItem('token');
-      await AsyncStorage.removeItem('user');
+      await AsyncStorage.removeItem('token')
+      await AsyncStorage.removeItem('user')
       this.setState({ token: '' })
       this.setState({ user: [] })
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) { console.log(err) }
   }
-
-  setPhotographers = el => this.setState({ photographers: el })
-  setServices = el => this.setState({ services: el })
-  setProducts = el => this.setState({ merch: el })
-  setUser = el => this.setState({ user: el })
-  setUserMerchOrders = el => this.setState({ merchOrders: el })
-  setUserServiceOrders = el => this.setState({ serviceOrders: el })
-  setSelectedMerchOrder = el => this.setState({ selectedMerchOrder: el })
-  setSelectedServiceOrder = el => this.setState({ selectedServiceOrder: el })
-  setMerchOrdersALL = el => this.setState({ merchOrdersALL: el })
-  setServiceOrdersALL = el => this.setState({ serviceOrdersALL: el })
-  setTotal = el => this.setState({ total: el })
-
-  handleShootLocation = el => this.setState({ shootLocation: el });
-  handleShootDate = el => this.setState({ date: el });
 
   getPhotographers = async _ => {
     try {
       await axios.get('https://avnw-api.herokuapp.com/photographers')
-      .then(res => this.setState({ photographers: res.data }))
+        .then(res => this.setState({ photographers: res.data }))
         .catch(err => console.log(err))
     } catch (err) { console.log(err) }
   }
@@ -134,94 +115,66 @@ export default class GlobalState extends React.Component{
         .catch(err => console.log(err) )
     } catch (err) { console.log(err) }
   }
-
-  setCurPhotographer = el => {
-    this.setState({ curPhotographer: el });
-  }
-
-  setCurGallery = el => {
-    this.setState({ curGallery: el });
-  }
  
   handleCart = (prod) => {
-    let cart = this.state.cart;
-    let cartLength = this.state.cart.length;
-    let isAlreadyInCart = false;
+    let cart = this.state.cart
+    let cartLength = this.state.cart.length
+    let isAlreadyInCart = false
 
     if(cartLength > 0) {
       for (let i = 0; i < cartLength; i++) {
         if (cart[i].id === prod.id) {
-          isAlreadyInCart = true;
-          break;
+          isAlreadyInCart = true
+          break
         }
       }
 
       if (isAlreadyInCart) {
-        let removeItemCart = [...cart];
-        removeItemCart.splice(cart.indexOf(prod), 1);
-        this.setState({ cart: removeItemCart });
+        let removeItemCart = [...cart]
+        removeItemCart.splice(cart.indexOf(prod), 1)
+        this.setState({ cart: removeItemCart })
       } else {
-        let newItemCart = [...cart, prod];
-        this.setState({ cart: newItemCart });
+        let newItemCart = [...cart, prod]
+        this.setState({ cart: newItemCart })
       }
     } else {
-      let updatedCart = [...cart, prod];
-      this.setState({ cart: updatedCart });
+      let updatedCart = [...cart, prod]
+      this.setState({ cart: updatedCart })
     }
   };
 
   changeItemQuantity = (q, el) => {
-    var numRegex = /^[0-9]+$/;
-    let cart = [...this.state.cart];
-    let i = cart.indexOf(el);
+    var numRegex = /^[0-9]+$/
+    let cart = [...this.state.cart]
+    let i = cart.indexOf(el)
 
     if (q.match(numRegex)) {
-      cart[i].quantity = q;
-      this.setState({ cart: cart });
-      this.setState({ cartError: false });
+      cart[i].quantity = q
+      this.setState({ cart: cart })
+      this.setState({ cartError: false })
     } else {
-      this.setState({ cartError: !this.state.cartError });
+      this.setState({ cartError: !this.state.cartError })
     }
   };
 
   handleShootLocationToggle = _ => {
-    let toggle = this.state.shootLocationToggle;
-    this.setState({ shootLocationToggle: !toggle });
+    let toggle = this.state.shootLocationToggle
+    this.setState({ shootLocationToggle: !toggle })
   }
 
   handleBasicInfoToggle = _ => {
-    let toggle = this.state.basicInfoToggle;
-    this.setState({ basicInfoToggle: !toggle });
+    let toggle = this.state.basicInfoToggle
+    this.setState({ basicInfoToggle: !toggle })
   }
 
   handleShippingInfoToggle = _ => {
-    let toggle = this.state.shippingInfoToggle;
-    this.setState({ shippingInfoToggle: !toggle });
-  }
-
-  handleServiceError = res => {
-    this.setState({ serviceError: res });
-  }
-
-  setPreviousRoute = route => {
-    this.setState({ previousRoute: route });
+    let toggle = this.state.shippingInfoToggle
+    this.setState({ shippingInfoToggle: !toggle })
   }
 
   handleMenuToggle = _ => {
     let toggle = this.state.menuToggle;
     this.setState({ menuToggle: !toggle })
-  }
-
-  setEditPhotographer = el => {
-    this.setState({ photographerEdit: el })
-  }
-
-  setEditService = el => {
-    this.setState({ serviceEditing: el })
-  }
-
-  setEditProduct = el => {
-    this.setState({ productEditing: el })
   }
 
   handleDeletePhotographerConfirmation = _ => {
@@ -249,27 +202,36 @@ export default class GlobalState extends React.Component{
     this.setState({ editShippingToggle: !toggle })
   }
 
-  handleAdminPhotographerInteraction = status => {
-    this.setState({ adminPhotographerInteraction: status });
-  }
-
-  handleAdminServiceInteraction = status => {
-    this.setState({ adminServiceInteraction: status });
-  }
-
-  handleAdminProductInteraction = status => { 
-    this.setState({ adminProductInteraction: status });
-  }
-
-  setChosenPhotographer = el => this.setState({ chosenPhotographer: el });
-  setChosenProduct = el => this.setState({ chosenProduct: el });
-
-  photographerEditRESET = _ => this.setState({ photographerEdit: [] });
-  serviceEditingRESET = _ => this.setState({ serviceEditing: [] });
-  productEditingRESET = _ => this.setState({ productEditing: [] });
-  cartRESET = _ => this.setState({ cart: [] });
-
-  setMenuToggleOff = _ => this.setState({ menuToggle: false });
+  setPhotographers = el => this.setState({ photographers: el })
+  setServices = el => this.setState({ services: el })
+  setProducts = el => this.setState({ merch: el })
+  setUser = el => this.setState({ user: el })
+  setUserMerchOrders = el => this.setState({ merchOrders: el })
+  setUserServiceOrders = el => this.setState({ serviceOrders: el })
+  setSelectedMerchOrder = el => this.setState({ selectedMerchOrder: el })
+  setSelectedServiceOrder = el => this.setState({ selectedServiceOrder: el })
+  setMerchOrdersALL = el => this.setState({ merchOrdersALL: el })
+  setServiceOrdersALL = el => this.setState({ serviceOrdersALL: el })
+  setTotal = el => this.setState({ total: el })
+  setCurPhotographer = el => this.setState({ curPhotographer: el })
+  setCurGallery = el => this.setState({ curGallery: el })
+  handleServiceError = res => this.setState({ serviceError: res })
+  setPreviousRoute = route => this.setState({ previousRoute: route })
+  setEditPhotographer = el => this.setState({ photographerEdit: el })
+  setEditService = el => this.setState({ serviceEditing: el })
+  setEditProduct = el => this.setState({ productEditing: el })
+  handleAdminPhotographerInteraction = status => this.setState({ adminPhotographerInteraction: status })
+  handleAdminServiceInteraction = status => this.setState({ adminServiceInteraction: status })
+  handleAdminProductInteraction = status => this.setState({ adminProductInteraction: status })
+  setChosenPhotographer = el => this.setState({ chosenPhotographer: el })
+  setChosenProduct = el => this.setState({ chosenProduct: el })
+  photographerEditRESET = _ => this.setState({ photographerEdit: [] })
+  serviceEditingRESET = _ => this.setState({ serviceEditing: [] })
+  productEditingRESET = _ => this.setState({ productEditing: [] })
+  cartRESET = _ => this.setState({ cart: [] })
+  setMenuToggleOff = _ => this.setState({ menuToggle: false })
+  handleShootLocation = el => this.setState({ shootLocation: el })
+  handleShootDate = el => this.setState({ date: el })
 
   render(){
     return (

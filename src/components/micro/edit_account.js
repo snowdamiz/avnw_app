@@ -1,47 +1,47 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import Context from '../../context/context.js';
-import { Dimensions, StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import React, { useContext, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import Context from '../../context/context.js'
+import { Dimensions, StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
 
 export default function EditAccount(props) {
-  const cartContext = useContext(Context);
-  const [error, setError] = useState([]);
-  const [name, setName] = useState(cartContext.user.name || '');
-  const [phone, setPhone] = useState(cartContext.user.phone || '');
+  const cartContext = useContext(Context)
+  const [error, setError] = useState([])
+  const [name, setName] = useState(cartContext.user.name || '')
+  const [phone, setPhone] = useState(cartContext.user.phone || '')
   
-  const handleSetName = e => setName(e);
-  const handleSetPhone = e => setPhone(e);  
-  const handleCancel = _ => cartContext.handleEditAccountToggle();
+  const handleSetName = e => setName(e)
+  const handleSetPhone = e => setPhone(e)
+  const handleCancel = _ => cartContext.handleEditAccountToggle()
 
   // Handle Submit Edit
   const handleConfirm = async _ => {
-    let err = [...error];
+    let err = [...error]
     // name
     if (!name) {
       if (!err.includes(1)) {
-        err.push(1);
-        setError(err);
+        err.push(1)
+        setError(err)
       }
     } else {
       if (err.includes(1)) {
-        let i = err.indexOf(1);
-        err.splice(i, 1);
-        setError(err);
+        let i = err.indexOf(1)
+        err.splice(i, 1)
+        setError(err)
       }
     }
 
     // phone
     if (!phone) {
       if (!err.includes(2)) {
-        err.push(2);
-        setError(err);
+        err.push(2)
+        setError(err)
       }
     } else {
       if (err.includes(2)) {
-        let i = err.indexOf(2);
-        err.splice(i, 1);
-        setError(err);
+        let i = err.indexOf(2)
+        err.splice(i, 1)
+        setError(err)
       }
     }
 
@@ -49,14 +49,14 @@ export default function EditAccount(props) {
 
     if (err.length === 0 && user) {
       try {
-        const token = await AsyncStorage.getItem('token');
-        const config = { headers: { Authorization: token }};
-        const id = cartContext.user.id;
+        const token = await AsyncStorage.getItem('token')
+        const config = { headers: { Authorization: token }}
+        const id = cartContext.user.id
   
         await axios.put(`https://avnw-api.herokuapp.com/user/${id}`, user, config)
         .then(res => {
-          cartContext.setUser(res.data[0]);
-          cartContext.handleEditAccountToggle();
+          cartContext.setUser(res.data[0])
+          cartContext.handleEditAccountToggle()
         })
         .catch(err => console.log(err))
       } catch (err) { console.log(err) }

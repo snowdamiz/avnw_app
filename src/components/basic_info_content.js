@@ -1,18 +1,18 @@
-import React, { useContext, useState } from 'react';
-import { useRoute } from '@react-navigation/native';
-import EditIMG from '../assets/edit.png';
+import React, { useContext, useState } from 'react'
+import { useRoute } from '@react-navigation/native'
+import EditIMG from '../assets/edit.png'
 import EditOnIMG from '../assets/edit_on.png'
-import Context from '../context/context.js';
-import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
+import Context from '../context/context.js'
+import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
 
 export default function ShippingContent(props) {
-  const [toggle, setToggle] = useState(false);
-  const cartContext = useContext(Context);
-  const route = useRoute();
+  const [toggle, setToggle] = useState(false)
+  const cartContext = useContext(Context)
+  const route = useRoute()
 
   const handleEdit = _ => {
-    cartContext.setPreviousRoute(route.name);
-    props.navigation.navigate('OrderingStepOne');
+    cartContext.setPreviousRoute(route.name)
+    props.navigation.navigate('OrderingStepOne')
   }
 
   return (

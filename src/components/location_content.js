@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
-import EditIMG from '../assets/edit.png';
-import EditOnIMG from '../assets/edit_on.png';
-import Context from '../context/context.js';
-import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react'
+import EditIMG from '../assets/edit.png'
+import EditOnIMG from '../assets/edit_on.png'
+import Context from '../context/context.js'
+import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
 
 export default function LocationContent(props) {
-  const cartContext = useContext(Context);
-  const [shootLocation, setShootLocation] = useState([]);
+  const cartContext = useContext(Context)
+  const [shootLocation, setShootLocation] = useState([])
 
   useEffect( _ => {
-    setShootLocation(cartContext.shootLocation);
+    setShootLocation(cartContext.shootLocation)
   }, [cartContext.shootLocation])
 
   return (

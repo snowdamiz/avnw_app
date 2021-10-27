@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
-import { Dimensions ,Platform, StyleSheet, View, Image, Text, TouchableNativeFeedback } from 'react-native';
+import React, { useContext } from 'react'
+import { Dimensions ,Platform, StyleSheet, View, Image, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import Context from '../context/context.js';
-import CartIMG from '../assets/cart.png';
-import ProfileIMG from '../assets/profile.png';
-import LogoIMG from '../assets/logo.png';
+import Context from '../context/context.js'
+import CartIMG from '../assets/cart.png'
+import ProfileIMG from '../assets/profile.png'
+import LogoIMG from '../assets/logo.png'
 
 export default function Header(props) {
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
   // Handle Profile Btn Click
   const handleProfileBtn = _ => {
-    if (cartContext.token) cartContext.handleMenuToggle();
+    if (cartContext.token) cartContext.handleMenuToggle()
     else props.navigation.navigate('Login')
   }
 
@@ -25,20 +25,20 @@ export default function Header(props) {
 
   // Handle Profile Navigation
   const handleProfileNavigation = _ => {
-    cartContext.handleMenuToggle();
-    props.navigation.navigate('Profile');
+    cartContext.handleMenuToggle()
+    props.navigation.navigate('Profile')
   }
 
   // Handle Orders Navigation
   const handleOrdersNavigation = _ => {
-    cartContext.handleMenuToggle();
-    props.navigation.navigate('Orders');
+    cartContext.handleMenuToggle()
+    props.navigation.navigate('Orders')
   }
 
   // Handle Sign Out
   const handleSignout = _ => {
-    cartContext.handleSignout();
-    cartContext.handleMenuToggle();
+    cartContext.handleSignout()
+    cartContext.handleMenuToggle()
     props.navigation.navigate('Index')
   }
   
@@ -55,7 +55,7 @@ export default function Header(props) {
 
   // Handle Logo Press
   const handleLogoPress = _ => {
-    cartContext.setMenuToggleOff();
+    cartContext.setMenuToggleOff()
     props.navigation.navigate('Index')
   }
 

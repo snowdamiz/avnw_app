@@ -1,9 +1,9 @@
-import React from 'react';
-import CloseIMG from '../assets/close.png';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { Dimensions, StyleSheet, StatusBar, ScrollView, View, Image, TouchableOpacity, Text, Platform } from 'react-native';
+import React from 'react'
+import CloseIMG from '../assets/close.png'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { Dimensions, StyleSheet, StatusBar, ScrollView, View, Image, TouchableOpacity, Text, Platform } from 'react-native'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (

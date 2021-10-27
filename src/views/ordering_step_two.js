@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { LinearGradient } from 'expo-linear-gradient';
-import Context from '../context/context.js';
-import { Dimensions, StyleSheet, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import React, { useState, useContext } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import { LinearGradient } from 'expo-linear-gradient'
+import Context from '../context/context.js'
+import { Dimensions, StyleSheet, StatusBar, View, TouchableOpacity, TextInput, Text } from 'react-native'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (

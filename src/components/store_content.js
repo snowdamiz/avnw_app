@@ -1,21 +1,17 @@
-import React, { useContext, useEffect } from 'react';
-import Context from '../context/context.js';
-import { Dimensions, StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import React, { useContext, useEffect } from 'react'
+import Context from '../context/context.js'
+import { Dimensions, StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 
 export default function StoreContent(props) {
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
-  useEffect( _ => {
-    cartContext.setPreviousRoute('Store');
-  }, [])
+  useEffect( _ => cartContext.setPreviousRoute('Store'), [])
 
   // Handle Selection
   const handleProductSelect = el => {
-    cartContext.setChosenProduct(el);
-    props.navigation.navigate('SelectedProduct');
+    cartContext.setChosenProduct(el)
+    props.navigation.navigate('SelectedProduct')
   }
-
-  console.log(cartContext.cart);
 
   return (
     <View style={styles.container}>

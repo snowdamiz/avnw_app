@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-import Context from '../context/context.js';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { Dimensions, StyleSheet, StatusBar, View, ScrollView, TouchableOpacity, Text, Platform } from 'react-native';
+import React, { useContext, useEffect } from 'react'
+import { LinearGradient } from 'expo-linear-gradient'
+import Context from '../context/context.js'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { Dimensions, StyleSheet, StatusBar, View, ScrollView, TouchableOpacity, Text, Platform } from 'react-native'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (
@@ -19,30 +19,28 @@ function StatusBarPlaceHolder() {
 }
 
 export default function BookingStepTwo(props) {
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
-  useEffect( _ => {
-    cartContext.setPreviousRoute('BookingStepThree');
-  }, [])
+  useEffect( _ => cartContext.setPreviousRoute('BookingStepThree'), [])
 
-  const handleServiceToggle = el => cartContext.handleCart(el);
+  const handleServiceToggle = el => cartContext.handleCart(el)
 
   const handleNavigation = _ => {
-    let nav = props.navigation;
-    let cart = cartContext.cart;
-    let res = [];
+    let nav = props.navigation
+    let cart = cartContext.cart
+    let res = []
 
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].type.includes( 'service' )) {
-        res.push(cart[i]);
+        res.push(cart[i])
       }
     }
 
     if (res.length > 0) {
-      cartContext.handleServiceError(false);
+      cartContext.handleServiceError(false)
       if (cartContext.token) nav.navigate('BookingStepThree')
       else nav.navigate('Login')
-    } else cartContext.handleServiceError(true);
+    } else cartContext.handleServiceError(true)
   }
 
   return (

@@ -1,25 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { useRoute } from '@react-navigation/native';
-import Context from '../context/context.js';
-import { Dimensions, StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import Context from '../context/context.js'
+import { Dimensions, StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native'
 
 export default function OrdersContent(props) {
-  const [toggleMerch, setToggleMerch] = useState(true);
-  const [toggleServices, setToggleServices] = useState(true);
-  const cartContext = useContext(Context);
-  const route = useRoute();
+  const [toggleMerch, setToggleMerch] = useState(true)
+  const [toggleServices, setToggleServices] = useState(true)
+  const cartContext = useContext(Context)
 
   useEffect( _ => {
-    getUserMerchOrders();
-    getUserServiceOrders();
+    getUserMerchOrders()
+    getUserServiceOrders()
   }, [])
 
   // // GET USER MERCH ORDERS
   const getUserMerchOrders = async _ => {
-    let id = cartContext.user.id;
-    const token = await AsyncStorage.getItem('token');
+    let id = cartContext.user.id
+    const token = await AsyncStorage.getItem('token')
     const config = { headers: { Authorization: token }}
 
     try {
@@ -34,8 +32,8 @@ export default function OrdersContent(props) {
 
   // GET USER SERVICE ORDERS
   const getUserServiceOrders = async _ => {
-    let id = cartContext.user.id;
-    const token = await AsyncStorage.getItem('token');
+    let id = cartContext.user.id
+    const token = await AsyncStorage.getItem('token')
     const config = { headers: { Authorization: token }}
 
     try {
@@ -47,14 +45,14 @@ export default function OrdersContent(props) {
 
   // HANDLE MERCH ORDER SELECTION
   const handleMerchOrderSelect = el => {
-    cartContext.setSelectedMerchOrder(el);
-    props.navigation.navigate('SelectedMerchOrder');
+    cartContext.setSelectedMerchOrder(el)
+    props.navigation.navigate('SelectedMerchOrder')
   }
 
   // HANDLE SERVICE ORDER SELECTION
   const handleServiceOrderSelect = el => {
-    cartContext.setSelectedServiceOrder(el);
-    props.navigation.navigate('SelectedServiceOrder');
+    cartContext.setSelectedServiceOrder(el)
+    props.navigation.navigate('SelectedServiceOrder')
   }
 
   return (

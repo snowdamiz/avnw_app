@@ -1,82 +1,82 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import Context from '../../context/context.js';
-import { Dimensions, StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import React, { useContext, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import Context from '../../context/context.js'
+import { Dimensions, StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
 
 export default function EditShipping(props) {
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
-  const [error, setError] = useState([]);
-  const [address, setAddress] = useState(cartContext.user.address || '');
-  const [unit, setUnit] = useState(cartContext.user.unit || '');
-  const [city, setCity] = useState(cartContext.user.city || '');
-  const [state, setState] = useState(cartContext.user.state || '');
-  const [zip, setZip] = useState(cartContext.user.zip.toString() || '');
+  const [error, setError] = useState([])
+  const [address, setAddress] = useState(cartContext.user.address || '')
+  const [unit, setUnit] = useState(cartContext.user.unit || '')
+  const [city, setCity] = useState(cartContext.user.city || '')
+  const [state, setState] = useState(cartContext.user.state || '')
+  const [zip, setZip] = useState(cartContext.user.zip.toString() || '')
 
-  const handleSetAddress = e => setAddress(e);
-  const handleSetUnit = e => setUnit(e);
-  const handleSetCity = e => setCity(e);
-  const handleSetState = e => setState(e);
-  const handleSetZip = e => setZip(e);
-  const handleCancel = _ => cartContext.handleEditShippingToggle();
+  const handleSetAddress = e => setAddress(e)
+  const handleSetUnit = e => setUnit(e)
+  const handleSetCity = e => setCity(e)
+  const handleSetState = e => setState(e)
+  const handleSetZip = e => setZip(e)
+  const handleCancel = _ => cartContext.handleEditShippingToggle()
 
   // Handle Submit Edit
   const handleConfirm = async _ => {
-    let err = [...error];
+    let err = [...error]
     // address
     if (!address) {
       if (!err.includes(1)) {
-        err.push(1);
-        setError(err);
+        err.push(1)
+        setError(err)
       }
     } else {
       if (err.includes(1)) {
-        let i = err.indexOf(1);
-        err.splice(i, 1);
-        setError(err);
+        let i = err.indexOf(1)
+        err.splice(i, 1)
+        setError(err)
       }
     }
 
     // city
     if (!city) {
       if (!err.includes(3)) {
-        err.push(3);
-        setError(err);
+        err.push(3)
+        setError(err)
       }
     } else {
       if (err.includes(3)) {
-        let i = err.indexOf(3);
-        err.splice(i, 1);
-        setError(err);
+        let i = err.indexOf(3)
+        err.splice(i, 1)
+        setError(err)
       }
     }
 
     // state
     if (!state) {
       if (!err.includes(4)) {
-        err.push(4);
-        setError(err);
+        err.push(4)
+        setError(err)
       }
     } else {
       if (err.includes(4)) {
-        let i = err.indexOf(4);
-        err.splice(i, 1);
-        setError(err);
+        let i = err.indexOf(4)
+        err.splice(i, 1)
+        setError(err)
       }
     }
 
     // zip
     if (!zip) {
       if (!err.includes(5)) {
-        err.push(5);
-        setError(err);
+        err.push(5)
+        setError(err)
       }
     } else {
       if (err.includes(5)) {
-        let i = err.indexOf(5);
-        err.splice(i, 1);
-        setError(err);
+        let i = err.indexOf(5)
+        err.splice(i, 1)
+        setError(err)
       }
     }
 
@@ -90,14 +90,14 @@ export default function EditShipping(props) {
 
     if (err.length === 0 && location) {
       try {
-        const token = await AsyncStorage.getItem('token');
-        const config = { headers: { Authorization: token }};
-        const id = cartContext.user.id;
+        const token = await AsyncStorage.getItem('token')
+        const config = { headers: { Authorization: token }}
+        const id = cartContext.user.id
   
         await axios.put(`https://avnw-api.herokuapp.com/user/${id}`, location, config)
         .then(res => {
-          cartContext.setUser(res.data[0]);
-          cartContext.handleEditShippingToggle();
+          cartContext.setUser(res.data[0])
+          cartContext.handleEditShippingToggle()
         })
         .catch(err => console.log(err))
       } catch (err) { console.log(err) } 

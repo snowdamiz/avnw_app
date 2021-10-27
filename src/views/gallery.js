@@ -1,12 +1,12 @@
-import React, { useEffect, useContext } from 'react';
-import Context from '../context/context.js';
-import Instagram from '../insta/instagram.js';
-import InstagramIMG from '../assets/instagram.png';
-import CloseIMG from '../assets/close.png';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { Dimensions, StyleSheet, StatusBar, View, Image, ScrollView, TouchableOpacity, Text } from 'react-native';
+import React, { useEffect, useContext } from 'react'
+import Context from '../context/context.js'
+import Instagram from '../insta/instagram.js'
+import InstagramIMG from '../assets/instagram.png'
+import CloseIMG from '../assets/close.png'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { Dimensions, StyleSheet, StatusBar, View, Image, ScrollView, TouchableOpacity, Text } from 'react-native'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (

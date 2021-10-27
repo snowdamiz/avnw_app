@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { StatusBar, StyleSheet, View, Text, TextInput, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Context from '../../context/context.js';
-import Header from '../../components/header.js';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import React, { useContext, useEffect, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import { StatusBar, StyleSheet, View, Text, TextInput, Dimensions } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import Context from '../../context/context.js'
+import Header from '../../components/header.js'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (
@@ -22,40 +22,40 @@ function StatusBarPlaceHolder() {
 }
 
 export default function ServiceForm(props) {
-  const [productName, setProductName] = useState();
-  const [productPrice, setProductPrice] = useState();
-  const [productDescription, setProductDescription] = useState();
+  const [productName, setProductName] = useState()
+  const [productPrice, setProductPrice] = useState()
+  const [productDescription, setProductDescription] = useState()
   
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
   useEffect( _ => {
     if (cartContext.serviceEditing.price) {
-      setProductPrice(cartContext.serviceEditing.price.toString());
+      setProductPrice(cartContext.serviceEditing.price.toString())
     } else {
-      setProductPrice(cartContext.serviceEditing.price);
+      setProductPrice(cartContext.serviceEditing.price)
     }
-    setProductName(cartContext.serviceEditing.product);
-    setProductDescription(cartContext.serviceEditing.description);
+    setProductName(cartContext.serviceEditing.product)
+    setProductDescription(cartContext.serviceEditing.description)
   }, [cartContext.serviceEditing])
   
-  const handleProductName = e => setProductName(e);
-  const handleProductPrice = e => setProductPrice(e);
-  const handleProductDescription = e => setProductDescription(e);
+  const handleProductName = e => setProductName(e)
+  const handleProductPrice = e => setProductPrice(e)
+  const handleProductDescription = e => setProductDescription(e)
   
   // Handle Canel Button; Reset State and Navigate
   const handleCancel = _ => {
-    props.navigation.navigate('AdminPanel');
-    setProductName('');
-    setProductPrice('');
-    setProductDescription('');
+    props.navigation.navigate('AdminPanel')
+    setProductName('')
+    setProductPrice('')
+    setProductDescription('')
   }
   
   // Exicute ADD or EDIT function based on "formType"
   const handleFormType = async _ => {
-    let formType = cartContext.adminServiceInteraction;
-    console.log(formType);
+    let formType = cartContext.adminServiceInteraction
+    console.log(formType)
     if(formType === 'new') handleAdd()
-    else if (formType === 'edit') handleEdit();
+    else if (formType === 'edit') handleEdit()
   }
 
   // Handles adding new content
@@ -71,17 +71,17 @@ export default function ServiceForm(props) {
       }
 
       try {
-        const token = await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem('token')
         const config = { headers: { Authorization: token }}
 
         await axios.post('https://avnw-api.herokuapp.com/services/', service, config)
           .then(res => {
-            cartContext.setServices(res.data);
+            cartContext.setServices(res.data)
             props.navigation.navigate('AdminPanel')
           })
           .catch(err => console.log(err))
       } catch(err) { console.log(err, 'Client Error')}
-    } else setErr(1);
+    } else setErr(1)
   }
 
   // Handles editing content
@@ -94,18 +94,18 @@ export default function ServiceForm(props) {
       }
 
       try {
-        const token = await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem('token')
         const config = { headers: { Authorization: token }}
-        let id = cartContext.serviceEditing.id;
+        let id = cartContext.serviceEditing.id
 
         await axios.put(`https://avnw-api.herokuapp.com/services/${id}`, service, config)
           .then(res => {
-            cartContext.setServices(res.data);
+            cartContext.setServices(res.data)
             props.navigation.navigate('AdminPanel')
           })
           .catch(err => console.log(err))
       } catch(err) { console.log(err) }
-    } else setErr(1);
+    } else setErr(1)
   }
 
   return (

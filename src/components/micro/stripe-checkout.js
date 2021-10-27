@@ -1,31 +1,28 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Context from '../../context/context.js';
-import axios from 'axios';
+import Context from '../../context/context.js'
+import axios from 'axios'
 import { StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
-import { useRoute } from '@react-navigation/native';
 import { WebView } from 'react-native-webview'
 
-const STRIPE_PK = 'pk_live_AUzulzbWhPDJgwGRez3gHcBB00oJ5lfR7v';
+const STRIPE_PK = 'pk_live_AUzulzbWhPDJgwGRez3gHcBB00oJ5lfR7v'
 
 export default function StripeCheckout(props) {
-  const [loading, setLoading] = useState(false);
-  const cartContext = useContext(Context);
+  const [loading, setLoading] = useState(false)
+  const cartContext = useContext(Context)
 
-  useEffect( _ => {
-    convertCartToDesc();
-  }, [])
+  useEffect( _ => convertCartToDesc(), [])
 
   const convertCartToDesc = _ => {
-    let cart = [];
-    cartContext.cart.forEach(el => cart.push(el.product));
-    setDescription(cart);
+    let cart = []
+    cartContext.cart.forEach(el => cart.push(el.product))
+    setDescription(cart)
   }
 
   const onCheckStatus = async (res) => {
-    setResponse(res);
-    setLoading(true);
+    setResponse(res)
+    setLoading(true)
 
-    let jsonRes = JSON.parse(res);
+    let jsonRes = JSON.parse(res)
 
     try {
       const data = {
@@ -38,13 +35,13 @@ export default function StripeCheckout(props) {
         date: cartContext.date,
       }
 
-      const makePayment = await axios.post(`https://avnw-api.herokuapp.com/user/pay`, data);
+      const makePayment = await axios.post(`https://avnw-api.herokuapp.com/user/pay`, data)
 
       if (makePayment) {
         props.navigation.navigate('Orders');
-        cartContext.cartRESET();
-        setLoading(false);
-      } else console.log('Could not make the payment');
+        cartContext.cartRESET()
+        setLoading(false)
+      } else console.log('Could not make the payment')
     } catch (err) { console.log(err) }
   }
 
@@ -289,19 +286,19 @@ export default function StripeCheckout(props) {
         </script>
     </body>
     </html>
-  `;
+  `
 
   const injectedJavaScript = `(function() {
       window.postMessage = function(data){
-          window.ReactNativeWebView.postMessage(data);
-      };
-  })()`;
+          window.ReactNativeWebView.postMessage(data)
+      }
+  })()`
 
   const onMessage = (event) => {
-    const { data } =  event.nativeEvent;
+    const { data } =  event.nativeEvent
     const jsonData = JSON.parse(data)
 
-    if (jsonData.error) return;
+    if (jsonData.error) return
     else onCheckStatus(data)
   }
 
@@ -330,4 +327,4 @@ const styles = StyleSheet.create({
   indicator: {
     marginTop: Dimensions.get('screen').height / 2 - 100,
   }
-});
+})

@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Context from '../context/context.js';
-import Header from '../components/header.js';
-import EditAccount from '../components/micro/edit_account.js';
-import EditShipping from '../components/micro/edit_shipping.js';
-import ProfileContent from '../components/profile_content.js';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { StatusBar, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
+import React, { useContext } from 'react'
+import Context from '../context/context.js'
+import Header from '../components/header.js'
+import EditAccount from '../components/micro/edit_account.js'
+import EditShipping from '../components/micro/edit_shipping.js'
+import ProfileContent from '../components/profile_content.js'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { StatusBar, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (

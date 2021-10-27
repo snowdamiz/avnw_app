@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { StatusBar, StyleSheet, View, Text, TextInput, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Context from '../../context/context.js';
-import Header from '../../components/header.js';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import React, { useContext, useEffect, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import { StatusBar, StyleSheet, View, Text, TextInput, Dimensions } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import Context from '../../context/context.js'
+import Header from '../../components/header.js'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (
@@ -22,41 +22,41 @@ function StatusBarPlaceHolder() {
 }
 
 export default function PhotographerForm(props) {
-  const [photographerName, setPhotographerName] = useState();
-  const [photographerInsta, setPhotographerInsta] = useState();
-  const [photographerImage, setPhotographerImage] = useState();
-  const [photographerBio, setPhotographerBio] = useState();
-  const [err, setErr] = useState(0);
+  const [photographerName, setPhotographerName] = useState()
+  const [photographerInsta, setPhotographerInsta] = useState()
+  const [photographerImage, setPhotographerImage] = useState()
+  const [photographerBio, setPhotographerBio] = useState()
+  const [err, setErr] = useState(0)
   
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
   useEffect( _ => {
-    setPhotographerName(cartContext.photographerEdit.name);
-    setPhotographerInsta(cartContext.photographerEdit.insta_username);
-    setPhotographerImage(cartContext.photographerEdit.profile_image);
-    setPhotographerBio(cartContext.photographerEdit.bio);
+    setPhotographerName(cartContext.photographerEdit.name)
+    setPhotographerInsta(cartContext.photographerEdit.insta_username)
+    setPhotographerImage(cartContext.photographerEdit.profile_image)
+    setPhotographerBio(cartContext.photographerEdit.bio)
   }, [cartContext.photographerEdit])
   
-  const handlePhotographerName = e => setPhotographerName(e);
-  const handlePhotographerInsta = e => setPhotographerInsta(e);
-  const handlePhotographerBio = e => setPhotographerBio(e);
-  const handlePhotographerImage = e => setPhotographerImage(e);
+  const handlePhotographerName = e => setPhotographerName(e)
+  const handlePhotographerInsta = e => setPhotographerInsta(e)
+  const handlePhotographerBio = e => setPhotographerBio(e)
+  const handlePhotographerImage = e => setPhotographerImage(e)
 
   // Handle Canel Button; Reset State and Navigate
   const handleCancel = _ => {
-    props.navigation.navigate('AdminPanel');
-    setPhotographerName('');
-    setPhotographerInsta('');
-    setPhotographerImage('');
-    setPhotographerBio('');
+    props.navigation.navigate('AdminPanel')
+    setPhotographerName('')
+    setPhotographerInsta('')
+    setPhotographerImage('')
+    setPhotographerBio('')
   }
 
   // Exicute ADD or EDIT function based on "formType"
   const handleFormType = async _ => {
-    let formType = cartContext.adminPhotographerInteraction;
-    console.log(formType);
+    let formType = cartContext.adminPhotographerInteraction
+    console.log(formType)
     if(formType === 'new') handleAdd()
-    else if (formType === 'edit') handleEdit();
+    else if (formType === 'edit') handleEdit()
   }
 
   // Handles adding new content
@@ -71,17 +71,17 @@ export default function PhotographerForm(props) {
       }
 
       try {
-        const token = await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem('token')
         const config = { headers: { Authorization: token }}
 
         await axios.post('https://avnw-api.herokuapp.com/photographers/', photographer, config)
           .then(res => {
-            cartContext.setPhotographers(res.data);
+            cartContext.setPhotographers(res.data)
             props.navigation.navigate('AdminPanel')
           })
           .catch(err => console.log(err))
       } catch(err) { console.log(err, 'Client Error')}
-    } else setErr(1);
+    } else setErr(1)
   }
 
   // Handles editing content
@@ -95,9 +95,9 @@ export default function PhotographerForm(props) {
       }
 
       try {
-        const token = await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem('token')
         const config = { headers: { Authorization: token }}
-        let id = cartContext.photographerEdit.id;
+        let id = cartContext.photographerEdit.id
 
         await axios.put(`https://avnw-api.herokuapp.com/photographers/${id}`, photographer, config)
           .then(res => {
@@ -106,7 +106,7 @@ export default function PhotographerForm(props) {
           })
           .catch(err => console.log(err))
       } catch(err) { console.log(err) }
-    } else setErr(1);
+    } else setErr(1)
   }
 
   return (

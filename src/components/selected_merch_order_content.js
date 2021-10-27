@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
-import Context from '../context/context.js';
-import { Dimensions, StyleSheet, View, Text, ScrollView } from 'react-native';
+import React, { useContext } from 'react'
+import Context from '../context/context.js'
+import { Dimensions, StyleSheet, View, Text, ScrollView } from 'react-native'
 
 export default function SelectedMerchOrderContent(props) {
-  const cartContext = useContext(Context);
-
-  console.log(cartContext.selectedMerchOrder.merch);
+  const cartContext = useContext(Context)
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

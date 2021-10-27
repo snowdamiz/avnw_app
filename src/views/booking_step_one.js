@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-import Context from '../context/context.js';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { Dimensions, StyleSheet, StatusBar, View, Image, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+import React, { useState, useContext } from 'react'
+import { LinearGradient } from 'expo-linear-gradient'
+import Context from '../context/context.js'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { Dimensions, StyleSheet, StatusBar, View, Image, TouchableOpacity, Text, ActivityIndicator } from 'react-native'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (
@@ -19,13 +19,13 @@ function StatusBarPlaceHolder() {
 }
 
 export default function BookingStepOne(props) {
-  const cartContext = useContext(Context);
-  const [showDetails, setShowDetails] = useState(false);
+  const cartContext = useContext(Context)
+  const [showDetails, setShowDetails] = useState(false)
 
   // Handle choosing and viewing details
   const handleDetails = el => {
-    setShowDetails(true);
-    cartContext.setCurPhotographer(el);
+    setShowDetails(true)
+    cartContext.setCurPhotographer(el)
   }
 
   return (

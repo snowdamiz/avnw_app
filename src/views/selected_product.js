@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
-import Context from '../context/context.js';
-import Header from '../components/header.js';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { Dimensions, StyleSheet, StatusBar, View, Image, TouchableOpacity, Text } from 'react-native';
+import React, { useState, useContext, useEffect } from 'react'
+import Context from '../context/context.js'
+import Header from '../components/header.js'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { Dimensions, StyleSheet, StatusBar, View, Image, TouchableOpacity, Text } from 'react-native'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (
@@ -19,23 +19,22 @@ function StatusBarPlaceHolder() {
 }
 
 export default function SelectedProduct(props) {
-  const [images, setImages] = useState([]);
-  const [imgIndex, setImgIndex] = useState(0);
-  const [toggle, setToggle] = useState(false);
+  const [images, setImages] = useState([])
+  const [imgIndex, setImgIndex] = useState(0)
+  const [toggle, setToggle] = useState(false)
   const [size, setSize] = useState('')
-  const [error, setError] = useState(false);
-  const [category, setCategory] = useState('');
-  const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+  const [error, setError] = useState(false)
+  const [category, setCategory] = useState('')
+  const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']
 
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
   useEffect( _ => {
-    let product = cartContext.chosenProduct;
+    let product = cartContext.chosenProduct
     let imgs = [product.image1, product.image2, product.image3]
     setImages(imgs)
     setCategory(cartContext.chosenProduct.category);
   }, [])
-  console.log(category);
 
   // Handle Next Slide
   const handleNextSlide = _ => {
@@ -57,20 +56,20 @@ export default function SelectedProduct(props) {
   }
 
   // Handle Size Toggle
-  const handleSizeSelectToggle = _ => setToggle(!toggle);
+  const handleSizeSelectToggle = _ => setToggle(!toggle)
 
   // Handle Cart Add
   const handleCartAdd = _ => {
     if (category === "Sweatshirts" || category === "Shirt") {
       if (size) {
-        let prod = cartContext.chosenProduct;
-        prod.size = size;
-        cartContext.handleCart(prod);
-        props.navigation.navigate('Store');
+        let prod = cartContext.chosenProduct
+        prod.size = size
+        cartContext.handleCart(prod)
+        props.navigation.navigate('Store')
       } else setError(true)
     } else {
-      cartContext.handleCart(cartContext.chosenProduct);
-      props.navigation.navigate('Store');
+      cartContext.handleCart(cartContext.chosenProduct)
+      props.navigation.navigate('Store')
     }
   }
 

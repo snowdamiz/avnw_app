@@ -1,10 +1,10 @@
-import React from 'react';
-import Header from '../components/header.js';
-import StoreContent from '../components/store_content.js';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { StyleSheet, StatusBar, View } from 'react-native';
+import React from 'react'
+import Header from '../components/header.js'
+import StoreContent from '../components/store_content.js'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { StyleSheet, StatusBar, View } from 'react-native'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (
@@ -15,7 +15,7 @@ function StatusBarPlaceHolder() {
     }}>
       <StatusBar barStyle="light-content" backgroundColor="#009cd8"/>
     </View>
-  );
+  )
 }
 
 export default function Store(props) {

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import Context from '../context/context.js';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import React, { useContext } from 'react'
+import Context from '../context/context.js'
+import { StyleSheet, View, Text, TextInput } from 'react-native'
 
 export default function BasicInfoStepContent(props) {
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
   return (
     <View style={styles.container}>

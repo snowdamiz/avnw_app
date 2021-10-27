@@ -1,20 +1,13 @@
-import React, { useContext } from 'react';
-import Context from '../context/context.js';
-import StripeCheckout from './micro/stripe-checkout.js';
-import { StyleSheet, View, SafeAreaView, Text,TouchableOpacity, StatusBar } from 'react-native';
+import React, { useContext } from 'react'
+import Context from '../context/context.js'
+import StripeCheckout from './micro/stripe-checkout.js'
+import { StyleSheet, View, SafeAreaView, Text,TouchableOpacity, StatusBar } from 'react-native'
 
 export default function PaymentPortal(props) {
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
-  const handleClose = _ => {
-    console.log('Closed');
-    props.navigation.navigate('MerchOrderOverview');
-  }
-
-  const handleSuccess = _ => {
-    console.log('Success');
-    props.navigation.navigate('Orders');
-  }
+  const handleClose = _ => props.navigation.navigate('MerchOrderOverview')
+  const handleSuccess = _ => props.navigation.navigate('Orders')
 
   return (
     <SafeAreaView style={styles.container}>

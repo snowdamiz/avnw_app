@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-import RemoveIMG from '../assets/error.png';
-import Context from '../context/context.js';
-import CheckIMG from '../assets/check.png';
-import { Dimensions, StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import React, { useContext, useEffect, useState } from 'react'
+import { LinearGradient } from 'expo-linear-gradient'
+import RemoveIMG from '../assets/error.png'
+import Context from '../context/context.js'
+import CheckIMG from '../assets/check.png'
+import { Dimensions, StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native'
+import { useRoute } from '@react-navigation/native'
 
 export default function CartContent(props) {
-  const [total, setTotal] = useState(0);
-  const [toggle, setToggle] = useState(false);
-  const [error, setError] = useState(false);
+  const [total, setTotal] = useState(0)
+  const [toggle, setToggle] = useState(false)
+  const [error, setError] = useState(false)
   const [type, setType] = useState([])
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
-  const route = useRoute();
+  const route = useRoute()
 
   useEffect(() => {
     handleTotal()
@@ -23,59 +23,57 @@ export default function CartContent(props) {
 
   // Set total price
   const handleTotal = _ => {
-    let cart = cartContext.cart;
-    let total = 0;
+    let cart = cartContext.cart
+    let total = 0
     
     cart.map(el => total = total + (el.price * el.quantity))
-    setTotal(total);
+    setTotal(total)
   }
 
   // Handle type of cart
   const handleType = _ => {
     let cart = cartContext.cart;
-    let el = [];
+    let el = []
     for (let i = 0; i < cart.length; i++) {
       el.push(cart[i].type)
     }
 
-    setType(el);
+    setType(el)
   }
 
   // Handle order submit button
   const handleOrderBtn = _ => {
-    let name = cartContext.user.name;
-    let address = cartContext.user.address;
-    let nav = props.navigation;
+    let name = cartContext.user.name
+    let address = cartContext.user.address
+    let nav = props.navigation
 
     if (cartContext.token) {
       if (route.name === 'Cart') {
         if (type.includes('merch')) {
           if (name === null || name.length < 1) {
-            nav.navigate('OrderingStepOne');
+            nav.navigate('OrderingStepOne')
           } else if (address === null || address.length < 1) {
-            nav.navigate('OrderingStepTwo');
-          } else nav.navigate('MerchOrderOverview');
+            nav.navigate('OrderingStepTwo')
+          } else nav.navigate('MerchOrderOverview')
         } else {
           if (name === null || name.length < 1) {
-            nav.navigate('OrderingStepOne');
-          } else nav.navigate('MerchOrderOverview');
+            nav.navigate('OrderingStepOne')
+          } else nav.navigate('MerchOrderOverview')
         }
       } else {
         if (type.includes('service')) {
           if (toggle) {
-            cartContext.setTotal(total);
-            nav.navigate('PaymentPortal');
+            cartContext.setTotal(total)
+            nav.navigate('PaymentPortal')
             if (!error) setError(true)
             else return
           } else setError(true)
         } else {
-          cartContext.setTotal(total);
-          nav.navigate('PaymentPortal');
+          cartContext.setTotal(total)
+          nav.navigate('PaymentPortal')
         }
       }
-    } else {
-      nav.navigate('Login');
-    }
+    } else nav.navigate('Login')
   }
 
   return (

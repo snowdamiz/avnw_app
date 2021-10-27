@@ -1,12 +1,12 @@
-import React from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-import BG from '../assets/bg.png';
+import React from 'react'
+import { LinearGradient } from 'expo-linear-gradient'
+import BG from '../assets/bg.png'
 import Logo_large from '../assets/logo_large.png';
-import { Dimensions, StyleSheet, StatusBar, View, Image, Text } from 'react-native';
+import { Dimensions, StyleSheet, StatusBar, View, Image, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (

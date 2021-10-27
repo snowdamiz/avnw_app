@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { StatusBar, StyleSheet, View, Text, TextInput, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Context from '../../context/context.js';
-import Header from '../../components/header.js';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import React, { useContext, useEffect, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import { StatusBar, StyleSheet, View, Text, TextInput, Dimensions } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import Context from '../../context/context.js'
+import Header from '../../components/header.js'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (
@@ -22,57 +22,58 @@ function StatusBarPlaceHolder() {
 }
 
 export default function ProductForm(props) {
-  const [productName, setProductName] = useState();
-  const [productDescription, setProductDescription] = useState();
-  const [productPrice, setProductPrice] = useState();
-  const [productCategory, setProductCategory] = useState();
-  const [productImageOne, setProductImageOne] = useState();
-  const [productImageTwo, setProductImageTwo] = useState();
-  const [productImageThree, setProductImageThree] = useState();
+  const [productName, setProductName] = useState()
+  const [productDescription, setProductDescription] = useState()
+  const [productPrice, setProductPrice] = useState()
+  const [productCategory, setProductCategory] = useState()
+  const [productImageOne, setProductImageOne] = useState()
+  const [productImageTwo, setProductImageTwo] = useState()
+  const [productImageThree, setProductImageThree] = useState()
   
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
   useEffect( _ => {
     if (cartContext.productEditing.price) {
-      setProductPrice(cartContext.productEditing.price.toString());
+      setProductPrice(cartContext.productEditing.price.toString())
     } else {
-      setProductPrice(cartContext.productEditing.price);
+      setProductPrice(cartContext.productEditing.price)
     }
-    setProductName(cartContext.productEditing.product);
-    setProductDescription(cartContext.productEditing.description);
-    setProductCategory(cartContext.productEditing.category);
-    setProductImageOne(cartContext.productEditing.image1);
-    setProductImageTwo(cartContext.productEditing.image2);
-    setProductImageThree(cartContext.productEditing.image3);
+    setProductName(cartContext.productEditing.product)
+    setProductDescription(cartContext.productEditing.description)
+    setProductCategory(cartContext.productEditing.category)
+    setProductImageOne(cartContext.productEditing.image1)
+    setProductImageTwo(cartContext.productEditing.image2)
+    setProductImageThree(cartContext.productEditing.image3)
   }, [cartContext.productEditing])
   
-  const handleProductName = e => setProductName(e);
-  const handleProductDescription = e => setProductDescription(e);
-  const handleProductPrice = e => setProductPrice(e);
-  const handleProductCategory = e => setProductCategory(e);
-  const handleProductImageOne = e => setProductImageOne(e);
-  const handleProductImageTwo = e => setProductImageTwo(e);
-  const handleProductImageThree = e => setProductImageThree(e);
+  const handleProductName = e => setProductName(e)
+  const handleProductDescription = e => setProductDescription(e)
+  const handleProductPrice = e => setProductPrice(e)
+  const handleProductCategory = e => setProductCategory(e)
+  const handleProductImageOne = e => setProductImageOne(e)
+  const handleProductImageTwo = e => setProductImageTwo(e)
+  const handleProductImageThree = e => setProductImageThree(e)
 
   // Handle Canel Button; Reset State and Navigate
   const handleCancel = _ => {
-    props.navigation.navigate('AdminPanel');
-    setProductName('');
-    setProductDescription('');
-    setProductPrice('');
-    setProductCategory('');
-    setProductImageOne('');
-    setProductImageTwo('');
-    setProductImageThree('');
+    props.navigation.navigate('AdminPanel')
+    setProductName('')
+    setProductDescription('')
+    setProductPrice('')
+    setProductCategory('')
+    setProductImageOne('')
+    setProductImageTwo('')
+    setProductImageThree('')
   }
 
   // Exicute ADD or EDIT function based on "formType"
   const handleFormType = async _ => {
-    let formType = cartContext.adminProductInteraction;
+    let formType = cartContext.adminProductInteraction
     if(formType === 'new') handleAdd()
-    else handleEdit();
-    console.log(formType);
+    else handleEdit()
+    console.log(formType)
   }
+  
 
   // Handles adding new content
   const handleAdd = async _ => {
@@ -91,23 +92,21 @@ export default function ProductForm(props) {
       }
 
       try {
-        const token = await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem('token')
         const config = { headers: { Authorization: token }}
 
         await axios.post('https://avnw-api.herokuapp.com/store/', product, config)
           .then(res => {
-            cartContext.setProducts(res.data);
+            cartContext.setProducts(res.data)
             props.navigation.navigate('AdminPanel')
           })
           .catch(err => console.log(err))
       } catch(err) { console.log(err, 'Client Error')}
-    } else setErr(1);
+    } else setErr(1)
   }
 
   // Handles editing content
   const handleEdit = async _ => {
-    console.log('here');
-    console.log(cartContext.productEditing.product);
     if (productName && productDescription && productPrice && productCategory) {
       const product = {
         product: productName,
@@ -120,20 +119,18 @@ export default function ProductForm(props) {
       }
 
       try {
-        const token = await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem('token')
         const config = { headers: { Authorization: token }}
-        let id = cartContext.productEditing.id;
-
-        console.log(id);
+        let id = cartContext.productEditing.id
 
         await axios.put(`https://avnw-api.herokuapp.com/store/${id}`, product, config)
           .then(res => {
-            cartContext.setProducts(res.data);
+            cartContext.setProducts(res.data)
             props.navigation.navigate('AdminPanel')
           })
           .catch(err => console.log(err))
       } catch(err) { console.log(err) }
-    } else setErr(1);
+    } else setErr(1)
   }
 
   return (

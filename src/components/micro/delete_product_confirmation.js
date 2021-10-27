@@ -1,33 +1,33 @@
-import React, { useContext } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { StyleSheet, View, Text, Dimensions,} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Context from '../../context/context.js';
+import React, { useContext } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import { StyleSheet, View, Text, Dimensions,} from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import Context from '../../context/context.js'
 
 export default function DeleteProductConfirmation() {
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
   // Handle Delete Confirmation
   const handleConfirmDelete = async _ => {
     const data = { deletedAt: new Date() }
 
     try {
-      const token = await AsyncStorage.getItem('token');
+      const token = await AsyncStorage.getItem('token')
       const config = { headers: { Authorization: token }}
-      let id = cartContext.productEditing.id;
+      let id = cartContext.productEditing.id
 
       await axios.put(`https://avnw-api.herokuapp.com/store/${id}`, data, config)
         .then(res => {
-          cartContext.setProducts(res.data);
-          cartContext.handleDeleteProductConfirmation();
+          cartContext.setProducts(res.data)
+          cartContext.handleDeleteProductConfirmation()
         })
         .catch(err => console.log(err))
     } catch (err) { console.log(err) }
   }
 
   // Handle Delete Cancelation
-  const handleCancelDelete = _ => cartContext.handleDeleteProductConfirmation();
+  const handleCancelDelete = _ => cartContext.handleDeleteProductConfirmation()
 
   return (
     <View>

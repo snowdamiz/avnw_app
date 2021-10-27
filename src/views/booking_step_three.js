@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-import Context from '../context/context.js';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { Dimensions, StyleSheet, StatusBar, View, TouchableOpacity, TextInput, Text, Platform } from 'react-native'; 
+import React, { useState, useContext } from 'react'
+import { LinearGradient } from 'expo-linear-gradient'
+import Context from '../context/context.js'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { Dimensions, StyleSheet, StatusBar, View, TouchableOpacity, TextInput, Text, Platform } from 'react-native'
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? getStatusBarHeight() : 0
 
 function StatusBarPlaceHolder() {
   return (
@@ -19,70 +19,70 @@ function StatusBarPlaceHolder() {
 }
 
 export default function BookingStepThree(props) {
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
-  const [error, setError] = useState([]);
-  const [city, setCity] = useState(cartContext.shootLocation.city);
-  const [state, setState] = useState(cartContext.shootLocation.state);
-  const [date, setDate] = useState('');
+  const [error, setError] = useState([])
+  const [city, setCity] = useState(cartContext.shootLocation.city)
+  const [state, setState] = useState(cartContext.shootLocation.state)
+  const [date, setDate] = useState('')
 
-  const handleSetCity = e => setCity(e);
-  const handleSetState = e => setState(e);
-  const handleSetDate = e => setDate(e);
+  const handleSetCity = e => setCity(e)
+  const handleSetState = e => setState(e)
+  const handleSetDate = e => setDate(e)
 
   // Handle Location Submit
   const handleSubmit = _ => {
-    let err = [...error];
+    let err = [...error]
     // City
     if (!city) {
       if (!err.includes(1)) {
-        err.push(1);
-        setError(err);
+        err.push(1)
+        setError(err)
       }
     } else {
       if (err.includes(1)) {
-        let i = err.indexOf(1);
-        err.splice(i, 1);
-        setError(err);
+        let i = err.indexOf(1)
+        err.splice(i, 1)
+        setError(err)
       }
     }
 
     // state
     if (!state) {
       if (!err.includes(2)) {
-        err.push(2);
-        setError(err);
+        err.push(2)
+        setError(err)
       }
     } else {
       if (err.includes(2)) {
-        let i = err.indexOf(2);
-        err.splice(i, 1);
-        setError(err);
+        let i = err.indexOf(2)
+        err.splice(i, 1)
+        setError(err)
       }
     }
 
     // date
     if (!date) {
       if (!err.includes(3)) {
-        err.push(3);
-        setError(err);
+        err.push(3)
+        setError(err)
       }
     } else {
       if (err.includes(3)) {
-        let i = err.indexOf(3);
-        err.splice(i, 1);
-        setError(err);
+        let i = err.indexOf(3)
+        err.splice(i, 1)
+        setError(err)
       }
     }
 
-    let nav = props.navigation;
+    let nav = props.navigation
     const location = { city: city, state: state }
 
     if (err.length === 0 && location && date) {
-      cartContext.handleShootLocation(location);
-      cartContext.handleShootDate(date);
-      if (cartContext.shootLocationToggle) nav.navigate('MerchOrderOverview');
-      else nav.navigate('Cart');
+      cartContext.handleShootLocation(location)
+      cartContext.handleShootDate(date)
+      if (cartContext.shootLocationToggle) nav.navigate('MerchOrderOverview')
+      else nav.navigate('Cart')
     }
   }
 

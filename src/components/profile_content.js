@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
-import Context from '../context/context.js';
-import EditBTN from '../assets/edit.png';
-import { Dimensions, StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useContext } from 'react'
+import Context from '../context/context.js'
+import EditBTN from '../assets/edit.png'
+import { Dimensions, StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 
 export default function ProfileContent(props) {
-  const cartContext = useContext(Context);
+  const cartContext = useContext(Context)
 
-  const handleEditAccount = _ => cartContext.handleEditAccountToggle();
-  const handleEditShipping = _ => cartContext.handleEditShippingToggle();
+  const handleEditAccount = _ => cartContext.handleEditAccountToggle()
+  const handleEditShipping = _ => cartContext.handleEditShippingToggle()
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
