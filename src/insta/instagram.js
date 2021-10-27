@@ -6,7 +6,6 @@ export default class Instagram {
           node.thumbnail_resources.forEach((item, index) => {
             if (item.config_width === 640) return index
           })
-
           return 4
         }
 
@@ -33,10 +32,7 @@ export default class Instagram {
           } else return ""
         }
 
-        const edges =
-          json.entry_data.ProfilePage[0].graphql.user
-            .edge_owner_to_timeline_media.edges
-
+        const edges = json.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges
         return edges.map((edge) => {
           return {
             alt: alt(edge.node),
