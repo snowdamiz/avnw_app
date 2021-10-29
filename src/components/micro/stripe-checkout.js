@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Context from '../../context/context.js'
 import axios from 'axios'
+import { STRIPE_PK } from 'react-native-dotenv'
 import { StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
 import { WebView } from 'react-native-webview'
-
-const STRIPE_PK = 'pk_live_AUzulzbWhPDJgwGRez3gHcBB00oJ5lfR7v'
 
 export default function StripeCheckout(props) {
   const [loading, setLoading] = useState(false)
